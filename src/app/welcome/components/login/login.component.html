@@ -1,0 +1,44 @@
+<section>
+    <article>
+        <mat-card-content class="text-center">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <!--img style="width:100px;" src="assets/images/icons/icon.png" -->
+                <p class="mat-text-muted">Sign in with your account to continue.</p>
+            </div>
+            <form novalidate [formGroup]="form" (ngSubmit)="login()" #loginForm="ngForm">
+                <mat-form-field fxFlexFill>
+                    <input matInput formControlName="mail" placeholder="Email" (blur)="displayEmailError=true" (focus)="displayEmailError=false"
+                    />
+                    <mat-error *ngIf="form.controls.mail.errors?.required && form.controls.mail.dirty && displayEmailError">
+                        Error! Email field is required
+                    </mat-error>
+                    <mat-error *ngIf="form.controls.mail.errors?.invalidEmail && form.controls.mail.dirty && displayEmailError">
+                        Error! Invalid email
+                    </mat-error>
+                </mat-form-field>
+                <div class="push-top-sm">
+                    <mat-form-field fxFlexFill>
+                        <input matInput formControlName="password" type="password" placeholder="Password" required (focus)="displayPwError=false"
+                            (blur)="displayPwError=true">
+                        <mat-error *ngIf="form.controls.password.errors?.minlength && form.controls.password.dirty && displayPwError">
+                            Error! Password must be at least 6 characters!
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <button mat-raised-button color="primary" class="push-top-sm" type="submit" [disabled]="form.invalid">LOGIN</button>
+            </form>
+            <button mat-raised-button color="accent">
+                <mat-icon class="side_nav_icon" svgIcon="avatars:facebook-box"></mat-icon>
+                Continue with FACEBOOK
+            </button>
+            <button mat-raised-button color="warn">
+                <mat-icon class="side_nav_icon" svgIcon="avatars:googleplus-box"></mat-icon>
+                Continue with GOOGLE+
+            </button>
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="pt-1">
+                <a [routerLink]="['/login/forgotpassword']">Forgot password?</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="signup-text" (click)="dialogRef.close('signup')">Sign up for a new account.</a>
+            </div>
+        </mat-card-content>
+    </article>
+</section>

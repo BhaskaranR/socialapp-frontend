@@ -1,0 +1,9 @@
+$ksoc-light-primary: mat-palette($mat-grey, 200, 500, 300);
+$ksoc-light-accent: mat-palette($mat-brown, 200);
+$ksoc-light-warn: mat-palette($mat-deep-orange, 200);
+
+$ksoc-light-theme: mat-light-theme(
+  $ksoc-light-primary,
+  $ksoc-light-accent,
+  $ksoc-light-warn
+);

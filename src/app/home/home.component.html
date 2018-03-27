@@ -1,0 +1,59 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="push">
+    <div class="branding">
+      <img [src]="logo" />
+      <span>Ksoc</span>
+    </div>
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let item of navigationSideMenu" (click)="sidenav.close()" [routerLink]="[item.link]" routerLinkActive="active">
+        {{item.label}}
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <div class="wrapper">
+    <div class="toolbar">
+      <mat-toolbar color="primary">
+        <button mat-icon-button class="d-md-none" (click)="sidenav.open()">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <span routerLink="" class="branding spacer center d-inline d-sm-none">
+          <img [src]="logo" />
+        </span>
+        <span routerLink="" class="branding spacer center d-none d-sm-inline d-md-none">
+          <img [src]="logo" /> Karmasoc</span>
+        <span routerLink="" class="branding spacer d-none d-md-inline">
+          <img [src]="logo" /> Karmasoc</span>
+
+        <span class="d-none d-md-inline">
+          <button mat-button class="nav-button" *ngFor="let item of navigation" [routerLink]="[item.link]" routerLinkActive="active">
+            {{item.label}}
+          </button>
+        </span>
+
+        <button mat-icon-button [matMenuTriggerFor]="toolbarUserMenu">
+          <mat-icon>person</mat-icon>
+        </button>
+
+        <mat-menu #toolbarUserMenu="matMenu">
+          <button mat-menu-item (click)="onLogoutClick()">
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+
+        <button mat-icon-button routerLink="settings" class="d-none d-sm-inline">
+          <mat-icon>settings</mat-icon>
+        </button>
+
+      </mat-toolbar>
+    </div>
+
+    <!--div class="content" [@routerTransition]="o.isActivated && o.activatedRoute.routeConfig.path">
+      <router-outlet #o="outlet"></router-outlet>
+    </div-->
+  </div>
+
+</mat-sidenav-container>

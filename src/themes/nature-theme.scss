@@ -1,0 +1,9 @@
+$ksoc-nature-primary: mat-palette($mat-brown, 700, 300, 900);
+$ksoc-nature-accent: mat-palette($mat-amber, 500);
+$ksoc-nature-warn: mat-palette($mat-red, 600);
+
+$ksoc-nature-theme: mat-light-theme(
+  $ksoc-nature-primary,
+  $ksoc-nature-accent,
+  $ksoc-nature-warn
+);

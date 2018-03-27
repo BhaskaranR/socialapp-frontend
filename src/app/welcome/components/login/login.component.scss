@@ -1,0 +1,28 @@
+.full-width {
+    width: 100%;
+}
+
+md-input {
+    display: block;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+}
+section{
+    width: 300px;
+}
+.mat-text-muted
+{
+    padding-bottom: 2em;
+}
+.signup-text{
+    color: #4CAF50;
+}
+@media screen and (max-width: 455px){
+    section{
+        width: 240px;
+    }
+}

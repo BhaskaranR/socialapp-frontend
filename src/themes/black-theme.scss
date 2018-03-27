@@ -1,0 +1,9 @@
+$ksoc-black-primary: mat-palette($mat-grey, 900, 500, 900);
+$ksoc-black-accent: mat-palette($mat-green, A200);
+$ksoc-black-warn: mat-palette($mat-red, A200);
+
+$ksoc-black-theme: mat-dark-theme(
+  $ksoc-black-primary,
+  $ksoc-black-accent,
+  $ksoc-black-warn
+);
