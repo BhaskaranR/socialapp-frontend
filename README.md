@@ -1,4 +1,4 @@
-# Angular, ngrx and Angular Material Starter 
+# Karmasoc client [angular, ngrx]
 by [@BhaskaranR](https://twitter.com/bhaskaran_r)
 
  
