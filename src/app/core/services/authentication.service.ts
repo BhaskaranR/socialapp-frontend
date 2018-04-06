@@ -73,11 +73,9 @@ export class AuthenticationService {
     }).pipe(map(res => res.data.oauthProviders));
   }
 
-  getUser(): Observable<UserFields.Fragment> {
+
+  getUser() {
     return this.accountsClient.user();
   }
 
-  isUserConnected(): Boolean {
-    return !!this.getUser();
-  }
 }
