@@ -5,12 +5,6 @@ interface NodeModule {
 }
 
 
-/* SystemJS module definition */
-declare var module: NodeModule;
-interface NodeModule {
-  id: string;
-}
-
 declare var Offline: {
   options: OfflineOptions,
   state: 'up' | 'down',

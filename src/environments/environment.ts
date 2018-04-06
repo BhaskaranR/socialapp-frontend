@@ -16,5 +16,8 @@ export const environment = {
     projectId: 'karmasoc-148700',
     storageBucket: 'karmasoc-148700.appspot.com',
     messagingSenderId: '1088480510830'
+  },
+  versions: {
+    app: packageJson.version
   }
 };

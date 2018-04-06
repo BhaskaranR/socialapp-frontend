@@ -103,13 +103,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "ksoc",
+      "anms",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "ksoc",
+      "anms",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

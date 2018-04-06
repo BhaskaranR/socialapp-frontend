@@ -2,6 +2,80 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.33.0"></a>
+# [1.33.0](https://github.com/tomastrajan/angular-ngrx-material-starter/compare/v1.32.0...v1.33.0) (2018-03-20)
+
+
+### Bug Fixes
+
+* **styles:** include default-theme by default, fixes [#92](https://github.com/tomastrajan/angular-ngrx-material-starter/issues/92) ([2e087f0](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/2e087f0))
+
+
+### Features
+
+* **docs:** update meta assets (intro picture) ([6c0d38c](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/6c0d38c))
+
+
+
+<a name="1.32.0"></a>
+# [1.32.0](https://github.com/tomastrajan/angular-ngrx-material-starter/compare/v1.31.1...v1.32.0) (2018-03-17)
+
+
+### Bug Fixes
+
+* **app:** footer styles ([358d7e6](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/358d7e6))
+
+
+### Features
+
+* **core:** add ngrx store freeze lib for development mode ([80a81fe](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/80a81fe))
+* **examples:** enhance todo notification messages, adjust done todo styles ([0e34d7e](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/0e34d7e))
+* **examples:** theme todo notifications ([075bef9](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/075bef9)), closes [#72](https://github.com/tomastrajan/angular-ngrx-material-starter/issues/72)
+
+
+
+<a name="1.31.1"></a>
+## [1.31.1](https://github.com/tomastrajan/angular-ngrx-material-starter/compare/v1.31.0...v1.31.1) (2018-03-16)
+
+
+### Bug Fixes
+
+* **build:** sudo mode for travis ci ([2500f90](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/2500f90))
+
+
+
+<a name="1.31.0"></a>
+# [1.31.0](https://github.com/tomastrajan/angular-ngrx-material-starter/compare/v1.30.0...v1.31.0) (2018-03-16)
+
+
+### Bug Fixes
+
+* **app:** remove remaining bootstrap util css classes, fix branding positioning ([5899a25](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/5899a25))
+* **themes:** input focus color for dark theme, color inconsistencies ([14721a3](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/14721a3)), closes [#70](https://github.com/tomastrajan/angular-ngrx-material-starter/issues/70)
+
+
+### Features
+
+* **docs:** add "make it your own" section to README.md ([363b7c3](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/363b7c3))
+
+
+
+<a name="1.30.0"></a>
+# [1.30.0](https://github.com/tomastrajan/angular-ngrx-material-starter/compare/v1.29.1...v1.30.0) (2018-03-14)
+
+
+### Bug Fixes
+
+* **examples:** remove unused code ([0ff88e8](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/0ff88e8))
+* **examples:** return snack-bar instance ([91efbb4](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/91efbb4))
+
+
+### Features
+
+* **examples:** add notifications to todos example ([71d0f2a](https://github.com/tomastrajan/angular-ngrx-material-starter/commit/71d0f2a)), closes [#65](https://github.com/tomastrajan/angular-ngrx-material-starter/issues/65)
+
+
+
 <a name="1.29.1"></a>
 ## [1.29.1](https://github.com/tomastrajan/angular-ngrx-material-starter/compare/v1.29.0...v1.29.1) (2018-03-08)
 
