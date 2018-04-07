@@ -220,12 +220,12 @@ export class AccountsClient {
           this.store.dispatch(loggingIn(false));
           this.clearTokens();
           this.clearUser();
-          throw new AccountsError('falsy token provided');
+          // throw new AccountsError('falsy token provided');
         }
       } else {
         this.clearTokens();
         this.clearUser();
-        throw new AccountsError('no tokens provided');
+        // throw new AccountsError('no tokens provided');
       }
     });
   }

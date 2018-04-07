@@ -15,6 +15,7 @@ import { NotFoundComponent } from '@app/not-found/not-found.component';
 import { ErrorComponent } from '@app/error/error.component';
 import { WelcomeModule } from './welcome/welcome.module';
 import { HomeModule } from '@app/home/home.module';
+import { SettingsModule } from '@app/settings';
 
 
 export function initializer(auth: AuthenticationService): () => Promise<any> {
@@ -38,6 +39,7 @@ export function initializer(auth: AuthenticationService): () => Promise<any> {
     // app
     WelcomeModule,
     HomeModule,
+    SettingsModule,
     AppRouting
   ],
   declarations: [AppComponent,

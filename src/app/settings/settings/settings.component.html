@@ -8,12 +8,15 @@
       <mat-icon color="accent">color_lens</mat-icon>
       <mat-form-field>
         <mat-select placeholder="Color theme" name="theme"
-                    [ngModel]="settings?.theme" (change)="onThemeSelect($event)">
+                    [ngModel]="settings?.theme" [(value)]="selectedTheme">
           <mat-option *ngFor="let t of themes" [value]="t.value">
             {{t.label}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      
+
     </div>
     <div class="col-md-6 icon-form-field">
       <mat-icon color="accent">lightbulb_outline</mat-icon>
@@ -21,7 +24,8 @@
         <mat-select placeholder="Auto night mode (from 21:00 to 7:00)"
                     name="auto-night-mode"
                     [ngModel]="settings?.autoNightMode?.toString()"
-                    (change)="onAutoNightModeSelect($event)">
+                    [(value)]="autoNightModelSelect"
+                    >
           <mat-option value="false">Off</mat-option>
           <mat-option value="true">On</mat-option>
         </mat-select>

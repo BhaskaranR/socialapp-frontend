@@ -5,8 +5,6 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { SharedModule } from '@app/shared';
 import { CoreModule } from '@app/core';
 
-import { SettingsModule } from '@app/settings';
-
 import { RoutingModule } from './welcome.routing';
 import { WelcomeComponent } from './welcome.component';
 import { AuthenticationService } from '@app/core/services/authentication.service';
@@ -29,7 +27,6 @@ export function initializer(auth: AuthenticationService): () => Promise<any> {
   imports: [
     ReactiveFormsModule,
     SharedModule,
-    SettingsModule,
     RoutingModule,
     StaticModule
   ],
