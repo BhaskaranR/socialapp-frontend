@@ -12,7 +12,6 @@ import { reducer, Accounts } from './accounts/reducer';
 import { AuthGuardService } from '@app/core/services/auth-guard.service';
 
 
-import { GraphQLClient } from '@accounts/graphql-client';
 import { AccountsClient } from './services/account.service';
 import { AccountsClientConfiguration } from '@app/core/accounts/config';
 import { TransportInterface } from './accounts/transport-interface';
@@ -45,7 +44,9 @@ export function provideAccountClientService(options: AccountsClientConfiguration
     useFactory: (
       storage: LocalStorageService,
       store: Store<AccountsState>,
-      transport: AccountGraphQLClient) => new AccountsClient(options, storage, store, transport),
+      transport: AccountGraphQLClient) => {
+        return new AccountsClient(options, storage, store, transport)
+      },
     deps: [LocalStorageService, Store, AccountGraphQLClient]
   }
 }

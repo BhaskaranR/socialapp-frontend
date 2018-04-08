@@ -4,9 +4,6 @@ import {
     CreateUserType,
     LoginReturnType,
     ImpersonateReturnType,
-    PasswordLoginUserIdentityType,
-    PasswordType,
-    PasswordLoginUserType,
 } from '@accounts/common';
 
 import {
@@ -17,12 +14,13 @@ import {
     verifyEmailMutation,
     createUserMutation,
     defaultUserFieldsFragment,
-    createLoginMutation,
+    serviceAuthenticateMutation,
     createRefreshTokenMutation,
     createImpersonateMutation,
-} from '@accounts/graphql-client/lib/graphql';
+} from '@app/graphql/queries/accounts';
 import { userFieldsFragment } from '@app/graphql/queries/user.fragment';
 import { Injectable } from '@angular/core';
+import { TransportInterface } from '@app/core/accounts/transport-interface';
 
 export interface OptionsType {
     graphQLClient?: Apollo,
@@ -30,7 +28,7 @@ export interface OptionsType {
 };
 
 @Injectable()
-export class AccountGraphQLClient {
+export class AccountGraphQLClient implements TransportInterface {
     private options: OptionsType;
 
     constructor(graphQLClient: Apollo) {
@@ -48,18 +46,18 @@ export class AccountGraphQLClient {
         }
     }
 
-    public async loginWithPassword(user: PasswordLoginUserType, password: string | any): Promise<LoginReturnType> {
-        const loginMutation = createLoginMutation(this.options.userFieldsFragment);
-
-        const loginFields: any = { password };
-
-        if (typeof user === 'string') {
-            loginFields.user = user;
-        } else {
-            loginFields.userFields = user;
+    public async loginWithService(
+        service: string,
+        authenticateParams: {
+          [key: string]: string | object;
         }
-
-        return await this.mutate(loginMutation, 'loginWithPassword', loginFields);
+      ): Promise<LoginReturnType> {
+        const loginMutation = serviceAuthenticateMutation(this.options.userFieldsFragment);
+        return await this.mutate(loginMutation, 'serviceAuthenticate',
+        {
+            serviceName:  service,
+            userFields: authenticateParams
+        });
     }
 
     public async impersonate(accessToken: string, username: string): Promise<ImpersonateReturnType> {
@@ -67,8 +65,11 @@ export class AccountGraphQLClient {
         return await this.mutate(impersonateMutation, 'impersonate', { accessToken, username });
     }
 
-    public async createUser(user: CreateUserType): Promise<string> {
-        return await this.mutate(createUserMutation, 'createUser', { user });
+    public async createUser(serviceName: string, user: CreateUserType): Promise<string> {
+        return await this.mutate(createUserMutation, 'registerPassword', { 
+            serviceName: serviceName,
+            user: user
+         });
     }
 
     public async refreshTokens(accessToken: string, refreshToken: string): Promise<LoginReturnType> {
@@ -84,7 +85,7 @@ export class AccountGraphQLClient {
         return await this.mutate(verifyEmailMutation, 'verifyEmail', { token });
     }
 
-    public async resetPassword(token: string, newPassword: PasswordType): Promise<void> {
+    public async resetPassword(token: string, newPassword: string): Promise<void> {
         return await this.mutate(resetPasswordMutation, 'resetPassword', { token, newPassword });
     }
 

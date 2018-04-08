@@ -4,12 +4,9 @@ import {
   AccountsError,
   validators,
   CreateUserType,
-  PasswordLoginUserType,
-  PasswordLoginUserIdentityType,
   LoginReturnType,
   UserObjectType,
   TokensType,
-  PasswordType,
   ImpersonateReturnType,
 } from '@accounts/common';
 
@@ -34,9 +31,9 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable } from 'rxjs/Observable';
 import { getOriginalTokens } from '../accounts/reducer';
 import { Apollo } from 'apollo-angular';
-import { GraphQLClient } from '@accounts/graphql-client';
 import { userFieldsFragment } from '@app/graphql/queries/user.fragment';
 import { AccountGraphQLClient } from '@app/core/services/account-graphql.service';
+import { TransportInterface } from '@app/core/accounts/transport-interface';
 
 const isValidUserObject = (user: PasswordLoginUserIdentityType) =>
   has(user, 'username') || has(user, 'email') || has(user, 'id');
@@ -54,19 +51,14 @@ const getTokenKey = (type: string, options: AccountsClientConfiguration) =>
 @Injectable()
 export class AccountsClient {
   private options: AccountsClientConfiguration;
-  private transport: fromAccounts.TransportInterface;
 
   constructor(
     options: AccountsClientConfiguration,
     private storage: LocalStorageService,
     private store: Store<fromAccounts.AccountsState>,
-    private apollo: AccountGraphQLClient
+    private transport: TransportInterface
   ) {
     this.options = options;
-    this.transport =   new GraphQLClient({
-      graphQLClient: apollo,
-      userFieldsFragment
-    })
   }
 
   public async getStorageData(keyName: string) {
@@ -230,11 +222,8 @@ export class AccountsClient {
     });
   }
 
-  public async createUser(
-    user: CreateUserType,
-    callback?: (err?: Error) => void
-  ): Promise<void> {
-    if (!user || user.password === undefined) {
+  public async createUser(user: CreateUserType): Promise<void> {
+    if (!user) {
       throw new AccountsError(
         'Unrecognized options for create user request',
         {
@@ -244,35 +233,16 @@ export class AccountsClient {
         400
       );
     }
-
-    // In case where password is an object we assume it was prevalidated and hashed
-    if (
-      !user.password ||
-      (isString(user.password) &&
-        !validators.validatePassword(user.password as string))
-    ) {
-      throw new AccountsError('Password is required');
-    }
-
-    if (
-      !validators.validateUsername(user.username) &&
-      !validators.validateEmail(user.email)
-    ) {
+    if (!validators.validateUsername(user.username) && !validators.validateEmail(user.email)) {
       throw new AccountsError('Username or Email is required');
     }
-
-    const hashAlgorithm = this.options.passwordHashAlgorithm;
-    const password =
-      user.password && hashAlgorithm
-        ? hashPassword(user.password, hashAlgorithm)
-        : user.password;
-    const userToCreate = { ...user, password };
+    const userToCreate = {
+      ...user,
+    };
     try {
       const userId = await this.transport.createUser(userToCreate);
       const { onUserCreated } = this.options;
-      if (callback && isFunction(callback)) {
-        callback();
-      }
+
       if (isFunction(onUserCreated)) {
         try {
           await onUserCreated({ id: userId });
@@ -281,68 +251,43 @@ export class AccountsClient {
           console.error(err);
         }
       }
-      await this.loginWithPassword({ id: userId }, user.password);
     } catch (err) {
-      if (callback && isFunction(callback)) {
-        callback(err);
-      }
       throw new AccountsError(err.message);
     }
   }
 
-  public async loginWithPassword(
-    user: PasswordLoginUserType,
-    password: PasswordType,
-    callback?: (err?: Error, res?: LoginReturnType) => void
+  
+  public async loginWithService(
+    service: string,
+    credentials: { [key: string]: string | object }
   ): Promise<LoginReturnType> {
-    if (!password || !user) {
-      throw new AccountsError(
-        'Unrecognized options for login request',
-        user,
-        400
-      );
-    }
-    if (
-      (!isString(user) &&
-        !isValidUserObject(user as PasswordLoginUserIdentityType)) ||
-      !isString(password)
-    ) {
-      throw new AccountsError('Match failed', user, 400);
+    if (!isString(service)) {
+      throw new AccountsError('Unrecognized options for login request');
     }
 
-    this.store.dispatch(loggingIn(true));
     try {
-      const hashAlgorithm = this.options.passwordHashAlgorithm;
-      const pass = hashAlgorithm
-        ? hashPassword(password, hashAlgorithm)
-        : password;
-      const res: LoginReturnType = await this.transport.loginWithPassword(
-        user,
-        pass
-      );
+      this.store.dispatch(loggingIn(true));
+
+      const response = await this.transport.loginWithService(service, credentials);
 
       this.store.dispatch(loggingIn(false));
-      await this.storeTokens(res.tokens);
-      this.store.dispatch(setTokens(res.tokens));
-      this.store.dispatch(setUser(res.user));
+      await this.storeTokens(response.tokens);
+      this.store.dispatch(setTokens(response.tokens));
 
-      if (
-        this.options.onSignedInHook &&
-        isFunction(this.options.onSignedInHook)
-      ) {
-        this.options.onSignedInHook();
+      const { onSignedInHook } = this.options;
+
+      if (isFunction(onSignedInHook)) {
+        try {
+          await onSignedInHook(response);
+        } catch (err) {
+          // tslint:disable-next-line no-console
+          console.error(err);
+        }
       }
-
-      if (callback && isFunction(callback)) {
-        callback(null, res);
-      }
-
-      return res;
+      return response;
     } catch (err) {
+      this.clearTokens();
       this.store.dispatch(loggingIn(false));
-      if (callback && isFunction(callback)) {
-        callback(err, null);
-      }
       throw new AccountsError(err.message);
     }
   }

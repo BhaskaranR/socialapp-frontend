@@ -56,10 +56,12 @@ export class AuthenticationService {
     }
   }
 
-  async login(username: string, password: string): Promise<void> {
+  async login(
+    service: string,
+    credentials: { [key: string]: string | object }): Promise<void> {
     this.cleanCache();
-    await this.accountsClient.loginWithPassword({ username }, password);
-    return;
+    await this.accountsClient.loginWithService(service, credentials);
+    
   }
 
   async logout(): Promise<any> {
