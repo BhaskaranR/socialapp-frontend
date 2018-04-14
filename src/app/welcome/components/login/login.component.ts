@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private authenticationService: AuthenticationService,
-    public snackBar: MatSnackBar,
+    public snackBar: MatSnackBar
   ) {
 
   }

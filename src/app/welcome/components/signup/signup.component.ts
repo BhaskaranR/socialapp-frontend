@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 import {
   Country,
   UsernameValidator,
@@ -20,6 +22,7 @@ export class SignupComponent implements OnInit {
   userDetailsForm: FormGroup;
   accountDetailsForm: FormGroup;
 
+  loading = false;
   matching_passwords_group: FormGroup;
   country_phone_group: FormGroup;
 
@@ -83,7 +86,9 @@ export class SignupComponent implements OnInit {
     ]
   }
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.createForms();
@@ -148,12 +153,44 @@ export class SignupComponent implements OnInit {
 
   }
 
-  onSubmitAccountDetails(value){
-    console.log(value);
+
+
+  async onSubmitUserDetails(value){
+    if (!this.accountDetailsForm.valid) {
+      this.showSnackBar('Invalid data');
+      return;
+    }
+    try {
+      this.loading = true;
+      await this.authenticationService.createUser(
+        'password', {
+          username: this.accountDetailsForm.controls['username'].value,
+          email: this.accountDetailsForm.controls['mail'].value,
+          password: this.accountDetailsForm.controls['password'].value,
+          profile: {
+            name: this.userDetailsForm.controls['name'].value,
+            zipcode: this.userDetailsForm.controls['zipcode'].value,
+            personalInfo: {
+              gender: this.userDetailsForm.controls['gender'].value,
+              birthday: this.userDetailsForm.controls['birthday'].value,
+            },
+            story: {
+              tagline: this.userDetailsForm.controls['bio'].value
+            }
+        }})
+    } catch (e) {
+      console.error('Login failed', e);
+      this.showSnackBar('Invalid username or password');
+    } finally {
+      this.loading = false;
+    }
   }
 
-  onSubmitUserDetails(value){
-    console.log(value);
+
+  showSnackBar(msg: string) {
+    this.snackBar.open(msg, 'Close', {
+      duration: 6000
+    })
   }
 
 }
