@@ -35,7 +35,7 @@ import { userFieldsFragment } from '@app/graphql/queries/user.fragment';
 import { AccountGraphQLClient } from '@app/core/services/account-graphql.service';
 import { TransportInterface } from '@app/core/accounts/transport-interface';
 
-const isValidUserObject = (user: PasswordLoginUserIdentityType) =>
+const isValidUserObject = (user) =>
   has(user, 'username') || has(user, 'email') || has(user, 'id');
 
 const ACCESS_TOKEN = 'accounts:accessToken';
@@ -198,9 +198,10 @@ export class AccountsClient {
             this.clearUser();
           } else {
             // Request a new token pair
-            const refreshedSession: LoginReturnType =  await this.transport.refreshTokens(
+            const refreshedSession =  await this.transport.refreshTokens(
               accessToken,
               refreshToken
+              
             );
             this.store.dispatch(loggingIn(false));
 
@@ -222,7 +223,7 @@ export class AccountsClient {
     });
   }
 
-  public async createUser(user: CreateUserType): Promise<void> {
+  public async createUser(service, user: CreateUserType): Promise<void> {
     if (!user) {
       throw new AccountsError(
         'Unrecognized options for create user request',
@@ -240,7 +241,7 @@ export class AccountsClient {
       ...user,
     };
     try {
-      const userId = await this.transport.createUser(userToCreate);
+      const userId = await this.transport.createUser(service, userToCreate);
       const { onUserCreated } = this.options;
 
       if (isFunction(onUserCreated)) {
@@ -273,7 +274,7 @@ export class AccountsClient {
       this.store.dispatch(loggingIn(false));
       await this.storeTokens(response.tokens);
       this.store.dispatch(setTokens(response.tokens));
-
+      this.store.dispatch(setUser(response.user));
       const { onSignedInHook } = this.options;
 
       if (isFunction(onSignedInHook)) {

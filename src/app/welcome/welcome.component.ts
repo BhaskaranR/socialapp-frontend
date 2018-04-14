@@ -26,10 +26,6 @@ import { NIGHT_MODE_THEME, selectorSettings } from '@app/settings';
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
 
-
-  dialogRef: MatDialogRef<LoginComponent>;
-  dialogRefSignup: MatDialogRef<SignupComponent>;
-  
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   @HostBinding('class') componentCssClass;
@@ -39,9 +35,8 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   year = new Date().getFullYear();
   logo = require('../../assets/logo.png');
   navigation = [
+    { link: 'trending', label: 'Trending' },
     { link: '', label: 'About' },
-    { link: '/features', label: 'Features' },
-    { link: 'trending', label: 'Trending' }
   ];
   navigationSideMenu = [
     ...this.navigation,
@@ -53,8 +48,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     public overlayContainer: OverlayContainer,
     private store: Store<any>,
     private router: Router,
-    private titleService: Title,
-    protected dialog: MatDialog
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
@@ -99,26 +93,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   }
 
 
-  openLogin() {
-    this.dialogRef = this.dialog.open(LoginComponent);
-    this.dialogRef.afterClosed().subscribe(result => {
-      this.dialogRef = null;
-      if (result == 'signup') {
-        this.openSignup();
-      }
-      //  this.lastCloseResult = result;
-    });
-  }
-
-  openSignup() {
-    this.dialogRefSignup = this.dialog.open(SignupComponent);
-    this.dialogRefSignup.afterClosed().subscribe(result => {
-      this.dialogRefSignup = null;
-      if (result == 'signin') {
-        this.openLogin();
-      }
-    });
-  }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();

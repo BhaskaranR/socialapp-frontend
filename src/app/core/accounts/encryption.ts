@@ -1,4 +1,4 @@
-import { HashAlgorithm, PasswordType } from '@accounts/common';
+import { HashAlgorithm } from '@accounts/common';
 import * as isString from 'lodash/isString';
 import * as CryptoJS from 'crypto-js';
 
@@ -14,7 +14,7 @@ const mapHashConstant = {
 };
 
 export const hashPassword = (
-  password: PasswordType,
+  password,
   algorithm: HashAlgorithm
 ) => {
   if (isString(password)) {

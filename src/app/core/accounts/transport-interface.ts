@@ -3,6 +3,12 @@ import {
   LoginReturnType,
   ImpersonateReturnType,
 } from '@accounts/common';
+import { UserFields } from '@app/graphql/types/types';
+
+
+
+export type LoginReturnTypeWithUser = LoginReturnType & {
+  user: UserFields.Fragment}
 
 export interface TransportInterface {
   createUser(service: string, user: CreateUserType): Promise<string>;
@@ -11,9 +17,9 @@ export interface TransportInterface {
     authenticateParams: {
       [key: string]: string | object;
     }
-  ): Promise<LoginReturnType>;
+  ): Promise<LoginReturnTypeWithUser>;
   logout(accessToken: string): Promise<void>;
-  refreshTokens(accessToken: string, refreshToken: string): Promise<LoginReturnType>;
+  refreshTokens(accessToken: string, refreshToken: string): Promise<LoginReturnTypeWithUser>;
   verifyEmail(token: string): Promise<void>;
   sendResetPasswordEmail(email: string): Promise<void>;
   sendVerificationEmail(email: string): Promise<void>;

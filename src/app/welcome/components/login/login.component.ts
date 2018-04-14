@@ -5,43 +5,96 @@ import { OauthProvider } from '../../../graphql/types/types';
 import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { AuthenticationService } from '@app/core/services/authentication.service';
 import { environment } from '@env/environment';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EmailValidator } from '@app/shared/email-validator';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UsernameValidator } from '@app/shared/validators';
 
 @Component({
+  selector: 'ksoc-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup;
+  accountDetailsForm: FormGroup;
+
 
   providers: Observable<OauthProvider[]>;
   loading = false;
   returnUrl: string;
   showSpinner = false;
 
+  account_validation_messages = {
+    'username': [
+      { type: 'required', message: 'Username is required' },
+      { type: 'minlength', message: 'Username must be at least 5 characters long' },
+      { type: 'maxlength', message: 'Username cannot be more than 25 characters long' },
+      { type: 'pattern', message: 'Your username must contain only numbers and letters' },
+      { type: 'validUsername', message: 'Your username has already been taken' }
+    ],
+    'email': [
+      { type: 'required', message: 'Email is required' },
+      { type: 'pattern', message: 'Enter a valid email' }
+    ],
+    'password': [
+      { type: 'required', message: 'Password is required' },
+      { type: 'minlength', message: 'Password must be at least 5 characters long' },
+      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number' }
+    ]
+  }
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private authenticationService: AuthenticationService,
     public snackBar: MatSnackBar,
-    public dialogRef: MatDialogRef<LoginComponent>,
-    ) {
-    
+  ) {
+
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      'mail': ['', [Validators.required, EmailValidator.validEmail]],
-      'password': ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]]
+    const userNameValidator= [
+      UsernameValidator.validUsername,
+      Validators.maxLength(25),
+      Validators.minLength(5),
+      Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+    ];
+    this.accountDetailsForm = this.fb.group({
+      username: new FormControl('', Validators.compose([...[Validators.required], ...userNameValidator])),
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      password: new FormControl('', Validators.compose([
+        Validators.minLength(5),
+        Validators.required,
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ]))
+    })
+
+    this.accountDetailsForm.get('username').valueChanges.subscribe((userName: string) => {
+      this.accountDetailsForm.get('email').clearValidators();
+      if (userName !== '') {
+        this.accountDetailsForm.get('email').setValidators([Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        ])
+      } else {
+        this.accountDetailsForm.get('email').setValidators([
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])
+      }
+    });
+
+    this.accountDetailsForm.get('email').valueChanges.subscribe((email: string) => {
+      this.accountDetailsForm.get('username').clearValidators();
+      if (email !== '') {
+        this.accountDetailsForm.get('username').setValidators(userNameValidator);
+      } else {
+        this.accountDetailsForm.get('username').setValidators([...[Validators.required], ...userNameValidator]);
+      }
     });
 
     // available providers
     this.providers = this.authenticationService.availableProviders();
-
     // params
     const params = this.route.snapshot.queryParamMap;
-
     this.returnUrl = params.has('returnUrl') ? params.get('returnUrl') : '/';
     const accessToken = params.get('access_token');
     const refreshToken = params.get('refresh_token');
@@ -90,13 +143,20 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    if (!this.form.valid) {
+    if (!this.accountDetailsForm.valid) {
       this.showSnackBar('Invalid data');
       return;
     }
     try {
       this.loading = true;
-      await this.authenticationService.login(this.form.controls['mail'].value, this.form.controls['password'].value);
+      await this.authenticationService.login(
+        'password', {
+          user: {
+            username: this.accountDetailsForm.controls['username'].value,
+            email: this.accountDetailsForm.controls['mail'].value
+          },
+          password: this.accountDetailsForm.controls['password'].value,
+        });
       this.router.navigate([this.returnUrl]);
     } catch (e) {
       console.error('Login failed', e);

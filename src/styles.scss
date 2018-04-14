@@ -23,7 +23,7 @@
 @import 'app/shared/big-input/big-input.component.scss-theme';
 @import 'app/static/about/about.component.scss-theme';
 @import 'app/trending/trending.component.scss-theme';
-
+@import 'app/welcome/components/login/login.component.scss-theme.scss';
 
 @mixin custom-components-theme($theme) {
   @include ksoc-styles-reset-theme($theme);
@@ -31,6 +31,7 @@
   @include ksoc-home-component-theme($theme);
   @include ksoc-about-component-theme($theme);
   @include ksoc-big-input-component-theme($theme);
+  @include ksoc-login-component-theme($theme);
 }
 
 .default-theme {

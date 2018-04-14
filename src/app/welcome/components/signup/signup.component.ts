@@ -1,96 +1,159 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MatDialogRef , MatSnackBar} from '@angular/material';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
-import { EmailValidator } from '@app/shared/email-validator';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
+import {
+  Country,
+  UsernameValidator,
+  PasswordValidator,
+  ParentErrorStateMatcher,
+  PhoneValidator
+} from '@app/shared/validators';
+
 
 @Component({
   selector: 'ksoc-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-
 export class SignupComponent implements OnInit {
-  title = 'Register';
-  loginLink = '/login';
 
-  submitted: boolean = false;
-  errorDiagnostic: string;
-  form: FormGroup;
-  isregistered: boolean;
-  displayEmailError:boolean;
-  displayPwError:boolean;
-  displayFnError:boolean;
-  displayLnError:boolean;
+  userDetailsForm: FormGroup;
+  accountDetailsForm: FormGroup;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    public dialogRef: MatDialogRef<SignupComponent>,
-    public snackBar: MatSnackBar,
-    private formBuilder: FormBuilder,
-    private router: Router) {
+  matching_passwords_group: FormGroup;
+  country_phone_group: FormGroup;
+
+  parentErrorStateMatcher = new ParentErrorStateMatcher();
+
+  genders = [
+    "Male",
+    "Female",
+    "Other"
+  ];
+
+  countries = [
+    new Country('UY', 'Uruguay'),
+    new Country('US', 'United States'),
+    new Country('AR', 'Argentina')
+  ];
+
+
+  validation_messages = {
+    'fullname': [
+      { type: 'required', message: 'Full name is required' }
+    ],
+    'bio': [
+      { type: 'maxlength', message: 'Bio cannot be more than 256 characters long' },
+    ],
+    'gender': [
+      { type: 'required', message: 'Please select your gender' },
+    ],
+    'birthday': [
+      { type: 'required', message: 'Please insert your birthday' },
+    ],
+    'phone': [
+      { type: 'required', message: 'Phone is required' },
+      { type: 'validCountryPhone', message: 'Phone incorrect for the country selected' }
+    ]
+  };
+
+  account_validation_messages = {
+    'username': [
+      { type: 'required', message: 'Username is required' },
+      { type: 'minlength', message: 'Username must be at least 5 characters long' },
+      { type: 'maxlength', message: 'Username cannot be more than 25 characters long' },
+      { type: 'pattern', message: 'Your username must contain only numbers and letters' },
+      { type: 'validUsername', message: 'Your username has already been taken' }
+    ],
+    'email': [
+      { type: 'required', message: 'Email is required' },
+      { type: 'pattern', message: 'Enter a valid email' }
+    ],
+    'confirm_password': [
+      { type: 'required', message: 'Confirm password is required' },
+      { type: 'areEqual', message: 'Password mismatch' }
+    ],
+    'password': [
+      { type: 'required', message: 'Password is required' },
+      { type: 'minlength', message: 'Password must be at least 5 characters long' },
+      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number' }
+    ],
+    'terms': [
+      { type: 'pattern', message: 'You must accept terms and conditions' }
+    ]
   }
+
+  constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.isregistered = false;
-    this.form = this.formBuilder.group({
-      'firstName': ['', [Validators.required, Validators.minLength(2), Validators.maxLength(64)]],
-      'lastName': ['', [Validators.required, Validators.minLength(2), Validators.maxLength(64)]],
-      'mail': ['', [Validators.required, EmailValidator.validEmail]],
-      'password': ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]]
+    this.createForms();
+  }
+
+
+
+  createForms() {
+    // matching passwords validation
+    this.matching_passwords_group = new FormGroup({
+      password: new FormControl('', Validators.compose([
+        Validators.minLength(5),
+        Validators.required,
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])),
+      confirm_password: new FormControl('', Validators.required)
+    }, (formGroup: FormGroup) => {
+      return PasswordValidator.areEqual(formGroup);
     });
-  }
 
-  onSubmit() {
-    this.submitted = true;
+    // country & phone validation
+    let country = new FormControl(this.countries[0], Validators.required);
 
-    this.errorDiagnostic = null;
-    if(!this.form.valid) {
-      return;
-    }
-
-    /*
-    this.apollo.mutate({
-      mutation: createUserMutation,
-      variables:{
-        user: {
-          username: this.form.controls['mail'].value,
-          email: this.form.controls['mail'].value,
-          password: this.form.controls['password'].value,
-          profile: {
-            name: this.form.controls['firstName'].value + ' ' + this.form.controls['lastName'].value ,
-            firstName: this.form.controls['firstName'].value,
-            lastName: this.form.controls['lastName'].value,
-          }
-        }
-      }
-    }).subscribe(data => {
-        if (!!data.data.createUser) {
-          this.isregistered = true;
-          this.openSnackBar('Done! Please check your email to activate your account')
-          this.dialogRef.close();
-          this.router.navigate(["/"], { relativeTo: this.activatedRoute })
-        } else {
-          this.openSnackBar('Failed to register, please try again later');
-          this.submitted = false;
-        }
-    }, (err) => {
-        this.openSnackBar(err);
-    }); 
-    */
-  }
-
-
-  private openSnackBar(msg: string) {
-    this.snackBar.open(msg,'Close',{
-      duration:6000
+    let phone = new FormControl('', {
+      validators: Validators.compose([
+        Validators.required,
+        PhoneValidator.validCountryPhone(country)
+      ])
     });
+
+    this.country_phone_group = new FormGroup({
+      country: country,
+      phone: phone
+    });
+
+    // user details form validations
+    this.userDetailsForm = this._formBuilder.group({
+      fullname: ['Homero Simpson', Validators.required ],
+      bio: ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s", Validators.maxLength(256)],
+      birthday: ['', Validators.required],
+      gender: new FormControl(this.genders[0], Validators.required),
+      country_phone: this.country_phone_group
+    });
+
+
+    // user links form validations
+    this.accountDetailsForm = this._formBuilder.group({
+      username: new FormControl('', Validators.compose([
+       UsernameValidator.validUsername,
+       Validators.maxLength(25),
+       Validators.minLength(5),
+       Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+       Validators.required
+      ])),
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      matching_passwords: this.matching_passwords_group,
+      terms: new FormControl(false, Validators.pattern('true'))
+    })
+
   }
 
+  onSubmitAccountDetails(value){
+    console.log(value);
+  }
+
+  onSubmitUserDetails(value){
+    console.log(value);
+  }
 
 }

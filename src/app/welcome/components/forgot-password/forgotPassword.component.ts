@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'ks-forgot',
   templateUrl: './forgotPassword.component.html',
+  styleUrls: ["./forgotPassword.component.scss"]
 })
 export class ForgotPasswordComponent implements OnInit {
 
@@ -34,18 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
       return;
     }
 
-    /*
-    this.apollo.mutate({
-      mutation: forgetPasswordMutation,
-      variables:{
-          user: this.form.controls['mail'].value,
-      }
-    }).subscribe(data => {
-        this.opneSnackBar("An email is sent to you, check it out");
-    }, (err) => {
-      this.opneSnackBar(err);
-    });
-    */
+    
     event.preventDefault();
   }
 

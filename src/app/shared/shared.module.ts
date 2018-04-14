@@ -63,7 +63,7 @@ import { MatDialogModule, MatSnackBarModule } from '@angular/material';
     MatIconModule,
     MatTooltipModule,
     BigInputComponent,
-    BigInputActionComponent, 
+    BigInputActionComponent,
     // SetNewPasswordComponent
   ]
 })

@@ -20,7 +20,7 @@ import {
 } from '@app/graphql/queries/accounts';
 import { userFieldsFragment } from '@app/graphql/queries/user.fragment';
 import { Injectable } from '@angular/core';
-import { TransportInterface } from '@app/core/accounts/transport-interface';
+import { TransportInterface, LoginReturnTypeWithUser } from '@app/core/accounts/transport-interface';
 
 export interface OptionsType {
     graphQLClient?: Apollo,
@@ -51,7 +51,7 @@ export class AccountGraphQLClient implements TransportInterface {
         authenticateParams: {
           [key: string]: string | object;
         }
-      ): Promise<LoginReturnType> {
+      ): Promise<LoginReturnTypeWithUser> {
         const loginMutation = serviceAuthenticateMutation(this.options.userFieldsFragment);
         return await this.mutate(loginMutation, 'serviceAuthenticate',
         {
@@ -72,7 +72,7 @@ export class AccountGraphQLClient implements TransportInterface {
          });
     }
 
-    public async refreshTokens(accessToken: string, refreshToken: string): Promise<LoginReturnType> {
+    public async refreshTokens(accessToken: string, refreshToken: string): Promise<LoginReturnTypeWithUser> {
         const mutation = createRefreshTokenMutation(this.options.userFieldsFragment);
         return await this.mutate(mutation, 'refreshTokens', { accessToken, refreshToken });
     }

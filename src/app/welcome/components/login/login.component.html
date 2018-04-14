@@ -1,44 +1,50 @@
-<section>
-    <article>
-        <mat-card-content class="text-center">
-            <div fxLayout="column" fxLayoutAlign="center center">
-                <!--img style="width:100px;" src="assets/images/icons/icon.png" -->
-                <p class="mat-text-muted">Sign in with your account to continue.</p>
+<div class="background">
+    <div class="gradient">
+        <div class="container">
+            <div class="actions">
+                <mat-card>
+                    <mat-card-title>
+                        <p class="mat-text-muted">Sign in to your account.</p>
+                    </mat-card-title>
+                    <mat-card-content class="text-center">
+                        <form novalidate [formGroup]="accountDetailsForm" (ngSubmit)="login()" #loginForm="ngForm">
+                            <mat-form-field class="full-width">
+                                <input matInput maxlength="25" placeholder="Username" formControlName="username" required>
+                                <mat-error *ngFor="let validation of account_validation_messages.username">
+                                    <mat-error class="error-message" *ngIf="accountDetailsForm.get('username').hasError(validation.type) && (accountDetailsForm.get('username').dirty || accountDetailsForm.get('username').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="full-width">
+                                <input matInput type="email" placeholder="Email" formControlName="email" required>
+                                <mat-error *ngFor="let validation of account_validation_messages.email">
+                                    <mat-error class="error-message" *ngIf="accountDetailsForm.get('email').hasError(validation.type) && (accountDetailsForm.get('email').dirty || accountDetailsForm.get('email').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="full-width">
+                                <input matInput type="password" placeholder="Password" formControlName="password" required>
+                                <mat-error *ngFor="let validation of account_validation_messages.password">
+                                    <mat-error class="error-message" *ngIf="accountDetailsForm.get('password').hasError(validation.type) && (accountDetailsForm.get('password').dirty || accountDetailsForm.get('password').touched)">{{validation.message}}</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <button mat-raised-button color="primary" class="push-top-sm" type="submit" [disabled]="accountDetailsForm.invalid">LOGIN</button>
+                        </form>
+                        <button mat-raised-button color="accent">
+                            <mat-icon class="side_nav_icon" svgIcon="avatars:facebook-box"></mat-icon>
+                            Continue with FACEBOOK
+                        </button>
+                        <button mat-raised-button color="warn">
+                            <mat-icon class="side_nav_icon" svgIcon="avatars:googleplus-box"></mat-icon>
+                            Continue with GOOGLE+
+                        </button>
+                        <div fxLayout="row" fxLayoutAlign="space-between center" class="pt-1">
+                            <a [routerLink]="['/ks/forgotpassword']">Forgot password?</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="signup-text" [routerLink]="['/ks/signup']">Sign up for a new account.</a>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
-            <form novalidate [formGroup]="form" (ngSubmit)="login()" #loginForm="ngForm">
-                <mat-form-field fxFlexFill>
-                    <input matInput formControlName="mail" placeholder="Email" (blur)="displayEmailError=true" (focus)="displayEmailError=false"
-                    />
-                    <mat-error *ngIf="form.controls.mail.errors?.required && form.controls.mail.dirty && displayEmailError">
-                        Error! Email field is required
-                    </mat-error>
-                    <mat-error *ngIf="form.controls.mail.errors?.invalidEmail && form.controls.mail.dirty && displayEmailError">
-                        Error! Invalid email
-                    </mat-error>
-                </mat-form-field>
-                <div class="push-top-sm">
-                    <mat-form-field fxFlexFill>
-                        <input matInput formControlName="password" type="password" placeholder="Password" required (focus)="displayPwError=false"
-                            (blur)="displayPwError=true">
-                        <mat-error *ngIf="form.controls.password.errors?.minlength && form.controls.password.dirty && displayPwError">
-                            Error! Password must be at least 6 characters!
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <button mat-raised-button color="primary" class="push-top-sm" type="submit" [disabled]="form.invalid">LOGIN</button>
-            </form>
-            <button mat-raised-button color="accent">
-                <mat-icon class="side_nav_icon" svgIcon="avatars:facebook-box"></mat-icon>
-                Continue with FACEBOOK
-            </button>
-            <button mat-raised-button color="warn">
-                <mat-icon class="side_nav_icon" svgIcon="avatars:googleplus-box"></mat-icon>
-                Continue with GOOGLE+
-            </button>
-            <div fxLayout="row" fxLayoutAlign="space-between center" class="pt-1">
-                <a [routerLink]="['/login/forgotpassword']">Forgot password?</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a class="signup-text" (click)="dialogRef.close('signup')">Sign up for a new account.</a>
-            </div>
-        </mat-card-content>
-    </article>
-</section>
+        </div>
+    </div>
+</div>

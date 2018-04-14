@@ -7,6 +7,7 @@ import { UserFields, GetAllProviders, OauthProvider, User } from '../../graphql/
 import { getAllProvidersQuery } from '../../graphql/queries/get-all-providers.query';
 import { AccountsClient } from './account.service';
 import { map } from 'rxjs/operators/map';
+import { CreateUserType } from '@accounts/common';
 
 @Injectable()
 export class AuthenticationService {
@@ -62,6 +63,11 @@ export class AuthenticationService {
     this.cleanCache();
     await this.accountsClient.loginWithService(service, credentials);
     
+  }
+
+  async createUser(
+    service, user: CreateUserType): Promise<void> {
+    return await this.accountsClient.createUser(service, user);
   }
 
   async logout(): Promise<any> {

@@ -32,9 +32,9 @@
             </button>
           </span>
   
-          <button mat-button class="sign-in-button "
+          <button mat-button class="sign-in-button"
                   *ngIf="!isAuthenticated"
-                  (click)="openLogin()">
+                  [routerLink]="'login'" >
             Sign in
           </button>
   

@@ -12,7 +12,7 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.authService.getUser().pipe(map(u => {
       if (u == null || u == undefined) {
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        this.router.navigate(['/ks'], { queryParams: { returnUrl: state.url } });
         return false;
       } else {
         return true;

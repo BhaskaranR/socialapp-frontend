@@ -5,12 +5,19 @@ import { SettingsComponent } from '@app/settings';
 import { WelcomeComponent } from '@app/welcome/welcome.component';
 import { AboutComponent } from '@app/static';
 import { NotFoundComponent } from '../not-found/not-found.component';
+import { LoginComponent } from '@app/welcome/components/login/login.component';
+import { SignupComponent } from '@app/welcome/components/signup/signup.component';
+import { ForgotPasswordComponent } from '@app/welcome/components/forgot-password/forgotPassword.component';
 
 const routes: Routes = [
     {
-        path: 'login',
+        path: 'ks',
         component: WelcomeComponent,
         children: [
+            {
+                path: 'forgotpassword',
+                component: ForgotPasswordComponent
+            },
             {
                 path: '',
                 component: AboutComponent
@@ -25,6 +32,14 @@ const routes: Routes = [
             {
                 path: 'trending',
                 loadChildren: 'app/trending/trending.module#TrendingModule'
+            },
+            {
+                path: 'login',
+                component: LoginComponent
+            },
+            {
+                path: 'signup',
+                component: SignupComponent
             }
         ]
     }

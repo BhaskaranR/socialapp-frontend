@@ -11,9 +11,10 @@ import { AuthenticationService } from '@app/core/services/authentication.service
 import { offlineCheck } from '@app/core/common/offline';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { ForgotPasswordComponent } from './components/forgot-password';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StaticModule } from '@app/static';
+import { MatDatepickerModule, MatStepperModule, MatNativeDateModule } from '@angular/material';
+import { ForgotPasswordComponent } from './components/forgot-password/forgotPassword.component';
 
 
 export function initializer(auth: AuthenticationService): () => Promise<any> {
@@ -26,6 +27,9 @@ export function initializer(auth: AuthenticationService): () => Promise<any> {
 @NgModule({
   imports: [
     ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatStepperModule,
     SharedModule,
     RoutingModule,
     StaticModule
@@ -42,11 +46,6 @@ export function initializer(auth: AuthenticationService): () => Promise<any> {
       multi: true,
       deps: [AuthenticationService]
     }
-  ],
-  entryComponents:[
-    LoginComponent,
-    SignupComponent
-  ],
-  bootstrap: [WelcomeComponent]
+  ]
 })
 export class WelcomeModule {}
