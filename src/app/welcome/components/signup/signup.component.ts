@@ -78,8 +78,8 @@ export class SignupComponent implements OnInit {
     ],
     'password': [
       { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 5 characters long' },
-      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number' }
+      { type: 'minlength', message: 'Password must be at least 8 characters long' },
+      // { type: 'pattern', message: 'Your password must be at least 8 characters, at least one letter, one number and one special character' }
     ],
     'terms': [
       { type: 'pattern', message: 'You must accept terms and conditions' }
@@ -100,9 +100,9 @@ export class SignupComponent implements OnInit {
     // matching passwords validation
     this.matching_passwords_group = new FormGroup({
       password: new FormControl('', Validators.compose([
-        Validators.minLength(5),
+        Validators.minLength(8),
         Validators.required,
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+       // Validators.pattern('^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$')
       ])),
       confirm_password: new FormControl('', Validators.required)
     }, (formGroup: FormGroup) => {

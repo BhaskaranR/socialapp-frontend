@@ -8,12 +8,12 @@
                     </mat-card-title>
                     <mat-card-content class="text-center">
                         <form novalidate [formGroup]="accountDetailsForm" (ngSubmit)="login()" #loginForm="ngForm">
-                            <mat-form-field class="full-width">
+                            <!--<mat-form-field class="full-width">
                                 <input matInput maxlength="25" placeholder="Username" formControlName="username" required>
                                 <mat-error *ngFor="let validation of account_validation_messages.username">
                                     <mat-error class="error-message" *ngIf="accountDetailsForm.get('username').hasError(validation.type) && (accountDetailsForm.get('username').dirty || accountDetailsForm.get('username').touched)">{{validation.message}}</mat-error>
                                 </mat-error>
-                            </mat-form-field>
+                            </mat-form-field>-->
 
                             <mat-form-field class="full-width">
                                 <input matInput type="email" placeholder="Email" formControlName="email" required>

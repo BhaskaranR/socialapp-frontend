@@ -4,6 +4,7 @@ import { Route } from '@angular/router';
 export enum ActionTypes {
   LOGIN = '[ACCOUNTS] LOGIN',
   SET_USER = '[ACCOUNTS] SET_USER',
+  SET_ACCOUNT= '[ACCOUNTS] SET_ACCOUNT',
   SET_TOKENS = '[ACCOUNTS] SET_TOKENS',
   CLEAR_TOKENS = '[ACCOUNTS] CLEAR_TOKENS',
   CLEAR_USER = '[ACCOUNTS] CLEAR_USER',
@@ -32,6 +33,11 @@ export const setTokens = tokens => ({
   payload: {
     tokens,
   },
+});
+
+export const setAccount = (account) => ({
+  type: ActionTypes.SET_ACCOUNT,
+  payload:{ account }
 });
 
 export const clearTokens = () => ({

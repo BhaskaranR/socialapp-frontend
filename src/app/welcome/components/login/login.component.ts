@@ -7,6 +7,10 @@ import { AuthenticationService } from '@app/core/services/authentication.service
 import { environment } from '@env/environment';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UsernameValidator } from '@app/shared/validators';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Accounts } from '@app/core/accounts/reducer';
+import * as selectors from '@app/core/accounts';
 
 @Component({
   selector: 'ksoc-login',
@@ -36,43 +40,47 @@ export class LoginComponent implements OnInit {
     ],
     'password': [
       { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 5 characters long' },
-      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number' }
+      { type: 'minlength', message: 'Password must be at least 6 characters long' },
+      // { type: 'pattern', message: 'Your password must be at least 8 characters, at least one letter, one number and one special character' }
     ]
   }
 
   constructor(private route: ActivatedRoute,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private authenticationService: AuthenticationService,
+    private store: Store<Accounts>,
     public snackBar: MatSnackBar
   ) {
-
+    this.store.select(selectors.getAccountsState).subscribe(uu => {
+      console.log(uu);
+    })
   }
 
   ngOnInit() {
-    const userNameValidator= [
+    const userNameValidator = [
       UsernameValidator.validUsername,
       Validators.maxLength(25),
       Validators.minLength(5),
       Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
     ];
     this.accountDetailsForm = this.fb.group({
-      username: new FormControl('', Validators.compose([...[Validators.required], ...userNameValidator])),
+      // username: new FormControl('', Validators.compose([...[Validators.required], ...userNameValidator])),
       email: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])),
       password: new FormControl('', Validators.compose([
-        Validators.minLength(5),
+        Validators.minLength(6),
         Validators.required,
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+        // Validators.pattern('/(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}/')//todo come back to this later
       ]))
     })
 
-    this.accountDetailsForm.get('username').valueChanges.subscribe((userName: string) => {
+    /* this.accountDetailsForm.get('username').valueChanges.subscribe((userName: string) => {
       this.accountDetailsForm.get('email').clearValidators();
-      if (userName !== '') {
+      if (this.accountDetailsForm.get('username').value) {
         this.accountDetailsForm.get('email').setValidators([Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         ])
       } else {
@@ -80,16 +88,21 @@ export class LoginComponent implements OnInit {
           Validators.required,
           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')])
       }
-    });
+      this.accountDetailsForm.updateValueAndValidity()
+
+    }); 
 
     this.accountDetailsForm.get('email').valueChanges.subscribe((email: string) => {
       this.accountDetailsForm.get('username').clearValidators();
-      if (email !== '') {
+      if (this.accountDetailsForm.get('email').valid) {
         this.accountDetailsForm.get('username').setValidators(userNameValidator);
       } else {
         this.accountDetailsForm.get('username').setValidators([...[Validators.required], ...userNameValidator]);
       }
-    });
+      this.accountDetailsForm.updateValueAndValidity()
+
+
+    });*/
 
     // available providers
     this.providers = this.authenticationService.availableProviders();
@@ -143,21 +156,25 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
+    var subscription: Subscription;
     if (!this.accountDetailsForm.valid) {
       this.showSnackBar('Invalid data');
       return;
     }
     try {
       this.loading = true;
-      await this.authenticationService.login(
+
+      const response = await this.authenticationService.login(
         'password', {
           user: {
-            username: this.accountDetailsForm.controls['username'].value,
-            email: this.accountDetailsForm.controls['mail'].value
+            // username: this.accountDetailsForm.controls['username'].value,
+            email: this.accountDetailsForm.controls['email'].value
           },
           password: this.accountDetailsForm.controls['password'].value,
         });
-      this.router.navigate([this.returnUrl]);
+      /*this.router.navigate([this.returnUrl], {
+        relativeTo: this.activatedRoute
+      });*/
     } catch (e) {
       console.error('Login failed', e);
       this.showSnackBar('Invalid username or password');

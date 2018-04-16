@@ -27,17 +27,17 @@ export class AuthenticationService {
   }
 
   private cleanCache(): void {
-    // getApolloClient().resetStore();
+     // getApolloClient().resetStore();
   }
 
-  async resumeSession(): Promise<void> {
+  async resumeSession() {
     if (Offline.state === 'up') {
       this.cleanCache();
       this.triedToResumeSession = true;
       try {
-        await this.accountsClient.loadTokensFromStorage();
+        const tokens = await this.accountsClient.loadTokensFromStorage();
         await this.accountsClient.loadOriginalTokensFromStorage();
-        await this.accountsClient.resumeSession();
+        return await this.accountsClient.resumeSession(tokens);
       } catch (e) {
         console.log('Failed to resume session, user isn\'t connected');
       }
@@ -49,7 +49,7 @@ export class AuthenticationService {
       this.cleanCache();
       await this.accountsClient.storeTokens({ accessToken, refreshToken });
       await this.accountsClient.loadTokensFromStorage();
-      await this.accountsClient.refreshSession();
+      await this.accountsClient.refreshSession({ accessToken, refreshToken });
       return true;
     } catch (e) {
       console.log('Failed to refresh tokens', e);
@@ -59,10 +59,9 @@ export class AuthenticationService {
 
   async login(
     service: string,
-    credentials: { [key: string]: string | object }): Promise<void> {
+    credentials: { [key: string]: string | object }){
     this.cleanCache();
-    await this.accountsClient.loginWithService(service, credentials);
-    
+    return await this.accountsClient.loginWithService(service, credentials);
   }
 
   async createUser(

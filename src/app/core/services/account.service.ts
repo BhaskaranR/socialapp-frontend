@@ -23,17 +23,17 @@ import {
 } from '../accounts/action';
 
 import { hashPassword } from '../accounts/encryption';
-import * as fromAccounts from '../accounts';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AccountsClientConfiguration } from '../accounts/config';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable } from 'rxjs/Observable';
-import { getOriginalTokens } from '../accounts/reducer';
 import { Apollo } from 'apollo-angular';
 import { userFieldsFragment } from '@app/graphql/queries/user.fragment';
 import { AccountGraphQLClient } from '@app/core/services/account-graphql.service';
 import { TransportInterface } from '@app/core/accounts/transport-interface';
+import { getUser, getLoggingIn, getIsLoading, AccountsState, getIsImpersonated, getOriginalTokens, getTokens } from '../accounts';
+import { promise } from 'protractor';
 
 const isValidUserObject = (user) =>
   has(user, 'username') || has(user, 'email') || has(user, 'id');
@@ -55,84 +55,59 @@ export class AccountsClient {
   constructor(
     options: AccountsClientConfiguration,
     private storage: LocalStorageService,
-    private store: Store<fromAccounts.AccountsState>,
+    private store: Store<AccountsState>,
     private transport: TransportInterface
   ) {
     this.options = options;
   }
 
-  public async getStorageData(keyName: string) {
-    return await Promise.resolve((resolve, reject) => {
-      try {
-        resolve(this.storage.getItem(keyName));
-      }
-      catch (ex) {
-        reject(ex);
-      }
-    });
+
+  public  async getStorageData(keyName: string) {
+     return await  this.storage.getItem(keyName);
   }
 
-  public async setStorageData(keyName: string, value: any) {
-    return await new Promise((resolve, reject) => {
-      try {
-        this.storage.setItem(keyName, value);
-        resolve()
-      }
-      catch (ex) {
-        reject(ex);
-      }
-    })
+  public async  setStorageData(keyName: string, value: any) {
+    return await this.storage.setItem(keyName, value);
   }
 
-  public async removeStorageData(keyName: string) {
-    return await new Promise((resolve, reject) => {
-      try {
-        this.storage.removeItem(keyName)
-        resolve()
-      }
-      catch (ex) {
-        reject(ex);
-      }
-    })
+  public async  removeStorageData(keyName: string) {
+    return await this.storage.removeItem(keyName)
   }
 
-  public async loadTokensFromStorage(): Promise<void> {
+  public async loadTokensFromStorage() {
+    const at = await  this.getStorageData(getTokenKey(ACCESS_TOKEN, this.options)) ;
+    const rt  = await this.getStorageData(getTokenKey(REFRESH_TOKEN, this.options))
     const tokens = {
-      accessToken:
-        (await this.getStorageData(getTokenKey(ACCESS_TOKEN, this.options))) ||
-        null,
-      refreshToken:
-        (await this.getStorageData(getTokenKey(REFRESH_TOKEN, this.options))) ||
-        null,
+      accessToken: at || null,
+      refreshToken: rt || null,
     };
+
     this.store.dispatch(setTokens(tokens));
+    return tokens;
   }
 
-  public async loadOriginalTokensFromStorage(): Promise<void> {
+  public  async loadOriginalTokensFromStorage() {
+    const oat = await  this.getStorageData(getTokenKey(ORIGINAL_ACCESS_TOKEN, this.options));
+    const ort = await this.getStorageData(getTokenKey(ORIGINAL_REFRESH_TOKEN, this.options)) ;
     const tokens = {
-      accessToken:
-        (await this.getStorageData(
-          getTokenKey(ORIGINAL_ACCESS_TOKEN, this.options)
-        )) || null,
-      refreshToken:
-        (await this.getStorageData(
-          getTokenKey(ORIGINAL_REFRESH_TOKEN, this.options)
-        )) || null,
+      accessToken: oat || null,
+      refreshToken: ort || null,
     };
     this.store.dispatch(setOriginalTokens(tokens));
+    return tokens;
   }
 
-  public async clearTokens(): Promise<void> {
+  public async clearTokens() {
     this.store.dispatch(clearStoreTokens());
     await this.removeStorageData(getTokenKey(ACCESS_TOKEN, this.options));
     await this.removeStorageData(getTokenKey(REFRESH_TOKEN, this.options));
   }
 
-  public async storeTokens(tokens: TokensType): Promise<void> {
+  public  async storeTokens(tokens: TokensType) {
     if (tokens) {
       const newAccessToken = tokens.accessToken;
       if (newAccessToken) {
-        await this.setStorageData(
+         await this.setStorageData(
           getTokenKey(ACCESS_TOKEN, this.options),
           newAccessToken
         );
@@ -140,18 +115,18 @@ export class AccountsClient {
 
       const newRefreshToken = tokens.refreshToken;
       if (newRefreshToken) {
-        await this.setStorageData(
+         await this.setStorageData(
           getTokenKey(REFRESH_TOKEN, this.options),
           newRefreshToken
         );
       }
     }
   }
-  public async storeOriginalTokens(tokens: TokensType): Promise<void> {
+  public  storeOriginalTokens(tokens: TokensType){
     if (tokens) {
       const originalAccessToken = tokens.accessToken;
       if (originalAccessToken) {
-        await this.setStorageData(
+         this.setStorageData(
           getTokenKey(ORIGINAL_ACCESS_TOKEN, this.options),
           originalAccessToken
         );
@@ -159,7 +134,7 @@ export class AccountsClient {
 
       const originalRefreshToken = tokens.refreshToken;
       if (originalRefreshToken) {
-        await this.setStorageData(
+         this.setStorageData(
           getTokenKey(ORIGINAL_REFRESH_TOKEN, this.options),
           originalRefreshToken
         );
@@ -171,22 +146,22 @@ export class AccountsClient {
     this.store.dispatch(clearUser());
   }
 
-  public async resumeSession(): Promise<void> {
+  public async resumeSession(tokens) {
     try {
-      await this.refreshSession();
-      if (
+      return await this.refreshSession(tokens);
+      /*if (
         this.options.onResumedSessionHook &&
         isFunction(this.options.onResumedSessionHook)
       ) {
         this.options.onResumedSessionHook();
-      }
+      } */
     } catch (err) {
       throw err;
     }
   }
 
-  public  refreshSession() {
-    this.tokens().subscribe(async ({ accessToken, refreshToken }) => {
+  public async  refreshSession({ accessToken, refreshToken }) {
+  //   this.tokens().subscribe(async ({ accessToken, refreshToken }) => {
       if (accessToken && refreshToken) {
         try {
           this.store.dispatch(loggingIn(true));
@@ -194,33 +169,33 @@ export class AccountsClient {
           const currentTime = Date.now() / 1000;
           // Refresh token is expired, user must sign back in
           if (decodedRefreshToken.exp < currentTime) {
-            this.clearTokens();
+            await this.clearTokens();
             this.clearUser();
           } else {
             // Request a new token pair
-            const refreshedSession =  await this.transport.refreshTokens(
+            const refreshedSession = await this.transport.refreshTokens(
               accessToken,
               refreshToken
-              
+
             );
             this.store.dispatch(loggingIn(false));
 
             this.storeTokens(refreshedSession.tokens);
             this.store.dispatch(setTokens(refreshedSession.tokens));
             this.store.dispatch(setUser(refreshedSession.user));
+            return refreshedSession;
           }
         } catch (err) {
           this.store.dispatch(loggingIn(false));
-          this.clearTokens();
+          await this.clearTokens();
           this.clearUser();
           // throw new AccountsError('falsy token provided');
         }
       } else {
-        this.clearTokens();
+        await this.clearTokens();
         this.clearUser();
         // throw new AccountsError('no tokens provided');
       }
-    });
   }
 
   public async createUser(service, user: CreateUserType): Promise<void> {
@@ -257,7 +232,7 @@ export class AccountsClient {
     }
   }
 
-  
+
   public async loginWithService(
     service: string,
     credentials: { [key: string]: string | object }
@@ -268,15 +243,12 @@ export class AccountsClient {
 
     try {
       this.store.dispatch(loggingIn(true));
-
       const response = await this.transport.loginWithService(service, credentials);
-
       this.store.dispatch(loggingIn(false));
       await this.storeTokens(response.tokens);
       this.store.dispatch(setTokens(response.tokens));
       this.store.dispatch(setUser(response.user));
       const { onSignedInHook } = this.options;
-
       if (isFunction(onSignedInHook)) {
         try {
           await onSignedInHook(response);
@@ -287,44 +259,45 @@ export class AccountsClient {
       }
       return response;
     } catch (err) {
-      this.clearTokens();
+      await this.clearTokens();
       this.store.dispatch(loggingIn(false));
       throw new AccountsError(err.message);
     }
   }
 
-  public user() {
-    return this.store.select(fromAccounts.getUser);
+  public user()  {
+    return this.store.select(getUser);
   }
 
   public loggingIn(): Observable<boolean> {
-    return this.store.select(fromAccounts.getLoggingIn);
+    return this.store.select(getLoggingIn);
   }
 
   public isLoading(): Observable<boolean> {
-    return this.store.select(fromAccounts.getIsLoading);
+    return this.store.select(getIsLoading);
   }
 
 
   public isImpersonated(): Observable<boolean> {
-    return this.store.select(fromAccounts.getIsImpersonated);
+    return this.store.select(getIsImpersonated);
   }
 
   public originalTokens(): Observable<TokensType> {
-    return this.store.select(fromAccounts.getOriginalTokens);
+    return this.store.select(getOriginalTokens);
   }
 
   public tokens(): Observable<TokensType> {
-    return this.store.select(fromAccounts.getTokens);
+    return this.store.select(getTokens);
   }
 
-  public async logout(callback: (err?: Error) => void) {
-    this.tokens().subscribe(({ accessToken }) => {
+  public  logout(callback: (err?: Error) => void) {
+    this.tokens().subscribe( async ({ accessToken }) => {
+      debugger;
       try {
         if (accessToken) {
           this.transport.logout(accessToken);
         }
-        this.clearTokens();
+        await this.clearTokens();
         this.store.dispatch(clearUser());
         if (callback && isFunction(callback)) {
           callback();
@@ -333,7 +306,7 @@ export class AccountsClient {
           this.options.onSignedOutHook();
         }
       } catch (err) {
-        this.clearTokens();
+        await this.clearTokens();
         this.store.dispatch(clearUser());
         if (callback && isFunction(callback)) {
           callback(err);

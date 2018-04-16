@@ -10,7 +10,7 @@ import { NgrxCacheModule, _rootCacheSelector } from './apollo-angular-cache-ngrx
 import { NgrxCache } from './apollo-angular-cache-ngrx/cache';
 import { createUploadLink } from 'apollo-upload-client';
 import { environment as env } from '@env/environment';
-import { State } from '@app/core';
+import { State } from '@app/app.module';
 
 const uri = env.apiBaseUrl + '/graphql';
 //test

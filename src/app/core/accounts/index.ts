@@ -3,19 +3,12 @@ import config from './config';
 import { UserObjectType } from '@accounts/common';
 import { ActionReducerMap, createSelector, createFeatureSelector } from '@ngrx/store';
 import * as acc from './reducer'
-import { reducer } from './reducer';
 
-export { config, reducer };
-
-export { TransportInterface };
+export {reducer} from './reducer';
 
 export interface AccountsState {
     accounts: acc.Accounts
 }
-
-export const reducers: ActionReducerMap<AccountsState> = {
-    accounts: reducer
-};
 
 export const getAccountsState = createFeatureSelector<acc.Accounts>('accounts');
 
@@ -26,7 +19,10 @@ export const getIsLoading = createSelector(
 
 export const getUser = createSelector(
     getAccountsState,
-    acc.getUser
+    (state) => {
+        debugger;
+        return state.user
+    }
 );
 
 export const getTokens = createSelector(

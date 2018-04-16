@@ -38,6 +38,8 @@
     "@ngrx/effects": "^6.0.0-beta.1",
     "@ngrx/entity": "^6.0.0-beta.1",
     "@ngrx/store": "^6.0.0-beta.1",
+    "@ngrx/router-store": "^6.0.0-beta.1",
+    "@ngrx/store-devtools": "^6.0.0-beta.1",
     "angular2-jwt": "^0.2.3",
     "angular2-markdown": "^2.2.3",
     "angular2-moment": "^1.8.0",

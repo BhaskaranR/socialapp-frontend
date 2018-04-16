@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   envName = env.envName;
   year = new Date().getFullYear();
   logo = require('../../assets/logo.png');
-  /*navigation = [
+  navigation = [
     { link: '', label: 'About' },
     { link: '/features', label: 'Features' },
     { link: 'trending', label: 'Trending' }
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ...this.navigation,
     { link: 'settings', label: 'Settings' }
   ];
-  */
+  
   isAuthenticated;
 
   constructor(

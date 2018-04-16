@@ -6,16 +6,22 @@ const APP_PREFIX = 'ksoc-';
 export class LocalStorageService {
   constructor() {}
 
-  setItem(key: string, value: any) {
-    localStorage.setItem(`${APP_PREFIX}${key}`, JSON.stringify(value));
+  setItem(key: string, value: any) : Promise<any> {
+    return Promise.resolve().then(function () {
+      localStorage.setItem(`${APP_PREFIX}${key}`, JSON.stringify(value));
+    });
   }
 
-  getItem(key: string) {
-    return JSON.parse(localStorage.getItem(`${APP_PREFIX}${key}`));
+  getItem(key: string) : Promise<any> {
+    return Promise.resolve().then(function () {
+      return JSON.parse(localStorage.getItem(`${APP_PREFIX}${key}`));
+    });
   }
 
   removeItem(key: string) {
-    localStorage.removeItem(key);
+    return Promise.resolve().then(function () {
+      localStorage.removeItem(`${APP_PREFIX}${key}`);
+    });
   }
 
   static loadInitialState() {

@@ -10,6 +10,9 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
     private authService: AuthenticationService) { }
 
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    this.authService.getUser().subscribe((u) => {
+      console.log(u);
+    })
     return this.authService.getUser().pipe(map(u => {
       if (u == null || u == undefined) {
         this.router.navigate(['/ks'], { queryParams: { returnUrl: state.url } });
