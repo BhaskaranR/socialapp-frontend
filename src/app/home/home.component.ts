@@ -13,7 +13,6 @@ import {
 import { environment as env } from '@env/environment';
 
 import { NIGHT_MODE_THEME, selectorSettings } from '@app/settings';
-import { getUser } from '@app/core/accounts';
 import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({

@@ -10,18 +10,6 @@ import {
   ImpersonateReturnType,
 } from '@accounts/common';
 
-
-import {
-  loggingIn,
-  setUser,
-  clearUser,
-  setTokens,
-  clearTokens as clearStoreTokens,
-  setOriginalTokens,
-  setImpersonated,
-  clearOriginalTokens,
-} from '../accounts/action';
-
 import { hashPassword } from '../accounts/encryption';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -32,8 +20,10 @@ import { Apollo } from 'apollo-angular';
 import { userFieldsFragment } from '@app/graphql/queries/user.fragment';
 import { AccountGraphQLClient } from '@app/core/services/account-graphql.service';
 import { TransportInterface } from '@app/core/accounts/transport-interface';
-import { getUser, getLoggingIn, getIsLoading, AccountsState, getIsImpersonated, getOriginalTokens, getTokens } from '../accounts';
+// import { getUser, getLoggingIn, getIsLoading,  getIsImpersonated, getOriginalTokens, getTokens } from '../accounts';
+// import { Accounts } from '../accounts/reducer';
 import { promise } from 'protractor';
+import { UserFields } from '@app/graphql/types/types';
 
 const isValidUserObject = (user) =>
   has(user, 'username') || has(user, 'email') || has(user, 'id');
@@ -48,14 +38,16 @@ const getTokenKey = (type: string, options: AccountsClientConfiguration) =>
     ? `${options.tokenStoragePrefix}:${type}`
     : type;
 
+
+
 @Injectable()
 export class AccountsClient {
+
   private options: AccountsClientConfiguration;
 
   constructor(
     options: AccountsClientConfiguration,
     private storage: LocalStorageService,
-    private store: Store<AccountsState>,
     private transport: TransportInterface
   ) {
     this.options = options;
@@ -82,7 +74,7 @@ export class AccountsClient {
       refreshToken: rt || null,
     };
 
-    this.store.dispatch(setTokens(tokens));
+    // this.store.dispatch(setTokens(tokens));
     return tokens;
   }
 
@@ -93,12 +85,12 @@ export class AccountsClient {
       accessToken: oat || null,
       refreshToken: ort || null,
     };
-    this.store.dispatch(setOriginalTokens(tokens));
+    // this.store.dispatch(setOriginalTokens(tokens));
     return tokens;
   }
 
   public async clearTokens() {
-    this.store.dispatch(clearStoreTokens());
+    // this.store.dispatch(clearStoreTokens());
     await this.removeStorageData(getTokenKey(ACCESS_TOKEN, this.options));
     await this.removeStorageData(getTokenKey(REFRESH_TOKEN, this.options));
   }
@@ -143,7 +135,7 @@ export class AccountsClient {
   }
 
   public clearUser() {
-    this.store.dispatch(clearUser());
+   // this.store.dispatch(clearUser());
   }
 
   public async resumeSession(tokens) {
@@ -161,10 +153,8 @@ export class AccountsClient {
   }
 
   public async  refreshSession({ accessToken, refreshToken }) {
-  //   this.tokens().subscribe(async ({ accessToken, refreshToken }) => {
-      if (accessToken && refreshToken) {
+      if (accessToken && refreshToken && accessToken !== null  && refreshToken !== null) {
         try {
-          this.store.dispatch(loggingIn(true));
           const decodedRefreshToken = jwtDecode(refreshToken);
           const currentTime = Date.now() / 1000;
           // Refresh token is expired, user must sign back in
@@ -178,15 +168,15 @@ export class AccountsClient {
               refreshToken
 
             );
-            this.store.dispatch(loggingIn(false));
+            //this.store.dispatch(loggingIn(false));
 
             this.storeTokens(refreshedSession.tokens);
-            this.store.dispatch(setTokens(refreshedSession.tokens));
-            this.store.dispatch(setUser(refreshedSession.user));
+            //this.store.dispatch(setTokens(refreshedSession.tokens));
+            // this.store.dispatch(setUser(refreshedSession.user));
             return refreshedSession;
           }
         } catch (err) {
-          this.store.dispatch(loggingIn(false));
+          //this.store.dispatch(loggingIn(false));
           await this.clearTokens();
           this.clearUser();
           // throw new AccountsError('falsy token provided');
@@ -242,12 +232,8 @@ export class AccountsClient {
     }
 
     try {
-      this.store.dispatch(loggingIn(true));
       const response = await this.transport.loginWithService(service, credentials);
-      this.store.dispatch(loggingIn(false));
       await this.storeTokens(response.tokens);
-      this.store.dispatch(setTokens(response.tokens));
-      this.store.dispatch(setUser(response.user));
       const { onSignedInHook } = this.options;
       if (isFunction(onSignedInHook)) {
         try {
@@ -260,45 +246,18 @@ export class AccountsClient {
       return response;
     } catch (err) {
       await this.clearTokens();
-      this.store.dispatch(loggingIn(false));
       throw new AccountsError(err.message);
     }
   }
 
-  public user()  {
-    return this.store.select(getUser);
-  }
-
-  public loggingIn(): Observable<boolean> {
-    return this.store.select(getLoggingIn);
-  }
-
-  public isLoading(): Observable<boolean> {
-    return this.store.select(getIsLoading);
-  }
-
-
-  public isImpersonated(): Observable<boolean> {
-    return this.store.select(getIsImpersonated);
-  }
-
-  public originalTokens(): Observable<TokensType> {
-    return this.store.select(getOriginalTokens);
-  }
-
-  public tokens(): Observable<TokensType> {
-    return this.store.select(getTokens);
-  }
-
+  
   public  logout(callback: (err?: Error) => void) {
-    this.tokens().subscribe( async ({ accessToken }) => {
-      debugger;
-      try {
+    /*  
+    try {
         if (accessToken) {
           this.transport.logout(accessToken);
         }
         await this.clearTokens();
-        this.store.dispatch(clearUser());
         if (callback && isFunction(callback)) {
           callback();
         }
@@ -307,13 +266,12 @@ export class AccountsClient {
         }
       } catch (err) {
         await this.clearTokens();
-        this.store.dispatch(clearUser());
         if (callback && isFunction(callback)) {
           callback(err);
         }
         throw new AccountsError(err.message);
       }
-    });
+      */
   }
 
   public async verifyEmail(token: string): Promise<void> {

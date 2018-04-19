@@ -7,10 +7,10 @@ import { AuthenticationService } from '@app/core/services/authentication.service
 import { environment } from '@env/environment';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UsernameValidator } from '@app/shared/validators';
-import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { Accounts } from '@app/core/accounts/reducer';
-import * as selectors from '@app/core/accounts';
+import { Store, select } from '@ngrx/store';
+// import { Accounts } from '@app/core/accounts/reducer';
+// import * as selectors from '@app/core/accounts';
+// import { setUser } from '../../../core/accounts/action';
 
 @Component({
   selector: 'ksoc-login',
@@ -50,12 +50,10 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private authenticationService: AuthenticationService,
-    private store: Store<Accounts>,
     public snackBar: MatSnackBar
   ) {
-    this.store.select(selectors.getAccountsState).subscribe(uu => {
-      console.log(uu);
-    })
+
+
   }
 
   ngOnInit() {
@@ -156,14 +154,12 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    var subscription: Subscription;
     if (!this.accountDetailsForm.valid) {
       this.showSnackBar('Invalid data');
       return;
     }
     try {
       this.loading = true;
-
       const response = await this.authenticationService.login(
         'password', {
           user: {
@@ -172,9 +168,10 @@ export class LoginComponent implements OnInit {
           },
           password: this.accountDetailsForm.controls['password'].value,
         });
-      /*this.router.navigate([this.returnUrl], {
-        relativeTo: this.activatedRoute
-      });*/
+      /* this.router.navigate([this.returnUrl], {
+         relativeTo: this.activatedRoute
+       });
+       */
     } catch (e) {
       console.error('Login failed', e);
       this.showSnackBar('Invalid username or password');

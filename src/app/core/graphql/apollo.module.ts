@@ -3,47 +3,53 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { ApolloLink } from 'apollo-link';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpHeaders } from '@angular/common/http';
-import { StoreModule, Store } from '@ngrx/store';
-import { cacheReducer } from './apollo-angular-cache-ngrx/reducer';
-import { NgrxCacheModule, _rootCacheSelector } from './apollo-angular-cache-ngrx/module';
-import { NgrxCache } from './apollo-angular-cache-ngrx/cache';
-import { createUploadLink } from 'apollo-upload-client';
-import { environment as env } from '@env/environment';
-import { State } from '@app/app.module';
+import { environment } from '@env/environment';
+import { Query } from '../../graphql/types/types';
+import { toIdValue } from 'apollo-utilities';
 
-const uri = env.apiBaseUrl + '/graphql';
-//test
+
+const uri = environment.apiBaseUrl + '/graphql';
+
 @NgModule({
   imports: [
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
-    NgrxCacheModule.forFeature(),
-  ]
+  ],
+  exports : [ApolloModule]
 })
 export class GraphQLModule {
   constructor(
-    protected store: Store<State>,
-    apollo: Apollo,
-    httpLink: HttpLink,
-    ngrxCache: NgrxCache
+    public apollo: Apollo,
+    public httpLink: HttpLink,
   ) {
     const http = httpLink.create({ uri });
     const middleware = new ApolloLink((operation, forward) => {
-      const tokens = JSON.parse(localStorage.getItem('tokens'));
+      /*const tokens = JSON.parse(localStorage.getItem('tokens'));
       const access_token = tokens ? tokens.accessToken : null;
       if (access_token !== null) {
         operation.setContext({
           headers: new HttpHeaders().set('authorization', access_token)
         });
-      }
+      }*/
       return forward(operation)
     })
-    const link = middleware.concat(http);
-    apollo.create({
+    const cache = new InMemoryCache({
+      cacheRedirects: {
+        Query: {
+          me: (_, args) => {
+            debugger;
+            return toIdValue(cache.config.dataIdFromObject({ __typename: 'serviceAuthenticate', user: args }));
+          }
+        }
+      }
+    });
+  
+    this.apollo.create({
       link: middleware.concat(http),
-      cache: ngrxCache.create()
+      cache: cache
     });
   }
 }

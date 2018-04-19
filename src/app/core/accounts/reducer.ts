@@ -1,11 +1,11 @@
-import {ActionTypes } from './action';
+/* import {ActionTypes } from './action';
 import { UserObjectType, TokensType } from '@accounts/common';
 import { UserFields } from '@app/graphql/types/types';
 
 export interface Accounts {
     isLoading: boolean,
-    user:  UserFields.Fragment | undefined,
-    tokens:  TokensType | undefined,
+    user:  UserFields.Fragment | null,
+    tokens:  TokensType | null,
     loggingIn: boolean,
     originalTokens: TokensType | undefined,
     isImpersonated: boolean,
@@ -13,14 +13,18 @@ export interface Accounts {
 
  const initialState: Accounts = {
   isLoading: false,
-  user: undefined,
-  tokens: undefined,
-  originalTokens: undefined,
+  user: null ,
+  tokens: null,
+  originalTokens: null,
   loggingIn: false,
   isImpersonated: false,
 };
 
-export const reducer = (state = initialState, action) => {
+
+export function accountsReducer(
+  state: Accounts = initialState,
+  action
+): Accounts {
   const nextState = state;
   switch (action.type) {
     case ActionTypes.LOGIN: {
@@ -64,7 +68,7 @@ export const reducer = (state = initialState, action) => {
       break;
   }
   return nextState;
-};
+}
 
 
 export const isLoading = (state: Accounts) => state.isLoading;
@@ -88,3 +92,5 @@ export const getOriginalTokens = (state: Accounts) =>{
 };
 
 export const getIsImpersonated = (state: Accounts) => state.isImpersonated;
+
+*/

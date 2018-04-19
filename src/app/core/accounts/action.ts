@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/store';
+/*import { Action } from '@ngrx/store';
 import { Route } from '@angular/router';
 
 export enum ActionTypes {
@@ -65,3 +65,4 @@ export const setImpersonated = isImpersonated => ({
     isImpersonated,
   },
 });
+*/

@@ -10,7 +10,7 @@ import { AuthGuardService } from '@app/core/services/auth-guard.service';
 import { AccountsClient } from './services/account.service';
 import { AccountsClientConfiguration } from '@app/core/accounts/config';
 import { TransportInterface } from './accounts/transport-interface';
-import { AccountsState, reducer } from './accounts';
+// import { Accounts, accountsReducer } from './accounts/reducer';
 import { Apollo } from 'apollo-angular';
 import { AccountGraphQLClient } from './services/account-graphql.service';
 
@@ -32,25 +32,23 @@ export function provideAccountClientService(options: AccountsClientConfiguration
     provide: AccountsClient,
     useFactory: (
       storage: LocalStorageService,
-      store: Store<AccountsState>,
       transport: AccountGraphQLClient) => {
-        return new AccountsClient(options, storage, store, transport)
+        return new AccountsClient(options, storage,  transport)
       },
-    deps: [LocalStorageService, Store, AccountGraphQLClient]
+    deps: [LocalStorageService,  AccountGraphQLClient]
   }
 }
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [],
   providers: [LocalStorageService, AuthGuardService,
     AccountGraphQLClient,
     provideAccountClientService(options),
     { provide: "storage", useClass: LocalStorageService },
-    { provide: "store", useClass: Store },
     { provide: "transport", useExisting: AccountGraphQLClient },
   ]
 })

@@ -21,7 +21,6 @@ import { ActionReducerMap, StoreModule, MetaReducer } from '@ngrx/store';
 import { initStateFromLocalStorage } from '@app/core/meta-reducers/init-state-from-local-storage.reducer';
 import { environment } from '@env/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { reducer } from '@app/core/accounts';
 
 import {
   StoreRouterConnectingModule,
@@ -33,7 +32,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 export function initializer(auth: AuthenticationService): () => Promise<any> {
   return async () => {
      await offlineCheck();
-     return await auth.resumeSession();
+  //   return await auth.resumeSession();
   };
 }
 
@@ -42,7 +41,7 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
-  'accounts':  reducer
+ 
 };
 
 export const metaReducers: MetaReducer<any>[] = [initStateFromLocalStorage];

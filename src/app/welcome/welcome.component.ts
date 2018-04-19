@@ -12,7 +12,6 @@ import {
 } from '@app/core';
 import { environment as env } from '@env/environment';
 
-import { getUser } from '@app/core/accounts';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -42,7 +41,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     ...this.navigation,
     { link: 'settings', label: 'Settings' }
   ];
-  isAuthenticated;
 
   constructor(
     public overlayContainer: OverlayContainer,
@@ -70,11 +68,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
         classList.remove(...toRemove);
         classList.add(effectiveTheme);
       });
-    this.store
-      .select(getUser)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(auth => this.isAuthenticated = auth !== null); 
-
+   
     this.router.events
       .pipe(
         takeUntil(this.unsubscribe$),

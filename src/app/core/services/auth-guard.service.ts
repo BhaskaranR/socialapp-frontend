@@ -3,26 +3,28 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanAc
 import { AuthenticationService } from './authentication.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Apollo } from 'apollo-angular';
+import { getMe } from '../../graphql/queries/users/me.query';
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
   constructor(private router: Router,
-    private authService: AuthenticationService) { }
+    private apollo: Apollo) { }
 
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    this.authService.getUser().subscribe((u) => {
-      console.log(u);
-    })
-    return this.authService.getUser().pipe(map(u => {
-      if (u == null || u == undefined) {
-        this.router.navigate(['/ks'], { queryParams: { returnUrl: state.url } });
-        return false;
-      } else {
-        return true;
-      }
-    }, (error) => {
-      return false;
-    }))
+    return Observable.create((obs) => {
+      this.apollo.query({
+        query: getMe
+      }).subscribe(data => {
+        if (data.data){
+          obs.next(true)
+        } else {
+          obs.next(false);
+        }
+        obs.complete();
+      })
+    });
+
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

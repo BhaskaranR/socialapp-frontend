@@ -81,8 +81,4 @@ export class AuthenticationService {
   }
 
 
-  getUser() {
-    return this.accountsClient.user();
-  }
-
 }

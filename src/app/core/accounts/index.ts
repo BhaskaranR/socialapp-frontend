@@ -1,14 +1,10 @@
-import { TransportInterface } from './transport-interface';
+/* import { TransportInterface } from './transport-interface';
 import config from './config';
 import { UserObjectType } from '@accounts/common';
 import { ActionReducerMap, createSelector, createFeatureSelector } from '@ngrx/store';
 import * as acc from './reducer'
 
-export {reducer} from './reducer';
 
-export interface AccountsState {
-    accounts: acc.Accounts
-}
 
 export const getAccountsState = createFeatureSelector<acc.Accounts>('accounts');
 
@@ -20,7 +16,6 @@ export const getIsLoading = createSelector(
 export const getUser = createSelector(
     getAccountsState,
     (state) => {
-        debugger;
         return state.user
     }
 );
@@ -45,3 +40,4 @@ export const getIsImpersonated = createSelector(
     getAccountsState,
     acc.getIsImpersonated
 );
+*/
