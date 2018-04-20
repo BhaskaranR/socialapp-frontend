@@ -8,7 +8,6 @@
       <a mat-list-item *ngFor="let item of navigationSideMenu" (click)="sidenav.close()" [routerLink]="[item.link]" routerLinkActive="active">
         {{item.label}}
       </a>
-
     </mat-nav-list>
   </mat-sidenav>
 
@@ -27,11 +26,6 @@
         <span routerLink="" class="branding spacer d-none d-md-inline">
           <img [src]="logo" /> Karmasoc</span>
 
-        <span class="d-none d-md-inline">
-          <button mat-button class="nav-button" *ngFor="let item of navigation" [routerLink]="[item.link]" routerLinkActive="active">
-            {{item.label}}
-          </button>
-        </span>
 
         <button mat-icon-button [matMenuTriggerFor]="toolbarUserMenu">
           <mat-icon>person</mat-icon>
@@ -51,7 +45,7 @@
       </mat-toolbar>
     </div>
 
-    <div class="content" [@routerTransition]="o.isActivated && o.activatedRoute.routeConfig.path">
+    <div class="content" cdk-scrollable [@routerTransition]="o.isActivated && o.activatedRoute.routeConfig.path">
       <router-outlet #o="outlet"></router-outlet>
     </div>
   </div>

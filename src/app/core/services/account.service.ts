@@ -172,6 +172,7 @@ export class AccountsClient {
             //this.store.dispatch(loggingIn(false));
 
             this.storeTokens(refreshedSession.tokens);
+            this.user = refreshedSession.user;
             //this.store.dispatch(setTokens(refreshedSession.tokens));
             // this.store.dispatch(setUser(refreshedSession.user));
             return refreshedSession;
