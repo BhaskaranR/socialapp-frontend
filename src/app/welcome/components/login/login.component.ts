@@ -168,10 +168,10 @@ export class LoginComponent implements OnInit {
           },
           password: this.accountDetailsForm.controls['password'].value,
         });
-      /* this.router.navigate([this.returnUrl], {
+       this.router.navigate([this.returnUrl], {
          relativeTo: this.activatedRoute
        });
-       */
+       
     } catch (e) {
       console.error('Login failed', e);
       this.showSnackBar('Invalid username or password');
