@@ -44,6 +44,7 @@ const getTokenKey = (type: string, options: AccountsClientConfiguration) =>
 export class AccountsClient {
 
   private options: AccountsClientConfiguration;
+  public user;
 
   constructor(
     options: AccountsClientConfiguration,
@@ -234,6 +235,7 @@ export class AccountsClient {
     try {
       const response = await this.transport.loginWithService(service, credentials);
       await this.storeTokens(response.tokens);
+      this.user = response.user;
       const { onSignedInHook } = this.options;
       if (isFunction(onSignedInHook)) {
         try {
@@ -243,6 +245,7 @@ export class AccountsClient {
           console.error(err);
         }
       }
+
       return response;
     } catch (err) {
       await this.clearTokens();

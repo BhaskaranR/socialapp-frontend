@@ -5,26 +5,21 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import { getMe } from '../../graphql/queries/users/me.query';
+import { AccountsClient } from '@app/core/services/account.service';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
   constructor(private router: Router,
+    private accountService: AccountsClient,
     private apollo: Apollo) { }
 
    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return Observable.create((obs) => {
-      this.apollo.query({
-        query: getMe
-      }).subscribe(data => {
-        if (data.data){
-          obs.next(true)
-        } else {
-          obs.next(false);
-        }
-        obs.complete();
-      })
-    });
-
+     if (this.accountService.user == null || this.accountService.user == undefined) {
+       this.router.navigate(['/ks'], { queryParams: { returnUrl: state.url } });	
+       return of(false);
+     }
+     return of(true);
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
