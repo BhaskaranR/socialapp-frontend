@@ -3,7 +3,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CoreModule } from '@app/core';
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 
 import { SettingsComponent } from './settings.component';
 

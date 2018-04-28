@@ -40,7 +40,7 @@ import { MatDialogModule, MatSnackBarModule } from '@angular/material';
     MatMenuModule,
     MatIconModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   declarations: [BigInputComponent, BigInputActionComponent,
     // SetNewPasswordComponent,

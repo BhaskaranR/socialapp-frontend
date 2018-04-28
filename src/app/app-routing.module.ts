@@ -5,4 +5,4 @@ const appRoutes: Routes = [
   { path: '**', component: NotFoundComponent }
 ];
 
-export const AppRouting = RouterModule.forRoot(appRoutes);
+export const AppRouting = RouterModule.forRoot(appRoutes, {enableTracing: true});

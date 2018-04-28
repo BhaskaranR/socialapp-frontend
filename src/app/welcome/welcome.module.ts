@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@app/core';
 
 import { RoutingModule } from './welcome.routing';

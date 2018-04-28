@@ -178,6 +178,8 @@ export class SignupComponent implements OnInit {
               tagline: this.userDetailsForm.controls['bio'].value
             }
         }})
+      // await this.authenticationService.requestVerificationEmail(this.accountDetailsForm.controls['mail'].value);
+      
     } catch (e) {
       console.error('Login failed', e);
       this.showSnackBar('Invalid username or password');

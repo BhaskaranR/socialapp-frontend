@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 
-import { SharedModule } from '@app/shared';
+import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@app/core';
 import { debug } from '@app/core/meta-reducers/debug.reducer';
 
@@ -27,6 +27,7 @@ import {
   RouterStateSerializer,
 } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 export function initializer(auth: AuthenticationService): () => Promise<any> {
@@ -66,6 +67,7 @@ if (!environment.production) {
     WelcomeModule,
     HomeModule,
     SettingsModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     StoreModule.forRoot(
       reducers,
       { metaReducers }

@@ -1,0 +1,31 @@
+<nav class="home-navbar-header" color="primary">
+  <a mat-button class="home-button" routerLink="/" aria-label="Karmasoc">
+    <span routerLink="" class="branding spacer center d-inline d-sm-none">
+      <img [src]="logo" />
+    </span>
+    <span>Karmasoc</span>
+  </a>
+  <div class="flex-spacer"></div>
+  <a mat-button class="home-navbar-hide-small home-button"
+  *ngFor="let key of sectionKeys"
+  [routerLink]="key">{{sections[key]}}</a>
+
+  <button mat-icon-button [matMenuTriggerFor]="toolbarUserMenu">
+    <mat-icon>person</mat-icon>
+  </button>
+
+  <mat-menu #toolbarUserMenu="matMenu">
+    <button mat-menu-item (click)="logout.emit()">
+      <mat-icon>power_settings_new</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+
+  <button mat-icon-button routerLink="settings" class="d-none d-sm-inline">
+      <mat-icon>settings</mat-icon>
+  </button>
+</nav>
+<nav class="home-navbar home-navbar-show-small">
+  <a mat-button class="home-navbar-link" *ngFor="let key of sectionKeys" 
+  [routerLink]="key">{{sections[key]}}</a>
+</nav>

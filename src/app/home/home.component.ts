@@ -1,27 +1,24 @@
-import { Title } from '@angular/platform-browser';
+import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter, takeUntil } from 'rxjs/operators';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { ActivationEnd, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { filter } from 'rxjs/operators/filter';
+import { Title } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material';
+import { Subject } from 'rxjs';
 
-import {
-  routerTransition
-} from '@app/core';
 import { environment as env } from '@env/environment';
+import { Store } from '@ngrx/store';
+import { selectorSettings, NIGHT_MODE_THEME } from '@app/settings';
 
-import { NIGHT_MODE_THEME, selectorSettings } from '@app/settings';
-import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({
-  selector: 'ksoc-home',
-  templateUrl: "./home.component.html",
+  selector: 'app-home',
+  templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  animations: [routerTransition]
+  encapsulation: ViewEncapsulation.None,
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent {
+
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   @HostBinding('class') componentCssClass;
@@ -30,25 +27,30 @@ export class HomeComponent implements OnInit, OnDestroy {
   envName = env.envName;
   year = new Date().getFullYear();
   logo = require('../../assets/logo.png');
-  navigation = [
-    { link: '', label: 'About' },
-    { link: '/features', label: 'Features' },
-    { link: 'trending', label: 'Trending' }
-  ];
-  navigationSideMenu = [
-    ...this.navigation,
-    { link: 'settings', label: 'Settings' }
-  ];
-  
+
   isAuthenticated;
 
-  constructor(
-    public overlayContainer: OverlayContainer,
+  constructor(router: Router,
     private store: Store<any>,
-    private router: Router,
-    private titleService: Title,
-    protected dialog: MatDialog
-  ) {}
+    public overlayContainer: OverlayContainer,
+    private titleService: Title
+  ) {
+    let previousRoute = router.routerState.snapshot.url;
+
+    router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((data: NavigationEnd) => {
+        if (!isNavigationWithinComponentView(previousRoute, data.urlAfterRedirects)) {
+          resetScrollPosition();
+        }
+
+        previousRoute = data.urlAfterRedirects;
+      });
+  }
+
+  logout() {
+    //console logs
+  }
 
   ngOnInit(): void {
     this.store
@@ -74,5 +76,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+}
+
+function isNavigationWithinComponentView(oldUrl: string, newUrl: string) {
+  const componentViewExpression = /components\/(\w+)/;
+  return oldUrl && newUrl
+    && componentViewExpression.test(oldUrl)
+    && componentViewExpression.test(newUrl)
+    && oldUrl.match(componentViewExpression)[1] === newUrl.match(componentViewExpression)[1];
+}
+
+function resetScrollPosition() {
+  if (typeof document === 'object' && document) {
+    const sidenavContent = document.querySelector('.mat-drawer-content');
+    if (sidenavContent) {
+      sidenavContent.scrollTop = 0;
+    }
   }
 }
