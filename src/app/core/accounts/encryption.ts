@@ -1,6 +1,6 @@
 import { HashAlgorithm } from '@accounts/common';
-import * as isString from 'lodash/isString';
 import * as CryptoJS from 'crypto-js';
+import { isString } from 'lodash';
 
 const mapHashConstant = {
   sha: 'SHA',

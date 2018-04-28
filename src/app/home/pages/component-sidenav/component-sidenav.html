@@ -11,13 +11,13 @@
   <div class="docs-component-sidenav-content">
     <component-page-header (toggleSidenav)="sidenav.toggle()"></component-page-header>
     <div class="docs-component-sidenav-inner-content">
-      <div class="docs-component-sidenav-body-content">
+      <div class="docs-component-sidenav-body-content"  [@routerTransition]="o.isActivated && o.activatedRoute.routeConfig.path">
         <!-- If on large screen, menu resides to left of content -->
         <app-component-nav 
           *ngIf="!isScreenSmall()"
           [params]="params">
         </app-component-nav>
-        <router-outlet></router-outlet>
+          <router-outlet #o="outlet"></router-outlet>
       </div>
     </div>
   </div>

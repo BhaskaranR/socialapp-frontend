@@ -3,7 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
 import { CoreModule } from '@app/core';
-import { SettingsModule } from '@app/settings';
 import { RoutingModule } from './home.routing';
 import { HomeComponent } from './home.component';
 import { StaticModule } from '@app/static';
@@ -20,7 +19,6 @@ import { TableOfContentsModule } from '@app/shared/table-of-contents/table-of-co
 @NgModule({
   imports: [
     SharedModule,
-    SettingsModule,
     RoutingModule,
     StaticModule,
     ComponentCategoryListModule,

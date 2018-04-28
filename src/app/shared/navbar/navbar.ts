@@ -1,8 +1,9 @@
 import { Component, NgModule, Output, EventEmitter } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { MatButtonModule, MatMenuModule, MatIconModule } from '@angular/material';
-import {RouterModule} from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { SECTIONS } from '@app/shared/menu-items/menu-items';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const SECTIONS_KEYS = Object.keys(SECTIONS);
 
@@ -13,12 +14,14 @@ const SECTIONS_KEYS = Object.keys(SECTIONS);
 })
 export class NavBar {
 
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   logo = require('../../../assets/logo.png');
 
   @Output() logout = new EventEmitter();
-
-  @Output() settings = new EventEmitter();
   
   get sections() {
     return SECTIONS;
@@ -26,6 +29,12 @@ export class NavBar {
 
   get sectionKeys() {
     return SECTIONS_KEYS;
+  }
+
+  gotoSection(key) {
+    this.router.navigate([`/${key}`], {
+      relativeTo: this.route
+    })
   }
 }
 
@@ -35,6 +44,7 @@ export class NavBar {
     MatMenuModule,
     MatIconModule,
     RouterModule,
+    MatToolbarModule,
     CommonModule
   ],
   exports: [NavBar],

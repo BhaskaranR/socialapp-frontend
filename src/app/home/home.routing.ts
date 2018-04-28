@@ -18,7 +18,7 @@ const routes: Routes = [
         component: HomeComponent, canActivate: [AuthGuardService], canActivateChild: [AuthGuardService],
         children: [
             {
-                path: 'settings',
+                path: 'preferences',
                 component: SettingsComponent,
                 data: {
                     title: 'Settings'

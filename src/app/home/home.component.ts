@@ -9,12 +9,14 @@ import { Subject } from 'rxjs';
 import { environment as env } from '@env/environment';
 import { Store } from '@ngrx/store';
 import { selectorSettings, NIGHT_MODE_THEME } from '@app/settings';
+import { routerTransition } from '@app/core';
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  animations: [routerTransition],
   encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent {

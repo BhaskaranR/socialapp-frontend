@@ -35,7 +35,6 @@ function createApollo({ resolvers, schema, redirects, defaults = {} }) {
     },
     cacheRedirects: redirects(cache),
   });
-
   persistCache({
     cache,
     storage: sessionStorage,
@@ -66,8 +65,8 @@ function createApollo({ resolvers, schema, redirects, defaults = {} }) {
       })
 
       apollo.create({
-        link: middleware.concat(state.concat(http)),
-        cache,
+        link: ApolloLink.from([middleware, state, http]),
+        cache
       });
     };
   };

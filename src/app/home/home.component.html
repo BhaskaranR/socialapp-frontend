@@ -1,2 +1,2 @@
-<app-navbar class="mat-elevation-z6" (logout)="logout()"></app-navbar>
-<router-outlet></router-outlet>
+<app-navbar class="mat-elevation-z6"  (logout)="logout()"></app-navbar>
+<router-outlet #o="outlet" [@routerTransition]="o.isActivated && o.activatedRoute.routeConfig.path"></router-outlet>

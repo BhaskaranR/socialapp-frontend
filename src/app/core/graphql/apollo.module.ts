@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/* import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { ApolloLink } from 'apollo-link';
@@ -45,15 +45,6 @@ export class GraphQLModule {
       }
     };
 
-    // config
-    //{
-    //  cacheRedirects: {
-    //    Query: {
-    //      me: (_, {  }) => toIdValue(dataIdFromObject({ __typename: 'Series', id })),
-    //    },
-    //  },
-    //  dataIdFromObject: dataIdFromObject
-    //}
     const cache = new InMemoryCache();
     this.apollo.create({
       link: middleware.concat(http),
@@ -61,3 +52,4 @@ export class GraphQLModule {
     });
   }
 }
+*/

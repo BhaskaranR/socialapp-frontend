@@ -10,7 +10,7 @@ import { AppRouting } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticationService } from '@app/core/services/authentication.service';
 import { offlineCheck } from '@app/core/common/offline';
-import { GraphQLModule } from '@app/core/graphql/apollo.module';
+// import { GraphQLModule } from '@app/core/graphql/apollo.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from '@app/not-found/not-found.component';
 import { ErrorComponent } from '@app/error/error.component';
@@ -28,6 +28,9 @@ import {
 } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { resolvers, defaults, schema, redirects } from './resolvers';
+
+import { ApiModule } from './api/api.module';
 
 
 export function initializer(auth: AuthenticationService): () => Promise<any> {
@@ -62,7 +65,8 @@ if (!environment.production) {
     CoreModule,
     SharedModule,
     // features
-    GraphQLModule,
+    ApiModule.forRoot({ resolvers, defaults, schema, redirects }),
+    // GraphQLModule,
     // app
     WelcomeModule,
     HomeModule,

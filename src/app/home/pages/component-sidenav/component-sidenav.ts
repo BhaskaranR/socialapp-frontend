@@ -10,6 +10,7 @@ import {Observable, Subject, combineLatest} from 'rxjs';
 import {switchMap, takeUntil, startWith} from 'rxjs/operators';
 import {trigger, animate, state, style, transition} from '@angular/animations';
 import { MenuItems } from '@app/shared/menu-items/menu-items';
+import { routerTransition } from '@app/core';
 
 const SMALL_WIDTH_BREAKPOINT = 720;
 
@@ -17,6 +18,7 @@ const SMALL_WIDTH_BREAKPOINT = 720;
   selector: 'app-component-sidenav',
   templateUrl: './component-sidenav.html',
   styleUrls: ['./component-sidenav.scss'],
+  animations: [routerTransition],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
@@ -44,7 +46,9 @@ export class ComponentSidenav implements OnInit {
 
     // Combine params from all of the path into a single object.
     this.params = combineLatest(
-      this._route.pathFromRoot.map(route => route.params),
+      this._route.pathFromRoot.map(route => {
+        return route.params
+      }),
       Object.assign);
   }
 
