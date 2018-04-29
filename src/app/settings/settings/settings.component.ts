@@ -2,6 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Apollo } from 'apollo-angular';
+import { query, Settings } from '../models/settings';
+import { map } from 'rxjs/operators';
+import gql from 'graphql-tag';
 
 import {
   selectorSettings,
@@ -18,7 +22,7 @@ import {
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
-  settings: SettingsState;
+  settings: Settings;
 
   themes = [
     { value: 'DEFAULT-THEME', label: 'Blue' },
@@ -27,14 +31,22 @@ export class SettingsComponent implements OnInit, OnDestroy {
     { value: 'BLACK-THEME', label: 'Dark' }
   ];
 
-  constructor(private store: Store<any>) {
-    store
-      .select(selectorSettings)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(settings => (this.settings = settings));
+  constructor(private apollo: Apollo, private store: Store<any>) {
+    // store
+    //   .select(selectorSettings)
+    //   .pipe(takeUntil(this.unsubscribe$))
+    //   .subscribe(settings => (this.settings = settings));
+    this.apollo
+      .watchQuery({
+        query,
+      })
+      .valueChanges.pipe(
+        takeUntil(this.unsubscribe$),
+        map((result: any) => result.data.settings))
+      .subscribe((settings) => this.settings = settings);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
@@ -48,22 +60,53 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   set selectedTheme(val) {
     this._selectedTheme = val;
-    this.onThemeSelect({value: val});
+    this.onThemeSelect({ value: val });
   }
 
   onThemeSelect({ value: theme }) {
-    this.store.dispatch(new ActionSettingsChangeTheme({ theme }));
-    this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
+    /*
+    this.apollo
+      .mutate({
+        mutation: gql`
+        mutation addNote($title: String!, $text: String) {
+          addNote(text: $text, title: $title) {
+            ...noteFragment
+          }
+        }
+
+        ${noteFragment}
+      `,
+        variables: {
+          title: note.title,
+          text: note.text,
+        },
+        update: (proxy, result: any) => {
+          const data: any = proxy.readQuery({ query });
+
+          proxy.writeQuery({
+            query,
+            data: {
+              ...data,
+              notes: [result.data.addNote, ...data.notes],
+            },
+          });
+        },
+      })
+      .subscribe();
+      */
+    /*  this.store.dispatch(new ActionSettingsChangeTheme({ theme }));
+      this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
+      */
   }
 
   _autoNightModeSelect: string;
-  get autoNightModelSelect(){
+  get autoNightModelSelect() {
     return this._autoNightModeSelect;
   }
 
   set autoNightModelSelect(val) {
     this._autoNightModeSelect = val;
-    this.onAutoNightModeSelect({value: val});
+    this.onAutoNightModeSelect({ value: val });
   }
 
   onAutoNightModeSelect({ value: autoNightMode }) {

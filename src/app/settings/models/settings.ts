@@ -8,8 +8,18 @@ export const settingsFragment = gql`
   }
 `;
 
-export interface Note {
+export interface Settings {
     theme?: string;
     autoNightMode?: boolean;
     persist: boolean;
 }
+
+export const query = gql`
+  {
+    settings {
+      ...settingsFragment
+    }
+  }
+
+  ${settingsFragment}
+`;

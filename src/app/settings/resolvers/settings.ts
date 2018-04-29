@@ -1,87 +1,56 @@
 import { toIdValue } from 'apollo-utilities';
 import gql from 'graphql-tag';
-
-import { settingsFragment } from '../models/settings';
-
-const query = gql`
-  {
-    notes {
-      ...noteFragment
-    }
-  }
-
-  ${settingsFragment}
-`;
+import { query } from '../models/settings';
 
 export const defaults = {
-  notes: [],
+    notes: [],
 };
 
 export const resolvers = {
-  Mutation: {
-    changeTheme: (_, args, { cache }) => {
-        const data = cache.readQuery({
-          query,
-        });
-  
-        console.log('notes', data);
-  
-        return {
-            theme: args,
-            autoNightMode: data.autoNightMode,
-            persist: data.persist
-        };
-      },
+    Mutation: {
+        changeTheme: (_, args, { cache }) => {
+            const data = cache.readQuery({
+                query,
+            });
 
-      changeNightMode: (_, args, { cache }) => {
-        const data = cache.readQuery({
-          query,
-        });
-  
-        console.log('notes', data);
-  
-        return {
-            theme: data.theme,
-            autoNightMode: args,
-            persist: data.persist
-        };
-      },
-      persist: (_, args, { cache }) => {
-        const data = cache.readQuery({
-          query,
-        });
-  
-        console.log('notes', data);
-  
-        return {
-            theme: data.theme,
-            autoNightMode: data.autoNightMode,
-            persist: args
-        };
-      },
-    addNote: (_, args, { cache }) => {
-      const data = cache.readQuery({
-        query,
-      });
+            return {
+                theme: args,
+                autoNightMode: data.autoNightMode,
+                persist: data.persist
+            };
+        },
 
-      console.log('notes', data);
+        changeNightMode: (_, args, { cache }) => {
+            const data = cache.readQuery({
+                query,
+            });
 
-      return {
-        id: 'temp-1',
-        title: args.title,
-        text: args.text,
-      };
+            return {
+                theme: data.theme,
+                autoNightMode: args,
+                persist: data.persist
+            };
+        },
+        persist: (_, args, { cache }) => {
+            const data = cache.readQuery({
+                query,
+            });
+
+            return {
+                theme: data.theme,
+                autoNightMode: data.autoNightMode,
+                persist: args
+            };
+        }
     },
-  },
-  Query: {
-    settings: (_, args, { cache }) => {
-      const data = cache.readQuery({
-        query,
-      });
+    Query: {
+        settings: (_, args, { cache }) => {
+            const data = cache.readQuery({
+                query,
+            });
+            console.log('settings', data);
 
-      console.log('settings', data);
-
-      return data.settings || [];
+            return data.settings || [];
+        },
     },
-  },
 };
