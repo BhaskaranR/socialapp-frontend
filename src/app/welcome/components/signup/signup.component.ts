@@ -7,7 +7,7 @@ import {
   UsernameValidator,
   PasswordValidator,
   ParentErrorStateMatcher,
-  PhoneValidator
+  ZipcodeValidator
 } from '@app/shared/validators';
 
 
@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
 
   loading = false;
   matching_passwords_group: FormGroup;
-  country_phone_group: FormGroup;
+  country_zipcode_group: FormGroup;
 
   parentErrorStateMatcher = new ParentErrorStateMatcher();
 
@@ -35,9 +35,7 @@ export class SignupComponent implements OnInit {
   ];
 
   countries = [
-    new Country('UY', 'Uruguay'),
     new Country('US', 'United States'),
-    new Country('AR', 'Argentina')
   ];
 
 
@@ -54,9 +52,9 @@ export class SignupComponent implements OnInit {
     'birthday': [
       { type: 'required', message: 'Please insert your birthday' },
     ],
-    'phone': [
-      { type: 'required', message: 'Phone is required' },
-      { type: 'validCountryPhone', message: 'Phone incorrect for the country selected' }
+    'zipcode': [
+      { type: 'required', message: 'Zipcode is required' },
+      { type: 'validZipCode', message: 'Zipcode incorrect for the country selected' }
     ]
   };
 
@@ -109,28 +107,28 @@ export class SignupComponent implements OnInit {
       return PasswordValidator.areEqual(formGroup);
     });
 
-    // country & phone validation
+    // country & zipcode validation
     let country = new FormControl(this.countries[0], Validators.required);
 
-    let phone = new FormControl('', {
+    let zipcode = new FormControl('', {
       validators: Validators.compose([
-        Validators.required,
-        PhoneValidator.validCountryPhone(country)
+        ZipcodeValidator.validZipCode,
+        Validators.required
       ])
     });
 
-    this.country_phone_group = new FormGroup({
+    this.country_zipcode_group = new FormGroup({
       country: country,
-      phone: phone
+      zipcode: zipcode
     });
 
     // user details form validations
     this.userDetailsForm = this._formBuilder.group({
-      fullname: ['Homero Simpson', Validators.required ],
-      bio: ["Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s", Validators.maxLength(256)],
+      fullname: ['', Validators.required ],
+      bio: ["", Validators.maxLength(256)],
       birthday: ['', Validators.required],
       gender: new FormControl(this.genders[0], Validators.required),
-      country_phone: this.country_phone_group
+      country_zipcode: this.country_zipcode_group
     });
 
 
@@ -156,20 +154,22 @@ export class SignupComponent implements OnInit {
 
 
   async onSubmitUserDetails(value){
-    if (!this.accountDetailsForm.valid) {
+    if (!this.accountDetailsForm.valid || !this.userDetailsForm.valid) {
       this.showSnackBar('Invalid data');
       return;
     }
     try {
+
       this.loading = true;
       await this.authenticationService.createUser(
         'password', {
           username: this.accountDetailsForm.controls['username'].value,
-          email: this.accountDetailsForm.controls['mail'].value,
-          password: this.accountDetailsForm.controls['password'].value,
+          email: this.accountDetailsForm.controls['email'].value,
+          password: this.matching_passwords_group.controls['password'].value,
           profile: {
-            name: this.userDetailsForm.controls['name'].value,
-            zipcode: this.userDetailsForm.controls['zipcode'].value,
+            name: this.userDetailsForm.controls['fullname'].value,
+            zipcode: this.country_zipcode_group.controls['zipcode'].value,
+            country: this.country_zipcode_group.controls['country'].value,
             personalInfo: {
               gender: this.userDetailsForm.controls['gender'].value,
               birthday: this.userDetailsForm.controls['birthday'].value,
@@ -196,3 +196,4 @@ export class SignupComponent implements OnInit {
   }
 
 }
+

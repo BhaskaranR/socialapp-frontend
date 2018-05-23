@@ -115,6 +115,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
         autoNightMode: autoNightMode === 'true'
       })
     );
-    this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
+    //this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
   }
 }

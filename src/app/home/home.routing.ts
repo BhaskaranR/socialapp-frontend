@@ -33,8 +33,9 @@ const routes: Routes = [
                     {
                         path: 'feeds',
                         children: [
-                           // { path: '', component: ComponentCategoryList },
-                           // { path: ':id', component: ComponentList },
+                            
+                            { path: '', component: ComponentCategoryList },
+                            { path: ':id', component: ComponentList }
                         ]
                     }
                     /*,
