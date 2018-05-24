@@ -169,7 +169,6 @@ export class SignupComponent implements OnInit {
           profile: {
             name: this.userDetailsForm.controls['fullname'].value,
             zipcode: this.country_zipcode_group.controls['zipcode'].value,
-            country: this.country_zipcode_group.controls['country'].value,
             personalInfo: {
               gender: this.userDetailsForm.controls['gender'].value,
               birthday: this.userDetailsForm.controls['birthday'].value,
@@ -178,7 +177,7 @@ export class SignupComponent implements OnInit {
               tagline: this.userDetailsForm.controls['bio'].value
             }
         }})
-      // await this.authenticationService.requestVerificationEmail(this.accountDetailsForm.controls['mail'].value);
+       await this.authenticationService.requestVerificationEmail(this.accountDetailsForm.controls['email'].value);
       
     } catch (e) {
       console.error('Login failed', e);

@@ -64,6 +64,7 @@ export class AuthenticationService {
     return await this.accountsClient.loginWithService(service, credentials);
   }
 
+
   async createUser(
     service, user: CreateUserType): Promise<void> {
     return await this.accountsClient.createUser(service, user);
@@ -73,6 +74,11 @@ export class AuthenticationService {
     this.cleanCache();
     return this.accountsClient.logout(null);
   }
+
+  async requestVerificationEmail(email): Promise<any> {
+    return this.accountsClient.requestVerificationEmail(email);
+  }
+
 
   availableProviders(): Observable<OauthProvider[]> {
     return this.apollo.query<GetAllProviders.Query>({
