@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StaticModule } from '@app/static';
 import { MatDatepickerModule, MatStepperModule, MatNativeDateModule } from '@angular/material';
 import { ForgotPasswordComponent } from './components/forgot-password/forgotPassword.component';
+import { VerifyEmailComponent } from './components/verify-email/verifyemail.component';
 
 
 export function initializer(auth: AuthenticationService): () => Promise<any> {
@@ -34,7 +35,9 @@ export function initializer(auth: AuthenticationService): () => Promise<any> {
     RoutingModule,
     StaticModule
   ],
-  declarations: [WelcomeComponent,
+  declarations: [
+    VerifyEmailComponent,
+    WelcomeComponent,
     LoginComponent,
     SignupComponent,
     ForgotPasswordComponent],

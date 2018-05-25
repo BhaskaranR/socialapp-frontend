@@ -79,6 +79,10 @@ export class AuthenticationService {
     return this.accountsClient.requestVerificationEmail(email);
   }
 
+  async verifyEmail(token): Promise<any> {
+    return await this.accountsClient.verifyEmail(token);
+  }
+
 
   availableProviders(): Observable<OauthProvider[]> {
     return this.apollo.query<GetAllProviders.Query>({

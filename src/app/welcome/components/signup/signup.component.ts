@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { AuthenticationService } from '../../../core/services/authentication.service';
+import { Router } from '@angular/router';
 import {
   Country,
   UsernameValidator,
@@ -85,6 +86,7 @@ export class SignupComponent implements OnInit {
   }
 
   constructor(private _formBuilder: FormBuilder,
+    private router: Router,
     private authenticationService: AuthenticationService,
     public snackBar: MatSnackBar) { }
 
@@ -178,6 +180,8 @@ export class SignupComponent implements OnInit {
             }
         }})
        await this.authenticationService.requestVerificationEmail(this.accountDetailsForm.controls['email'].value);
+       this.showSnackBar('Invalid username or password');
+      this.router.navigate(['/ks/login']);
       
     } catch (e) {
       console.error('Login failed', e);

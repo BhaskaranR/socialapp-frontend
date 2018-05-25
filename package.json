@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "update": "ng update @angular/material --next",
-    "start": "ng serve",
+    "start": "ng serve --port 4300",
     "build": "ng build",
     "test": "npm run lint && ng test --single-run",
     "lint": "ng lint",

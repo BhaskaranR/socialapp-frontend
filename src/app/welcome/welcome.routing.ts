@@ -8,6 +8,7 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 import { LoginComponent } from '@app/welcome/components/login/login.component';
 import { SignupComponent } from '@app/welcome/components/signup/signup.component';
 import { ForgotPasswordComponent } from '@app/welcome/components/forgot-password/forgotPassword.component';
+import { VerifyEmailComponent } from './components/verify-email/verifyemail.component';
 
 const routes: Routes = [
     {
@@ -40,6 +41,10 @@ const routes: Routes = [
             {
                 path: 'signup',
                 component: SignupComponent
+            },
+            {
+                path: 'verify-email/:id',
+                component: VerifyEmailComponent
             }
         ]
     }
