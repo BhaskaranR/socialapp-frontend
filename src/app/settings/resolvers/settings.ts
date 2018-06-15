@@ -1,6 +1,6 @@
 import { toIdValue } from 'apollo-utilities';
 import gql from 'graphql-tag';
-import { query, settingsFragment } from '../models/settings';
+import { query } from '../models/settings';
 
 
 const settingsFragment = gql`
