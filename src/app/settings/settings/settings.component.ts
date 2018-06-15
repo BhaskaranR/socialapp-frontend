@@ -71,18 +71,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         mutation: changeTheme,
         variables: {
           theme: theme
-        },
-        update: (proxy, result: any) => {
-          const data: any = proxy.readQuery({ query });
-
-          proxy.writeQuery({
-            query,
-            data: {
-              ...data,
-              notes: [result.data.addNote, ...data.notes],
-            },
-          });
-        },
+        }
       })
       .subscribe();
       
@@ -102,24 +91,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   onAutoNightModeSelect({ value: autoNightMode }) {
-
     this.apollo
     .mutate({
       mutation: changeNightMode,
       variables: {
         autoNightMode: autoNightMode
-      },
-      update: (proxy, result: any) => {
-        const data: any = proxy.readQuery({ query });
-
-        proxy.writeQuery({
-          query,
-          data: {
-            ...data,
-            notes: [result.data.addNote, ...data.notes],
-          },
-        });
-      },
+      }
     })
     .subscribe();
 

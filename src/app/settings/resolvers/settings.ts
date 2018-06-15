@@ -1,6 +1,6 @@
 import { toIdValue } from 'apollo-utilities';
 import gql from 'graphql-tag';
-import { query } from '../models/settings';
+import { query, settingsFragment } from '../models/settings';
 
 
 const settingsFragment = gql`
@@ -18,19 +18,24 @@ export const defaults = {
         __typename: 'Settings'
     }
 };
-
+const id = 'Settings';
 export const resolvers = {
     Mutation: {
         changeTheme: (_, args, { cache }) => {
+            
             const data = cache.readQuery({
                 query,
             });
 
-            return {
-                theme: args,
-                autoNightMode: data.autoNightMode,
-                persist: data.persist
-            };
+            cache.writeFragment({
+                fragment: settingsFragment,
+                id,
+                data: {
+                    theme: args.theme,
+                    autoNightMode: data.autoNightMode,
+                    persist: data.persist
+                }
+            })
         },
 
         changeNightMode: (_, args, { cache }) => {
@@ -40,7 +45,7 @@ export const resolvers = {
 
             return {
                 theme: data.theme,
-                autoNightMode: args,
+                autoNightMode: args.autoNightMode,
                 persist: data.persist
             };
         },
@@ -49,11 +54,15 @@ export const resolvers = {
                 query,
             });
 
-            return {
-                theme: data.theme,
-                autoNightMode: data.autoNightMode,
-                persist: args
-            };
+            cache.writeFragment({
+                fragment: settingsFragment,
+                id,
+                data:{
+                    theme: data.theme,
+                    autoNightMode: data.autoNightMode,
+                    persist: args
+                }
+            });
         }
     },
     Query: {
