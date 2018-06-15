@@ -1,15 +1,19 @@
 import { Component, ViewEncapsulation, HostBinding } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil, map } from 'rxjs/operators';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material';
 import { Subject } from 'rxjs';
 
 import { environment as env } from '@env/environment';
-import { Store } from '@ngrx/store';
-import { selectorSettings, NIGHT_MODE_THEME } from '@app/settings';
+// import { selectorSettings, NIGHT_MODE_THEME } from '@app/settings';
 import { routerTransition } from '@app/core';
+import { query } from '@app/settings/models/settings';
+import { Apollo } from 'apollo-angular';
+import { NIGHT_MODE_THEME } from '@app/settings';
+import gql from 'graphql-tag';
+import { settingsFragment } from '../settings/models/settings';
 
 
 @Component({
@@ -33,7 +37,7 @@ export class HomeComponent {
   isAuthenticated;
 
   constructor(router: Router,
-    private store: Store<any>,
+    private apollo: Apollo,
     public overlayContainer: OverlayContainer,
     private titleService: Title
   ) {
@@ -45,7 +49,6 @@ export class HomeComponent {
         if (!isNavigationWithinComponentView(previousRoute, data.urlAfterRedirects)) {
           resetScrollPosition();
         }
-
         previousRoute = data.urlAfterRedirects;
       });
   }
@@ -55,7 +58,36 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.store
+    this.apollo
+    .watchQuery({
+      query: gql`
+      settings @client {
+        ...settingsFragment
+      }
+      ${settingsFragment}
+   `,
+      fetchPolicy: 'cache-and-network',
+    })
+    .valueChanges.pipe(
+      takeUntil(this.unsubscribe$),
+      map((result: any) => result.data.settings))
+    .subscribe((settings) => {
+      const { theme, autoNightMode } = settings;
+      const hours = new Date().getHours();
+      const effectiveTheme = (autoNightMode && (hours >= 20 || hours <= 6)
+        ? NIGHT_MODE_THEME
+        : theme
+      ).toLowerCase();
+      this.componentCssClass = effectiveTheme;
+      const classList = this.overlayContainer.getContainerElement().classList;
+      const toRemove = Array.from(classList).filter((item: string) =>
+        item.includes('-theme')
+      );
+      classList.remove(...toRemove);
+      classList.add(effectiveTheme);
+    });
+
+   /* this.store
       .select(selectorSettings)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(settings => {
@@ -73,6 +105,7 @@ export class HomeComponent {
         classList.remove(...toRemove);
         classList.add(effectiveTheme);
       });
+      */
   }
 
   ngOnDestroy(): void {

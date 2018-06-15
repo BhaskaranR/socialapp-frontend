@@ -13,6 +13,8 @@ const query = gql`
   ${noteFragment}
 `;
 
+
+
 export const defaults = {
   notes: [],
 };

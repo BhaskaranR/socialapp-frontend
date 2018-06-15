@@ -1,19 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+//  import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { Apollo } from 'apollo-angular';
-import { query, Settings } from '../models/settings';
+import { query, Settings, changeTheme, changeNightMode } from '../models/settings';
 import { map } from 'rxjs/operators';
 import gql from 'graphql-tag';
 
-import {
-  selectorSettings,
-  ActionSettingsChangeTheme,
-  ActionSettingsChangeAutoNightMode,
-  SettingsState,
-  ActionSettingsPersist
-} from '../settings.reducer';
 
 @Component({
   selector: 'ksoc-settings',
@@ -31,14 +24,23 @@ export class SettingsComponent implements OnInit, OnDestroy {
     { value: 'BLACK-THEME', label: 'Dark' }
   ];
 
-  constructor(private apollo: Apollo, private store: Store<any>) {
+  constructor(private apollo: Apollo) {
     // store
     //   .select(selectorSettings)
     //   .pipe(takeUntil(this.unsubscribe$))
     //   .subscribe(settings => (this.settings = settings));
     this.apollo
       .watchQuery({
-        query,
+        query: gql`
+        query settings {
+            settings @client {
+              theme
+              autoNightMode
+              persist
+            }
+          }
+      `,
+        fetchPolicy: 'cache-and-network',
       })
       .valueChanges.pipe(
         takeUntil(this.unsubscribe$),
@@ -64,21 +66,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   onThemeSelect({ value: theme }) {
-    /*
     this.apollo
       .mutate({
-        mutation: gql`
-        mutation addNote($title: String!, $text: String) {
-          addNote(text: $text, title: $title) {
-            ...noteFragment
-          }
-        }
-
-        ${noteFragment}
-      `,
+        mutation: changeTheme,
         variables: {
-          title: note.title,
-          text: note.text,
+          theme: theme
         },
         update: (proxy, result: any) => {
           const data: any = proxy.readQuery({ query });
@@ -93,7 +85,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         },
       })
       .subscribe();
-      */
+      
     /*  this.store.dispatch(new ActionSettingsChangeTheme({ theme }));
       this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
       */
@@ -110,11 +102,33 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   onAutoNightModeSelect({ value: autoNightMode }) {
-    this.store.dispatch(
+
+    this.apollo
+    .mutate({
+      mutation: changeNightMode,
+      variables: {
+        autoNightMode: autoNightMode
+      },
+      update: (proxy, result: any) => {
+        const data: any = proxy.readQuery({ query });
+
+        proxy.writeQuery({
+          query,
+          data: {
+            ...data,
+            notes: [result.data.addNote, ...data.notes],
+          },
+        });
+      },
+    })
+    .subscribe();
+
+    /* this.store.dispatch(
       new ActionSettingsChangeAutoNightMode({
         autoNightMode: autoNightMode === 'true'
       })
     );
+    */
     //this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
   }
 }

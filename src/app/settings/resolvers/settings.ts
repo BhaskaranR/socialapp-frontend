@@ -2,8 +2,21 @@ import { toIdValue } from 'apollo-utilities';
 import gql from 'graphql-tag';
 import { query } from '../models/settings';
 
+
+const settingsFragment = gql`
+  fragment settingsFragment on Settings {
+    theme
+    autoNightMode
+    persist
+  }`;
+
 export const defaults = {
-    notes: [],
+    settings: {
+        theme: 'DEFAULT-THEME',
+        autoNightMode: false,
+        persist: true,
+        __typename: 'Settings'
+    }
 };
 
 export const resolvers = {
@@ -45,12 +58,12 @@ export const resolvers = {
     },
     Query: {
         settings: (_, args, { cache }) => {
-            const data = cache.readQuery({
-                query,
+            const id = 'Settings';
+            const settings: any = cache.readFragment({
+                fragment: settingsFragment,
+                id,
             });
-            console.log('settings', data);
-
-            return data.settings || [];
+            return settings;
         },
     },
 };

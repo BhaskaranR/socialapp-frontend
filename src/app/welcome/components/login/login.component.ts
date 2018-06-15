@@ -7,7 +7,6 @@ import { AuthenticationService } from '@app/core/services/authentication.service
 import { environment } from '@env/environment';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UsernameValidator } from '@app/shared/validators';
-import { Store, select } from '@ngrx/store';
 // import { Accounts } from '@app/core/accounts/reducer';
 // import * as selectors from '@app/core/accounts';
 // import { setUser } from '../../../core/accounts/action';

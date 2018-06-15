@@ -12,7 +12,6 @@ import {
 
 import { hashPassword } from '../accounts/encryption';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { AccountsClientConfiguration } from '../accounts/config';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { Observable } from 'rxjs/Observable';

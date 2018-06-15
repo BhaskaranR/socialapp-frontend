@@ -1,8 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import {  StoreModule, Store, ActionReducerMap } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 
 import { environment } from '@env/environment';
 import { LocalStorageService } from './local-storage/local-storage.service';
