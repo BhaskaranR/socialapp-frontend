@@ -7,16 +7,16 @@ app-component-sidenav {
   flex-direction: column;
 }
 
-.docs-component-viewer-sidenav-container {
+.component-viewer-sidenav-container {
   flex: 1;
   box-sizing: border-box;
 }
 
-.docs-component-viewer-sidenav {
+.component-viewer-sidenav {
   overflow: auto;
 }
 
-.docs-component-sidenav-inner-content {
+.component-sidenav-inner-content {
   display: flex;
   flex-direction: row;
 
@@ -33,11 +33,11 @@ app-component-sidenav {
   }
 }
 
-.docs-component-viewer-nav {
+.component-viewer-nav {
   position: sticky;
   top: 25px;
 
-  .docs-component-viewer-nav-content {
+  .component-viewer-nav-content {
     margin: 25px;
     width: $sidenav-width;
     max-height: 75vh;
@@ -99,35 +99,35 @@ app-component-sidenav {
   }
 }
 
-.docs-component-sidenav-content {
+.component-sidenav-content {
   display: flex;
   flex-direction: column;
   min-height: 100%;
 }
 
-.docs-component-sidenav-inner-content {
+.component-sidenav-inner-content {
   display: flex; 
   flex-direction: column;
   flex: 1;
 }
 
-.docs-component-sidenav-body-content {
+.component-sidenav-body-content {
   display: flex;
   flex: 1;
 }
 
 @media (max-width: $small-breakpoint-width) {
   // Add specific rule to prevent default rule conflict
-  .docs-component-viewer-sidenav-container .docs-component-viewer-sidenav {
+  .component-viewer-sidenav-container .component-viewer-sidenav {
     // position right above the content
     z-index: 4;
   }
 
-  .docs-component-viewer-nav {
+  .component-viewer-nav {
     position: relative;
     top: 0;
 
-    .docs-component-viewer-nav-content {
+    .component-viewer-nav-content {
       box-sizing: border-box;
       margin: 0;
       max-height: initial;
@@ -137,7 +137,7 @@ app-component-sidenav {
 }
 
 @media (max-width: 720px) {
-  .docs-component-viewer-sidenav-container {
+  .component-viewer-sidenav-container {
     flex: 1 0 auto;
   }
 }

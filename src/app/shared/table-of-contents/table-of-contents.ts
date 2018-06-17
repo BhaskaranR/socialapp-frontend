@@ -31,7 +31,7 @@ export class TableOfContents implements OnInit {
 
   @Input() links: Link[] = [];
   @Input() container: string;
-  @Input() headerSelectors = '.docs-markdown-h3,.docs-markdown-h4';
+  @Input() headerSelectors = '.markdown-h3,.markdown-h4';
 
   _rootUrl: string;
   private _scrollContainer: any;

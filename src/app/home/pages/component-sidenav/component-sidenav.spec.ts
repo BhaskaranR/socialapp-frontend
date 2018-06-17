@@ -40,7 +40,7 @@ describe('ComponentSidenav', () => {
     const totalItems = component.docItems.getItems('categories').length;
     const totalLinks = fixture
       .nativeElement
-      .querySelectorAll('.docs-component-viewer-sidenav li a')
+      .querySelectorAll('.component-viewer-sidenav li a')
       .length;
     expect(totalLinks).toEqual(totalItems);
   });

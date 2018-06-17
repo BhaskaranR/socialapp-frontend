@@ -1,8 +1,8 @@
-<div class="docs-component-category-list">
+<div class="component-category-list">
   <a *ngFor="let category of docItems.getCategories((params | async)?.section)"
-     class="docs-component-category-list-item"
+     class="component-category-list-item"
     [routerLink]="['../', category.id]">
-    <mat-card class="docs-component-category-list-card">
+    <mat-card class="component-category-list-card">
       <mat-card-title>{{category.name}}</mat-card-title>
     </mat-card>
   </a>

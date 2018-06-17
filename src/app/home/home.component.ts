@@ -61,12 +61,15 @@ export class HomeComponent {
     this.apollo
     .watchQuery({
       query: gql`
-      settings @client {
-        ...settingsFragment
+    query settings {
+        settings @client {
+          theme
+          autoNightMode
+          persist
+        }
       }
-      ${settingsFragment}
-   `,
-      fetchPolicy: 'cache-and-network',
+    `,
+      fetchPolicy: 'cache-and-network'
     })
     .valueChanges.pipe(
       takeUntil(this.unsubscribe$),

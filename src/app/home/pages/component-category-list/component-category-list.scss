@@ -1,6 +1,6 @@
 @import '../../../../styles/constants';
 
-.docs-component-category-list {
+.component-category-list {
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
@@ -10,7 +10,7 @@
   }
 }
 
-.docs-component-category-list-item {
+.component-category-list-item {
   display: inline-block;
   margin: 20px;
   vertical-align: top;
@@ -25,12 +25,12 @@
   }
 }
 
-.docs-component-category-list-card-summary {
+.component-category-list-card-summary {
   min-height: 2.4em;
   margin-bottom: 8px;
 }
 
-.docs-component-category-list-header {
+.component-category-list-header {
   align-items: center;
   display: flex;
   padding-left: 20px;

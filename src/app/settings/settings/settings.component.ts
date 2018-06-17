@@ -74,10 +74,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
         }
       })
       .subscribe();
-      
-    /*  this.store.dispatch(new ActionSettingsChangeTheme({ theme }));
-      this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
-      */
   }
 
   _autoNightModeSelect: string;
@@ -99,13 +95,5 @@ export class SettingsComponent implements OnInit, OnDestroy {
       }
     })
     .subscribe();
-
-    /* this.store.dispatch(
-      new ActionSettingsChangeAutoNightMode({
-        autoNightMode: autoNightMode === 'true'
-      })
-    );
-    */
-    //this.store.dispatch(new ActionSettingsPersist({ settings: this.settings }));
   }
 }

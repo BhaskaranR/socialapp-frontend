@@ -33,7 +33,7 @@ describe('ComponentCategoryList', () => {
     const component = fixture.componentInstance;
     const categories = component.docItems.getCategories('components');
     const cards = fixture
-        .nativeElement.querySelectorAll('.docs-component-category-list-card');
+        .nativeElement.querySelectorAll('.component-category-list-card');
     expect(cards.length).toEqual(categories.length);
   });
 });

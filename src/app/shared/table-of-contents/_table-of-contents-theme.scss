@@ -5,15 +5,15 @@
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  .docs-toc-container {
+  .toc-container {
     border-left: solid 4px mat-color($primary);
 
-    .docs-link {
+    .link {
       color: mat-color($foreground, secondary-text);
       transition: color 100ms;
 
       &:hover,
-      &.docs-active {
+      &.active {
         color: mat-color($primary);
       }
     }

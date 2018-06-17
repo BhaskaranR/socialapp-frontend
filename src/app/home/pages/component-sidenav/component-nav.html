@@ -1,8 +1,8 @@
-<div class="docs-component-viewer-nav">
-  <div class="docs-component-viewer-nav-content">
+<div class="component-viewer-nav">
+  <div class="component-viewer-nav-content">
     <nav *ngFor="let category of menuItems.getCategories((params | async)?.section); let last = last;">
       <button (click)="toggleExpand(category.id)"
-              class="docs-nav-content-btn"
+              class="nav-content-btn"
               [attr.aria-label]="category.name + ', section toggle'"
               [attr.aria-controls]="'panel-' + category.id"
               [attr.aria-expanded]="getExpanded(category.id)">
@@ -13,7 +13,7 @@
       <ul [@bodyExpansion]="_getExpandedState(category.id)" id="panel-{{category.id}}">
         <li *ngFor="let component of category.items">
           <a [routerLink]="'/' + (params | async)?.section+ '/' + component.id"
-            routerLinkActive="docs-component-viewer-sidenav-item-selected">
+            routerLinkActive="component-viewer-sidenav-item-selected">
             {{component.name}}
           </a>
         </li>

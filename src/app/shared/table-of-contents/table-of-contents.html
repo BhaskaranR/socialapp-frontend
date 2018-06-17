@@ -1,10 +1,10 @@
-<div *ngIf="links?.length" class="docs-toc-container">
-  <div class="docs-toc-heading">Contents</div>
+<div *ngIf="links?.length" class="toc-container">
+  <div class="toc-heading">Contents</div>
   <nav>
     <a [href]="_rootUrl + '#' + link.id"
       *ngFor="let link of links; let i = index"
-      class="docs-level-{{link.type}} docs-link"
-      [class.docs-active]="link.active">
+      class="level-{{link.type}} link"
+      [class.active]="link.active">
       {{link.name}}
     </a>
   </nav>

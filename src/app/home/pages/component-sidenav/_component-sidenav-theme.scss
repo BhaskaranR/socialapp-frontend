@@ -8,14 +8,14 @@
   $nav-background-opacity: if($is-dark-theme, 0.2, 0.03);
   $nav-background-focus-opacity: if($is-dark-theme, 0.25, 0.08);
 
-  .docs-component-viewer-nav-content {
+  .component-viewer-nav-content {
     background: rgba(0, 0, 0, $nav-background-opacity);
 
     &::-webkit-scrollbar-thumb {
       background: rgba(0, 0, 0, .26);
     }
 
-    .docs-nav-content-btn {
+    .nav-content-btn {
       color: rgba(mat-color($foreground, text), .5);
 
       &:focus {
@@ -32,7 +32,7 @@
     a {
       color: mat-color($foreground, secondary-text);
 
-      &.docs-component-viewer-sidenav-item-selected,
+      &.component-viewer-sidenav-item-selected,
       &:hover {
         color: mat-color($primary);
       }
@@ -40,8 +40,8 @@
   }
 
   @media (max-width: $small-breakpoint-width) {
-    .docs-component-viewer-sidenav {
-      .docs-component-viewer-nav-content {
+    .component-viewer-sidenav {
+      .component-viewer-nav-content {
         background: none;
       }
     }

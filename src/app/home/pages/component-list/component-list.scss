@@ -1,6 +1,6 @@
 @import '../../../../styles/constants';
 
-.docs-component-list-category {
+.component-list-category {
   margin: 20px;
 
   @media (max-width: $small-breakpoint-width) {
@@ -10,7 +10,7 @@
   }
 }
 
-.docs-component-list-item {
+.component-list-item {
   display: inline-block;
   margin: 20px;
   vertical-align: top;
@@ -25,20 +25,20 @@
   }
 }
 
-.docs-component-list-icon-spacer {
+.component-list-icon-spacer {
   flex-grow: 1;
 }
 
-.docs-component-list-card-title {
+.component-list-card-title {
   margin: 0;
 }
 
-.docs-component-list-card {
+.component-list-card {
   display: flex;
   align-items: center;
 }
 
-.docs-component-list-item-icon {
+.component-list-item-icon {
   margin: 0 0 0 10px;
   width: 40px;
   height: 40px;
