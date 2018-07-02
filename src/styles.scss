@@ -28,7 +28,7 @@
 @import 'app/home/pages/component-category-list/component-category-list-theme';
 @import 'app/home/pages/component-list/component-list-theme';
 @import 'app/home/pages/component-sidenav/component-sidenav-theme';
-@import 'app/home/pages/component-viewer/component-viewer-theme';
+@import 'app/home/pages/posts-home/posts-home-theme';
 
 @mixin custom-components-theme($theme) {
   @include ksoc-styles-reset-theme($theme);
@@ -41,7 +41,7 @@
   @include component-category-list-theme($theme);
   @include component-list-theme($theme);
   @include component-viewer-sidenav-theme($theme);
-  @include component-viewer-theme($theme); 
+  @include posts-home-theme($theme); 
 }
 
 .default-theme {

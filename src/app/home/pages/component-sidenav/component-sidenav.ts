@@ -31,7 +31,6 @@ export class ComponentSidenav implements OnInit {
               private _route: ActivatedRoute,
               private _router: Router,
               zone: NgZone) {
-    // TODO(josephperrott): Move to CDK breakpoint management once available.
     this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
   }
 

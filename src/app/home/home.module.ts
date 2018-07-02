@@ -11,9 +11,9 @@ import { ComponentHeaderModule } from '@app/home/pages/component-page-header/com
 import { MenuItems } from '@app/shared/menu-items/menu-items';
 import { ComponentListModule } from '@app/home/pages/component-list';
 import { ComponentSidenavModule } from '@app/home/pages/component-sidenav/component-sidenav';
-import { ComponentViewerModule } from '@app/home/pages/component-viewer/component-viewer';
 import { NavBarModule } from '@app/shared/navbar/navbar';
 import { TableOfContentsModule } from '@app/shared/table-of-contents/table-of-contents.module';
+import { PostsModule } from '@app/home/pages/posts-home/posts-home';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { TableOfContentsModule } from '@app/shared/table-of-contents/table-of-co
     ComponentListModule,
     ComponentSidenavModule,
     NavBarModule,
-    ComponentViewerModule,
+    PostsModule,
     TableOfContentsModule
   ],
   declarations: [HomeComponent],

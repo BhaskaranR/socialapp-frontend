@@ -1,13 +1,13 @@
-<div class="component-viewer">
-  <nav mat-tab-nav-bar class="component-viewer-tabbed-content">
-    <a mat-tab-link class="component-viewer-section-tab"
+<div class="posts-viewer">
+  <nav mat-tab-nav-bar class="posts-viewer-tabbed-content">
+    <a mat-tab-link class="posts-viewer-section-tab"
         *ngFor="let section of sections"
         [routerLink]="section.toLowerCase()"
         routerLinkActive #rla="routerLinkActive"
         [active]="rla.isActive">{{section}}</a>
   </nav>
 
-  <div class="component-viewer-content">
+  <div class="posts-viewer-content">
     <router-outlet></router-outlet>
   </div>
 </div>

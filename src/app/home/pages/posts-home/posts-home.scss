@@ -1,6 +1,6 @@
 @import '../../../../styles/constants';
 
-app-component-viewer {
+app-posts-home {
   font-weight: 400;
 
   // spacing for the component viewer
@@ -12,15 +12,15 @@ app-component-viewer {
   }
 }
 
-.component-viewer-section-tab {
+.posts-home-section-tab {
   text-transform: uppercase;
 }
 
-.component-viewer-tabbed-content {
+.posts-home-tabbed-content {
   margin-bottom: 25px;
 }
 
-.component-viewer-content {
+.posts-home-content {
   position: relative;
   min-height: 500px;
 
@@ -55,7 +55,6 @@ app-component-viewer {
   width: 100%;
 }
 
-.component-api,
 .component-overview {
   width: 80%;
   display: inline-flex;

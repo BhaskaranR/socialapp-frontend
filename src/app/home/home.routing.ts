@@ -10,7 +10,7 @@ import { CanActivateComponentSidenav } from '@app/home/pages/component-sidenav/c
 import { ComponentSidenav } from '@app/home/pages/component-sidenav/component-sidenav';
 import { ComponentCategoryList } from '@app/home/pages/component-category-list/component-category-list';
 import { ComponentList } from '@app/home/pages/component-list';
-import { ComponentViewer, ComponentOverview, ComponentApi, ComponentExamples } from '@app/home/pages/component-viewer/component-viewer';
+import { PostsHome } from '@app/home/pages/posts-home/posts-home';
 
 const routes: Routes = [
     {
@@ -24,33 +24,60 @@ const routes: Routes = [
                     title: 'Settings'
                 }
             },
-            {path: '', redirectTo: '/social/feeds', pathMatch: 'full'},
+            { path: '', redirectTo: '/social/posts', pathMatch: 'full' },
             {
                 path: ':section',
                 component: ComponentSidenav,
                 children: [
-                    { path: '', redirectTo: 'feeds', pathMatch: 'full' },
+                    { path: '', redirectTo: 'posts', pathMatch: 'full' },
                     {
                         path: 'feeds',
                         children: [
-                            
+
                             { path: '', component: ComponentCategoryList },
                             { path: ':id', component: ComponentList }
                         ]
-                    }
-                    /*,
-            {
-                path: '',
-                redirectTo: 'home',
-                pathMatch: 'full'
-            },
-            {
-                path: 'home',
-                loadChildren: '../posts-home/posts-home.module#PostsHomeModule',
-                data: {
-                    animation: 'home'
-                }
-            }*/]
+                    },
+                    {
+                        path: 'posts',
+                        component: PostsHome,
+                        children: [
+                            {path: '', redirectTo: 'featured', pathMatch: 'full'},
+                            {
+                                path: 'featured',
+                                loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule'
+                            } //,
+                            // {
+                            //     path: 'photos',
+                            //     loadChildren: './pages/photo-feeds/photo-feeds.module#PhotoFeedsModule',
+                            //     data: {
+                            //         page: 'Gallery',
+                            //         animation: 'profile'
+                            //     }
+                            // },
+                            // {
+                            //     path: 'videos',
+                            //     loadChildren: './pages/video-feeds/video-feeds.module#VideosFeedsModule',
+                            //     data: {
+                            //         animation: 'profile'
+                            //     }
+                            // },
+                            // {
+                            //     path: 'fun',
+                            //     loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule',
+                            //     data: {
+                            //         animation: 'profile'
+                            //     }
+                            // },
+                            // {
+                            //     path: 'learn',
+                            //     loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule',
+                            //     data: {
+                            //         animation: 'profile'
+                            //     }
+                            // }
+                        ],
+                    }]
             }
         ]
     }
