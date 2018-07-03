@@ -42,7 +42,7 @@ export function initializer(auth: AuthenticationService): () => Promise<any> {
     CoreModule,
     SharedModule,
     // features
-    ApiModule.forRoot({ resolvers, defaults, schema, redirects }),
+    ApiModule.forRoot(),
     // GraphQLModule,
     // app
     WelcomeModule,
