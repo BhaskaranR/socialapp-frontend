@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 //  import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { query, Settings, changeTheme, changeNightMode } from '../models/settings';
 import { map } from 'rxjs/operators';
 import gql from 'graphql-tag';
 import { settingsQuery } from '@app/settings/graphql/settings.query';
 import { Loona } from '@loona/angular';
 import { ChangeNightMode, ChangeTheme } from '../settings.action';
+import { Settings } from '../interfaces';
 
 @Component({
   selector: 'ksoc-settings',

@@ -9,10 +9,8 @@ import { Subject } from 'rxjs';
 import { environment as env } from '@env/environment';
 // import { selectorSettings, NIGHT_MODE_THEME } from '@app/settings';
 import { routerTransition } from '@app/core';
-import { query } from '@app/settings/models/settings';
 import { NIGHT_MODE_THEME } from '@app/settings';
 import gql from 'graphql-tag';
-import { settingsFragment } from '../settings/models/settings';
 import { settingsQuery } from '@app/settings/graphql/settings.query';
 import { Loona } from '@loona/angular';
 

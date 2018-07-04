@@ -14,7 +14,6 @@ import { environment as env } from '@env/environment';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { query, settingsFragment } from '../settings/models/settings';
 import { map } from 'rxjs/operators';
 import { NIGHT_MODE_THEME } from '@app/settings';
 import gql from 'graphql-tag';

@@ -18,7 +18,6 @@ import { HomeModule } from '@app/home/home.module';
 import { SettingsModule } from '@app/settings';
 import { environment } from '@env/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { resolvers, defaults, schema, redirects } from './resolvers';
 import { ApiModule } from './api/api.module';
 
 

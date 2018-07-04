@@ -16,7 +16,6 @@ import { RetryLink } from 'apollo-link-retry';
 import { createUploadLink } from 'apollo-upload-client';
 
 import OptimisticLink from './optimistic-link';
-import { redirects } from '@app/resolvers';
 import { SettingsState } from '../settings/settings.state';
 const uri = environment.apiBaseUrl + '/graphql';
 
@@ -53,8 +52,8 @@ cache = new InMemoryCache({
     }
 
     return null;
-  },
-  cacheRedirects: redirects(cache),
+  }//,
+ // cacheRedirects: redirects(cache),
 });
 
 persistCache({
