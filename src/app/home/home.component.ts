@@ -10,10 +10,11 @@ import { environment as env } from '@env/environment';
 // import { selectorSettings, NIGHT_MODE_THEME } from '@app/settings';
 import { routerTransition } from '@app/core';
 import { query } from '@app/settings/models/settings';
-import { Apollo } from 'apollo-angular';
 import { NIGHT_MODE_THEME } from '@app/settings';
 import gql from 'graphql-tag';
 import { settingsFragment } from '../settings/models/settings';
+import { settingsQuery } from '@app/settings/graphql/settings.query';
+import { Loona } from '@loona/angular';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class HomeComponent {
   isAuthenticated;
 
   constructor(router: Router,
-    private apollo: Apollo,
+    private loona: Loona,
     public overlayContainer: OverlayContainer,
     private titleService: Title
   ) {
@@ -58,17 +59,9 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.apollo
-    .watchQuery({
-      query: gql`
-    query settings {
-        settings @client {
-          theme
-          autoNightMode
-          persist
-        }
-      }
-    `,
+    this.loona
+    .query({
+      query: settingsQuery,
       fetchPolicy: 'cache-and-network'
     })
     .valueChanges.pipe(

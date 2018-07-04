@@ -17,6 +17,7 @@ import { createUploadLink } from 'apollo-upload-client';
 
 import OptimisticLink from './optimistic-link';
 import { redirects } from '@app/resolvers';
+import { SettingsState } from '../settings/settings.state';
 const uri = environment.apiBaseUrl + '/graphql';
 
 
@@ -103,7 +104,7 @@ function createApollo() {
 }
 
 @NgModule({
-  imports: [HttpClientModule, ApolloModule, LoonaModule.forRoot(cache, []), HttpLinkModule],
+  imports: [HttpClientModule, ApolloModule, LoonaModule.forRoot(cache, [SettingsState]), HttpLinkModule],
 })
 export class ApiModule {
   static forRoot() {
