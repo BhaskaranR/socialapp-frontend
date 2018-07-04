@@ -20,13 +20,13 @@ export const defaultState = {
     @Mutation(changeTheme)
     @Update(settingsQuery)
     changeTheme(state, { theme }) {
-        state.theme = theme;
+        state.settings.theme = theme;
     }
 
     @Mutation(changeNightMode)
     @Update(settingsQuery)
     changeNightMode(state, { autoNightMode }) {
-        state.theme = autoNightMode;
+        state.settings.autoNightMode = autoNightMode;
     }
 
   }
