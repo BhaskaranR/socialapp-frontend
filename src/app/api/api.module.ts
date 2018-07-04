@@ -4,9 +4,10 @@ import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
-import { withClientState } from 'apollo-link-state';
 import { ApolloLink } from 'apollo-link';
 import { environment } from '@env/environment';
+
+import { LoonaModule, LoonaLink } from '@loona/angular';
 
 // import OptimisticLink from 'apollo-link-optimistic';
 import SerializingLink from 'apollo-link-serialize';
@@ -15,6 +16,8 @@ import { RetryLink } from 'apollo-link-retry';
 import { createUploadLink } from 'apollo-upload-client';
 
 import OptimisticLink from './optimistic-link';
+import { redirects } from '@app/resolvers';
+import { SettingsState } from '../settings/settings.state';
 const uri = environment.apiBaseUrl + '/graphql';
 
 
@@ -31,46 +34,38 @@ export function createApolloGate() {
   return new QueueLink();
 }
 
+let cache: InMemoryCache;
 
-function createApollo({ resolvers, schema,  defaults = {}, redirects }) {
-  let cache: InMemoryCache;
-
-  cache = new InMemoryCache({
-    dataIdFromObject: (obj: any) => {
-      if (!obj) {
-        return null;
-      }
-
-      const byType = ['Settings'];
-
-      if (byType.indexOf(obj.__typename) !== -1) {
-        return obj.__typename;
-      }
-
-      if (obj.id) {
-        return obj.__typename ? `${obj.__typename}:${obj.id}` : obj.id;
-      }
-
+cache = new InMemoryCache({
+  dataIdFromObject: (obj: any) => {
+    if (!obj) {
       return null;
-    },
-    cacheRedirects: redirects(cache),
-  });
-  persistCache({
-    cache,
-    storage: sessionStorage,
-    key: 'ks-app',
-    debug: true,
-    debounce: 300,
-  });
+    }
 
-  const state = withClientState({
-    cache,
-    resolvers,
-    defaults,
-    typeDefs: schema,
-  });
+    const byType = ['Settings'];
 
-  return (apollo: Apollo, httpLink: HttpLink, gate: ApolloLink) => {
+    if (byType.indexOf(obj.__typename) !== -1) {
+      return obj.__typename;
+    }
+
+    if (obj.id) {
+      return obj.__typename ? `${obj.__typename}:${obj.id}` : obj.id;
+    }
+
+    return null;
+  },
+  cacheRedirects: redirects(cache),
+});
+
+persistCache({
+  cache,
+  storage: sessionStorage,
+  key: 'ks-app',
+  debug: true,
+  debounce: 300,
+});
+function createApollo() {
+  return (apollo: Apollo, httpLink: HttpLink, gate: ApolloLink, loonaLink: LoonaLink) => {
     return () => {
       const http = httpLink.create({
         uri: uri,
@@ -95,12 +90,12 @@ function createApollo({ resolvers, schema,  defaults = {}, redirects }) {
       })
       apollo.create({
         link: ApolloLink.from([
+          loonaLink,
           optimistic,
           serializing as any,
           retry,
           middleware,
           gate,
-          state,
           http]),
         cache
       });
@@ -109,18 +104,18 @@ function createApollo({ resolvers, schema,  defaults = {}, redirects }) {
 }
 
 @NgModule({
-  imports: [HttpClientModule, ApolloModule, HttpLinkModule],
+  imports: [HttpClientModule, ApolloModule, LoonaModule.forRoot(cache, [SettingsState]), HttpLinkModule],
 })
 export class ApiModule {
-  static forRoot({ resolvers, schema, defaults, redirects }) {
+  static forRoot() {
     return {
       ngModule: ApiModule,
       providers: [
         { provide: ApolloGate, useFactory: createApolloGate },
         {
           provide: APP_INITIALIZER,
-          useFactory: createApollo({ resolvers, schema, defaults, redirects }),
-          deps: [Apollo, HttpLink, ApolloGate],
+          useFactory: createApollo(),
+          deps: [Apollo, HttpLink, ApolloGate, LoonaLink],
           multi: true,
         },
       ],

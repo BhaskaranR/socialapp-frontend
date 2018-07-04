@@ -16,9 +16,10 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { query, settingsFragment } from '../settings/models/settings';
 import { map } from 'rxjs/operators';
-import { Apollo } from 'apollo-angular';
 import { NIGHT_MODE_THEME } from '@app/settings';
 import gql from 'graphql-tag';
+import { settingsQuery } from '@app/settings/graphql/settings.query';
+import { Loona } from '@loona/angular';
 
 @Component({
   selector: 'ksoc-welcome',
@@ -46,24 +47,16 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private apollo: Apollo,
+    private loona: Loona,
     public overlayContainer: OverlayContainer,
     private router: Router,
     private titleService: Title
   ) { }
 
   ngOnInit(): void {
-    this.apollo
-      .watchQuery({
-        query: gql`
-      query settings {
-          settings @client {
-            theme
-            autoNightMode
-            persist
-          }
-        }
-      `,
+    this.loona
+    .query({
+        query: settingsQuery,
         fetchPolicy: 'cache-and-network'
       })
       .valueChanges.pipe(

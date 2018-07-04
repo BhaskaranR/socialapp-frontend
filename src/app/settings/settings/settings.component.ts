@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 //  import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Apollo } from 'apollo-angular';
 import { query, Settings, changeTheme, changeNightMode } from '../models/settings';
 import { map } from 'rxjs/operators';
 import gql from 'graphql-tag';
-
+import { settingsQuery } from '@app/settings/graphql/settings.query';
+import { Loona } from '@loona/angular';
+import { ChangeNightMode, ChangeTheme } from '../settings.action';
 
 @Component({
   selector: 'ksoc-settings',
@@ -24,22 +25,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
     { value: 'BLACK-THEME', label: 'Dark' }
   ];
 
-  constructor(private apollo: Apollo) {
-    // store
-    //   .select(selectorSettings)
-    //   .pipe(takeUntil(this.unsubscribe$))
-    //   .subscribe(settings => (this.settings = settings));
-    this.apollo
-      .watchQuery({
-        query: gql`
-        query settings {
-            settings @client {
-              theme
-              autoNightMode
-              persist
-            }
-          }
-      `,
+  constructor(private loona: Loona) {
+    loona
+      .query({
+        query: settingsQuery,
         fetchPolicy: 'cache-and-network',
       })
       .valueChanges.pipe(
@@ -62,18 +51,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   set selectedTheme(val) {
     this._selectedTheme = val;
-    this.onThemeSelect({ value: val });
+    this.onThemeSelect(val);
   }
 
-  onThemeSelect({ value: theme }) {
-    this.apollo
-      .mutate({
-        mutation: changeTheme,
-        variables: {
-          theme: theme
-        }
-      })
-      .subscribe();
+  onThemeSelect(theme) {
+    this.loona.dispatch(new ChangeTheme( theme));
   }
 
   _autoNightModeSelect: string;
@@ -83,17 +65,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   set autoNightModelSelect(val) {
     this._autoNightModeSelect = val;
-    this.onAutoNightModeSelect({ value: val });
+    this.onAutoNightModeSelect(val);
   }
 
-  onAutoNightModeSelect({ value: autoNightMode }) {
-    this.apollo
-    .mutate({
-      mutation: changeNightMode,
-      variables: {
-        autoNightMode: autoNightMode
-      }
-    })
-    .subscribe();
+  onAutoNightModeSelect(autoNightMode) {
+    this.loona.dispatch(new ChangeNightMode( autoNightMode));
   }
 }
