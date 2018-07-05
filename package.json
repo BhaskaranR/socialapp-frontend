@@ -92,7 +92,7 @@
     "ngc-float-button": "^1.1.0",
     "ngx-avatar": "^2.9.0",
     "ngx-captcha": "^3.1.0",
-    "ngx-gallery": "5.3.2",
+    "ngx-gallery": "^5.3.2",
     "node-sass": "^4.5.0",
     "offline-js": "^0.7.19",
     "recordrtc": "^5.4.1",
