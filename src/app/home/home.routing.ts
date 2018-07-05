@@ -45,8 +45,9 @@ const routes: Routes = [
                             {path: '', redirectTo: 'featured', pathMatch: 'full'},
                             {
                                 path: 'featured',
-                                loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule'
-                            } //,
+                                loadChildren: './pages/feature-posts/feature-posts.module#FeaturePostsModule'
+                        
+                            }// ,
                             // {
                             //     path: 'photos',
                             //     loadChildren: './pages/photo-feeds/photo-feeds.module#PhotoFeedsModule',
@@ -58,20 +59,6 @@ const routes: Routes = [
                             // {
                             //     path: 'videos',
                             //     loadChildren: './pages/video-feeds/video-feeds.module#VideosFeedsModule',
-                            //     data: {
-                            //         animation: 'profile'
-                            //     }
-                            // },
-                            // {
-                            //     path: 'fun',
-                            //     loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule',
-                            //     data: {
-                            //         animation: 'profile'
-                            //     }
-                            // },
-                            // {
-                            //     path: 'learn',
-                            //     loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule',
                             //     data: {
                             //         animation: 'profile'
                             //     }

@@ -15,6 +15,7 @@ import {BreakpointObserver} from '@angular/cdk/layout';
 import {Subject, Subscription, Observable, combineLatest} from 'rxjs';
 import {map, takeUntil} from 'rxjs/operators';
 import { MenuItems, MenuItem } from '@app/shared/menu-items/menu-items';
+import { ComponentViewer } from '@app/shared/component.viewer';
 
 @Component({
   selector: 'app-posts-home',
@@ -22,9 +23,9 @@ import { MenuItems, MenuItem } from '@app/shared/menu-items/menu-items';
   styleUrls: ['./posts-home.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PostsHome implements OnDestroy {
+export class PostsHome extends ComponentViewer implements OnDestroy {
   componentDocItem: MenuItem;
-  sections: Set<string> = new Set(['overview', 'api']);
+  sections: Set<string> = new Set(['Featured', 'Photos', 'Videos']);
   private _subscription: Subscription;
   private _destroyed = new Subject();
 
@@ -32,7 +33,9 @@ export class PostsHome implements OnDestroy {
               private router: Router,
               public _componentPageTitle: ComponentPageTitle,
               public menuItems: MenuItems,
+              breakpointObserver: BreakpointObserver
               ) {
+                super(breakpointObserver);
     // Listen to changes on the current route for the doc id (e.g. button/checkbox) and the
     // parent route for the section (material/cdk).
     // combineLatest(_route.params, _route.parent.params).pipe(

@@ -1,0 +1,10 @@
+<div class="reactions" [ngClass]="reactionsClass" [style.transform-origin]="_transformOrigin" [@state]="_visibility" (@state.start)="_animationStart()" (@state.done)="_animationDone($event)">
+    <div role="listbox" tabindex="0" aria-label="Select a color" cdkTrapFocus cdkTrapFocusAutoCapture>
+        <div *ngFor="let r of reactions; index as i" role="option" [attr.aria-label]="r.key" [attr.aria-selected]="r.key == selectedReaction" (click)="selectedReaction = r.key;">
+            <mat-icon class="mat-dark mat-48">{{r.value}}</mat-icon>
+        </div>
+    </div>
+    <!--div *ngFor="let r of reactions;" mat-fab matTooltip="{{r.key}}" [matTooltipPosition]="'above'" (click)="selectedReaction(r.key)">
+
+    </div-->
+</div>

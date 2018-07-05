@@ -1,0 +1,197 @@
+ mat-card {
+     /* width: 90% !important; */
+     height: 250px !important;
+     margin: 1em !important;
+ }
+ 
+ mat-card:hover>.close_ico {
+     display: block;
+     cursor: pointer;
+ }
+ 
+ .close_ico {
+     position: absolute;
+     right: 0;
+     padding: 8px;
+     display: none;
+ }
+ 
+ .container {
+     padding-top: 2.5em;
+ }
+ 
+ .container_text {
+     padding: 1em 0 0 0;
+     /* color: rgba(0, 0, 0, 0.87); */
+     font-size: 16px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: normal;
+     word-break: break-word;
+     text-transform: capitalize;
+     font-weight: 600;
+     text-align: center;
+ }
+ mat-card-actions
+ {
+    position: relative !important;
+    top: 0 !important;
+ }
+ 
+ .text_education {
+     color: rgba(0, 0, 0, 0.54);
+     font-size: 14px;
+     vertical-align: middle;
+ }
+ 
+ .mat-card header {
+     display: block;
+     overflow: hidden;
+     position: relative;
+     padding-bottom: 2em;
+ }
+ 
+ mat-card-actions {
+     position: relative;
+     bottom: -2em;
+     font-size: 14px;
+     font-weight: 600;
+     color: #3F51B5;
+     cursor: pointer;
+ }
+ 
+ .link {
+     position: relative;
+     top: 0px;
+     right: 0px;
+ }
+ 
+ .mat-card header .container {
+     position: absolute;
+     bottom: 0;
+     right: 0;
+     left: 0;
+     margin: auto;
+     width: 70px;
+     height: 70px;
+     display: block;
+ }
+ 
+ .mat-card header .container:hover>.hover {
+     opacity: 1;
+ }
+ 
+ .mat-card header .container:after {
+     position: absolute;
+     content: "";
+     bottom: 3px;
+     right: 3px;
+     width: 20px;
+     height: 20px;
+     border: 4px solid #FFFFFF;
+     -webkit-transform: scale(0);
+     transform: scale(0);
+     background: -webkit-linear-gradient(top, #2196F3 0%, #2196F3 50%, #FFC107 50%, #FFC107 100%);
+     background: linear-gradient(#2196F3 0%, #2196F3 50%, #FFC107 50%, #FFC107 100%);
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
+     -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+     -webkit-animation: scaleIn 0.3s 3.5s ease forwards;
+     animation: scaleIn 0.3s 3.5s ease forwards;
+ }
+ 
+ .mat-card-avatar {
+     width: 75px!important;
+     height: 75px!important;
+     margin: -1rem 0 0 -1rem !important;
+ }
+ 
+ .mat-card-avatar:hover+.hover {
+     opacity: 1;
+     cursor: pointer;
+ }
+ 
+ .hover {
+     position: absolute;
+     cursor: pointer;
+     width: 100%;
+     height: 100%;
+     background-color: #3498db;
+     top: 0;
+     font-size: 1.8em;
+     text-align: center;
+     color: white;
+     padding-top: 18%;
+     opacity: 0;
+     font-family: 'FontAwesome';
+     font-weight: 300;
+     border: 8px solid #5cc0ff;
+     -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+     -ms-border-radius: 50%;
+     -o-border-radius: 50%;
+     border-radius: 50%;
+     -webkit-transition-property: all;
+     -moz-transition-property: all;
+     -o-transition-property: all;
+     transition-property: all;
+     -webkit-transition-duration: 0.5s;
+     -moz-transition-duration: 0.5s;
+     -o-transition-duration: 0.5s;
+     transition-duration: 0.5s;
+     -webkit-transition-timing-function: ease;
+     -moz-transition-timing-function: ease;
+     -o-transition-timing-function: ease;
+     transition-timing-function: ease;
+ }
+ 
+ .data {
+     margin-top: .6em;
+ }
+ 
+ .data li {
+     width: 32%;
+     text-align: center;
+     display: inline-block;
+     font-size: 1.5em;
+     border-right: solid 1px #bdc3c7;
+ }
+ 
+ .data li:last-child {
+     border: none;
+ }
+ 
+ .data li span {
+     display: block;
+     text-transform: uppercase;
+     font-size: .5em;
+     margin-top: .6em;
+     font-weight: 700;
+ }
+ 
+ @media only screen and (max-width: 600px) {
+     .container_text span
+     {
+        text-align: center;
+        font-size: 12px;
+     }
+     .text_education {
+        font-size: 11px;
+        text-align: center;
+    }
+    mat-card {
+        width: 90% !important;
+        height: 225px !important;
+        margin: 1em 0 0 10px !important;
+    }
+ }
+ 
+ mat-card:hover {
+     box-shadow: 3px 3px 16px -2px rgba(0, 0, 0, .5);
+ }
+ 
+ a {
+     color: inherit;
+     text-decoration: none;
+ }

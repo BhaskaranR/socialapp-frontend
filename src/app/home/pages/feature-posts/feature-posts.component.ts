@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
-  selector: 'app-feature-feeds',
-  templateUrl: './feature-feeds.component.html',
-  styleUrls: ['./feature-feeds.component.scss']
+  selector: 'app-feature-posts',
+  templateUrl: './feature-posts.component.html',
+  styleUrls: ['./feature-posts.component.scss']
 })
-export class FeatureFeedsComponent {
+export class FeaturePostsComponent {
   // num = 1;
   // items$: Observable<Post[]>;
   // loading$: Observable<boolean>;

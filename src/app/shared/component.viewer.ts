@@ -3,15 +3,13 @@ import { TableOfContents } from '@app/shared/table-of-contents/table-of-contents
 import { Observable } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import { PostsHome } from './posts-home';
 
-
-export class ComponentOverview implements OnInit {
+export class ComponentViewer implements OnInit {
     @ViewChild('intialFocusTarget') focusTarget: ElementRef;
     @ViewChild('toc') tableOfContents: TableOfContents;
     showToc: Observable<boolean>;
 
-    constructor(public componentViewer: PostsHome, breakpointObserver: BreakpointObserver) {
+    constructor(breakpointObserver: BreakpointObserver) {
         this.showToc = breakpointObserver.observe('(max-width: 1200px)')
             .pipe(map(result => !result.matches));
     }

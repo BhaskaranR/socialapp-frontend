@@ -1,0 +1,29 @@
+<div *ngIf="video.thumbnail">
+    <div class="gallery">
+        <img *ngIf="video.thumbnail" [src]="video.thumbnail" [routerLink]="['/home/myvideos', '1200']" />
+        <div>
+            <p class="desc" [routerLink]="['/home/myvideos', '1200']"> {{ video.title }} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis commodo nibh egestas tortor ultricies, quis finibus purus fringilla.
+            </p>
+            <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+        </div>
+        <p class="user_name">
+            Paulson Neoito
+        </p>
+        <div class="video_view">
+            <p>2000 views</p>
+            <p>2 week ago</p>
+        </div>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <span>Not Interested</span>
+            </button>
+            <button mat-menu-item>
+              <span>Report</span>
+            </button>
+        </mat-menu>
+    </div>
+</div>
+
+<div *ngIf="!video.thumbnail">
+    <mat-spinner></mat-spinner>
+</div>

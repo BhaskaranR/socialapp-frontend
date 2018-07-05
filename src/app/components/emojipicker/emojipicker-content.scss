@@ -1,0 +1,39 @@
+@import "~@angular/material/theming";
+$emojipicker-container-padding: 8px;
+$emojipicker-non-touch-container-cell-size: 40px;
+$emojipicker-non-touch-container-width: $emojipicker-non-touch-container-cell-size * 7+$emojipicker-container-padding * 2;
+// Ideally the calendar would have a constant aspect ratio, no matter its size, and we would base
+// these measurements off the aspect ratio. Unfortunately, the aspect ratio does change a little as
+// the calendar grows, since some of the elements have pixel-based sizes. These numbers have been
+// chosen to minimize extra whitespace at larger sizes, while still ensuring we won't need
+// scrollbars at smaller sizes.
+$emojipicker-touch-width: 250px;
+$emojipicker-touch-height: 80vmin;
+$emojipicker-touch-min-width: 250px;
+$emojipicker-touch-min-height: 312px;
+$emojipicker-touch-max-width: 750px;
+$emojipicker-touch-max-height: 788px;
+.mat-emojipicker-content {
+    @include mat-elevation(8);
+    display: block;
+}
+
+.mat-emojicontainer {
+    width: $emojipicker-non-touch-container-width;
+}
+
+.mat-emojipicker-content-touch {
+    @include mat-elevation(0);
+    display: block;
+    max-height: 80vh;
+    overflow: auto;
+    margin: -24px;
+    .mat-emojicontainer {
+        width: $emojipicker-touch-width;
+        height: $emojipicker-touch-height;
+        min-width: $emojipicker-touch-min-width;
+        min-height: $emojipicker-touch-min-height;
+        max-width: $emojipicker-touch-max-width;
+        max-height: $emojipicker-touch-max-height;
+    }
+}

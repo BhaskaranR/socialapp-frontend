@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 // import { PostsModule } from '../posts';
-import { FeatureFeedsComponent } from './feature-feeds.component';
+import { FeaturePostsComponent } from './feature-posts.component';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
  // import { PostDetailedPopupModule } from '../post-detailed/post-detail-popup.module';
@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 const routes: Routes = [
   {
       path: '',
-      component: FeatureFeedsComponent
+      component: FeaturePostsComponent
   }
 ];
 
@@ -22,10 +22,10 @@ export const routing = RouterModule.forChild(routes);
     routing
   ],
   declarations: [
-    FeatureFeedsComponent,
+    FeaturePostsComponent,
   ],
   exports: [
-    FeatureFeedsComponent,
+    FeaturePostsComponent,
   ]
 })
-export class FeatureFeedsModule { }
+export class FeaturePostsModule { }

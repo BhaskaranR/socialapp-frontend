@@ -30,7 +30,17 @@ const DOCS: { [key: string]: MenuCategory[] } = {
       name: 'Feeds',
       items: [
         { id: 'featured', name: 'Featured'},
-        { id: 'media', name: 'Media'}
+        { id: 'photos', name: 'Photos'},
+        { id: 'videos', name: 'Videos'}
+      ]
+    },
+    {
+      id: 'trending',
+      name: 'Trending',
+      items: [
+        { id: 'featured', name: 'Featured'},
+        { id: 'photos', name: 'Photos'},
+        { id: 'videos', name: 'Videos'}
       ]
     },
     {

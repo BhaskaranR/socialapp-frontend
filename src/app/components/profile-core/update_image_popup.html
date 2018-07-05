@@ -1,0 +1,50 @@
+<div class="cover_photo_con">
+    <div class="cover_photo_con_bg" mat-card-image style="background-image: url('assets/images/background-image.jpg');">
+        <mat-icon (click)="uploadClick($event)" class="update_icon_1">photo_camera</mat-icon>
+
+        <div class="image_icon_con">
+            <div class="image_icon_con-image" fxLayout="row" fxLayoutAlign="center center">
+                <app-avatar fxFlexAlign="center" [user]="user" [canEdit]="true" [imageSize]="80" [showLetter]="true">
+                </app-avatar>
+                <!--img mat-card-avatar class="image_icon_con" src="https://lh3.googleusercontent.com/-feWckKvmys4/AAAAAAAAAAI/AAAAAAAAAOM/P0CFbUymX4U/s240-p-rw-no/photo.jpg"-->
+            </div>
+        </div>
+    </div>
+    <div class="text_demo_popup">
+        <p class="text_name">
+            Changing your name here will change it in all Karmasoc products.
+        </p>
+    </div>
+
+    <form class="example-form" fxLayout="column">
+
+        <p fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+            <mat-form-field class="example-full-width" fxFlex="45%" fxFlex.xs="100%">
+                <input matInput placeholder="Name">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" fxFlex="45%" fxFlex.xs="100%">
+                <input matInput placeholder="Surname">
+            </mat-form-field>
+        </p>
+
+        <p fxLayoutGap="20px" fxFlex="100%" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+            <mat-form-field class="example-full-width" fxFlex="100%">
+                <input matInput placeholder="Nick Name">
+            </mat-form-field>
+        </p>
+        <p>
+            <span>
+                    Display my name as:
+            </span>
+        </p>
+
+        <mat-dialog-actions align="end" class="add_business_popup_con__action_con">
+            <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+            <button type="submit" mat-button color="accent">Create</button>
+        </mat-dialog-actions>
+
+    </form>
+
+</div>
+<input type="file" #fileInput id="fileInput" ng2FileSelect [uploader]="uploader" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*" />

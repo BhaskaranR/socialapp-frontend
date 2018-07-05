@@ -1,0 +1,40 @@
+.card_header {
+    padding: 20px;
+    font-size: 18px;
+}
+
+.cover_image {
+    height: 550px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.profile_icon_con {
+    position: absolute;
+    top: 570px;
+    width: 79px;
+    height: 78px;
+    border-radius: 360px;
+    background-color: #fff;
+    margin-left: 50px;
+}
+
+.profile_icon_image {
+    position: inherit;
+    width: 96%;
+    left: 25px;
+    border-radius: 360px;
+    top: 25px;
+}
+
+.card_action_con {
+    padding: 10px;
+}
+
+.mat-dialog-container {
+    padding: none;
+}
+
+mat-card-header.card_header.mat-card-header {
+    height: 16px;
+}
