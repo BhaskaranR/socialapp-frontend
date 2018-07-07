@@ -1,4 +1,4 @@
-@import '../../../../styles/constants';
+@import '../../../styles/constants';
 
 @mixin component-viewer-sidenav-theme($theme) {
   $primary: map-get($theme, primary);

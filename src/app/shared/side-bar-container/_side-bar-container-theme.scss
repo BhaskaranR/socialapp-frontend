@@ -1,11 +1,11 @@
-@mixin table-of-contents-theme($theme) {
+@mixin side-bar-container-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  .toc-container {
+  .sbc-container {
     border-left: solid 4px mat-color($primary);
 
     .link {

@@ -6,14 +6,14 @@ import { CoreModule } from '@app/core';
 import { RoutingModule } from './home.routing';
 import { HomeComponent } from './home.component';
 import { StaticModule } from '@app/static';
-import { ComponentCategoryListModule } from '@app/home/pages/component-category-list/component-category-list';
-import { ComponentHeaderModule } from '@app/home/pages/component-page-header/component-page-header';
+import { ComponentCategoryListModule } from '@app/home/component-category-list/component-category-list';
+import { ComponentHeaderModule } from '@app/home/component-page-header/component-page-header';
 import { MenuItems } from '@app/shared/menu-items/menu-items';
-import { ComponentListModule } from '@app/home/pages/component-list';
-import { ComponentSidenavModule } from '@app/home/pages/component-sidenav/component-sidenav';
+import { ComponentListModule } from '@app/home/component-list';
+import { ComponentSidenavModule } from '@app/home/component-sidenav/component-sidenav';
 import { NavBarModule } from '@app/shared/navbar/navbar';
-import { TableOfContentsModule } from '@app/shared/table-of-contents/table-of-contents.module';
-import { PostsModule } from '@app/home/pages/posts-home/posts-home';
+import { PostsModule } from '@app/home/pages/posts-home/posts-home.module';
+import { SideBarContainerModule } from '../shared/side-bar-container/side-bar-container.module';
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import { PostsModule } from '@app/home/pages/posts-home/posts-home';
     ComponentSidenavModule,
     NavBarModule,
     PostsModule,
-    TableOfContentsModule
+    SideBarContainerModule
   ],
   declarations: [HomeComponent],
   providers:[

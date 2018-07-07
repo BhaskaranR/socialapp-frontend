@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import {postFragment} from './fragments';
 
-export const featuredPosts = gql`
+export const posts = gql`
   query FeaturedPosts($feedType: FeedType!, $prev: String!, $next: String!, $count: Int!){
     featuredPosts(feedType: $feedType, prev:$prev, next: $next, count: $count){
       hasNext

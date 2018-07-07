@@ -1,11 +1,11 @@
 import gql from 'graphql-tag';
-import {postFragment} from './fragments';
+import { postFragment } from '@app/graphql/queries/post/fragments';
 
 export const createPost = gql`
   mutation CreatePost($post: PostInput!){
     createPost(post: $post){
       ok
-      error{
+      errors{
           path
           message
       }

@@ -1,0 +1,129 @@
+#fileInput {
+    position: absolute;
+    left: -3000px;
+}
+
+.mat-dialog-container.full-screen {
+    max-width: none;
+    width: 100vw;
+    height: 100vh;
+}
+
+.spinner {
+    position: absolute;
+    z-index: 999;
+    height: 2em !important;
+    width: 2em !important;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.gallery-section {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    flex: 1 1 225%;
+}
+
+.photosLayout {
+    width: 320px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    padding: 10px;
+}
+
+// Image upload preview dilog box styles
+// .uploadImage {
+//     overflow-y: scroll;
+// }
+.uploadImagePreview {
+    // height: 500px;
+    // overflow-x: scroll;
+    overflow-y: hidden;
+    width: 100% !important;
+}
+
+.photo-grid {
+    margin-bottom: 1em;
+    width: 200px !important;
+    height: 200px !important;
+}
+
+.post_text_area {
+    display: block;
+    width: 100%;
+    border: 0;
+    height: 70px;
+    padding: 5px 0;
+    font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif !important;
+    resize: none;
+}
+
+.post_text_area:focus {
+    background-size: 100% 2px, 100% 1px;
+    outline: none;
+}
+
+.post_type {
+    text-transform: capitalize;
+    color: #3F51B5;
+    position: relative;
+    top: -5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.icon_section {
+    position: relative;
+    bottom: 10px;
+    left: -0.7em;
+}
+
+.icon_style {
+    color: #fff;
+}
+
+* {
+    min-height: 1px !important;
+    min-width: initial !important;
+}
+
+.closeImage button .material-icons {
+    position: relative;
+    top: -4px;
+}
+
+.closeImage {
+    height: 0px;
+}
+
+.closeImage .material-icons {
+    margin-top: -7px;
+}
+
+.item {
+    flex: 0 0 auto;
+    width: 150px;
+    height: 220px;
+}
+
+.g-thumb-image {
+    cursor: pointer;
+    width: 150px;
+    height: 220px;
+    background-position: center center;
+    background-size: cover;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.footer {
+    margin-top: 80px;
+}

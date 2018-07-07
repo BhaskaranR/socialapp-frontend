@@ -23,11 +23,11 @@ interface Link {
 }
 
 @Component({
-  selector: 'table-of-contents',
-  styleUrls: ['./table-of-contents.scss'],
-  templateUrl: './table-of-contents.html'
+  selector: 'side-bar-container',
+  styleUrls: ['./side-bar-container.scss'],
+  templateUrl: './side-bar-container.html'
 })
-export class TableOfContents implements OnInit {
+export class SideBarContainer implements OnInit {
 
   @Input() links: Link[] = [];
   @Input() container: string;

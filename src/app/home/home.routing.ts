@@ -6,11 +6,12 @@ import { HomeComponent } from '@app/home/home.component';
 import { AboutComponent } from '@app/static';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { AuthGuardService } from '@app/core/services/auth-guard.service';
-import { CanActivateComponentSidenav } from '@app/home/pages/component-sidenav/component-sidenav-can-load-guard';
-import { ComponentSidenav } from '@app/home/pages/component-sidenav/component-sidenav';
-import { ComponentCategoryList } from '@app/home/pages/component-category-list/component-category-list';
-import { ComponentList } from '@app/home/pages/component-list';
+import { CanActivateComponentSidenav } from '@app/home/component-sidenav/component-sidenav-can-load-guard';
+import { ComponentSidenav } from '@app/home/component-sidenav/component-sidenav';
+import { ComponentCategoryList } from '@app/home/component-category-list/component-category-list';
+import { ComponentList } from '@app/home/component-list';
 import { PostsHome } from '@app/home/pages/posts-home/posts-home';
+import { FeaturePostsComponent } from '@app/home/pages/posts-home/feature-posts/feature-posts.component';
 
 const routes: Routes = [
     {
@@ -45,7 +46,7 @@ const routes: Routes = [
                             {path: '', redirectTo: 'featured', pathMatch: 'full'},
                             {
                                 path: 'featured',
-                                loadChildren: './pages/feature-posts/feature-posts.module#FeaturePostsModule'
+                                component: FeaturePostsComponent
                         
                             }// ,
                             // {

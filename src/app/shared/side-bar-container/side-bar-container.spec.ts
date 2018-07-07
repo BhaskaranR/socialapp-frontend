@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {TableOfContents} from './table-of-contents';
-import {TableOfContentsModule} from './table-of-contents.module';
+import {SideBarContainer} from './side-bar-container';
+import {TableOfContentsModule} from './side-bar-container.module';
 import {DocsAppTestingModule} from '../../testing/testing-module';
 
 const mockActivatedRoute = {
@@ -22,11 +22,11 @@ describe('TableOfContents', () => {
     }).compileComponents();
   }));
 
-  let fixture: ComponentFixture<TableOfContents>;
-  let component: TableOfContents;
+  let fixture: ComponentFixture<SideBarContainer>;
+  let component: SideBarContainer;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableOfContents);
+    fixture = TestBed.createComponent(SideBarContainer);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

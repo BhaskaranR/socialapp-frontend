@@ -1,12 +1,12 @@
 import { ElementRef, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { TableOfContents } from '@app/shared/table-of-contents/table-of-contents';
 import { Observable } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
+import { SideBarContainer } from '@app/shared/side-bar-container/side-bar-container';
 
 export class ComponentViewer implements OnInit {
     @ViewChild('intialFocusTarget') focusTarget: ElementRef;
-    @ViewChild('toc') tableOfContents: TableOfContents;
+    @ViewChild('toc') tableOfContents: SideBarContainer;
     showToc: Observable<boolean>;
 
     constructor(breakpointObserver: BreakpointObserver) {

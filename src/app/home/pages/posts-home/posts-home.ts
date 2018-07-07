@@ -8,7 +8,6 @@ import {
   ViewEncapsulation,
   OnDestroy
 } from '@angular/core';
-import {MatTabsModule} from '@angular/material';
 import {ActivatedRoute, Params, Router, RouterModule} from '@angular/router';
 import {ComponentPageTitle} from '@app/shared/page-title/page-title';
 import {BreakpointObserver} from '@angular/cdk/layout';
@@ -56,15 +55,3 @@ export class PostsHome extends ComponentViewer implements OnDestroy {
     this._destroyed.next();
   }
 }
-
-@NgModule({
-  imports: [
-    MatTabsModule,
-    RouterModule,
-    CommonModule,
-  ],
-  exports: [PostsHome],
-  declarations: [PostsHome],
-  providers: [MenuItems, ComponentPageTitle],
-})
-export class PostsModule {}
