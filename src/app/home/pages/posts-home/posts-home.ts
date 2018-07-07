@@ -23,6 +23,7 @@ import { ComponentViewer } from '@app/shared/component.viewer';
   encapsulation: ViewEncapsulation.None,
 })
 export class PostsHome extends ComponentViewer implements OnDestroy {
+
   componentDocItem: MenuItem;
   sections: Set<string> = new Set(['Featured', 'Photos', 'Videos']);
   private _subscription: Subscription;
@@ -50,6 +51,7 @@ export class PostsHome extends ComponentViewer implements OnDestroy {
     //       }
     //     });
   }
+
 
   ngOnDestroy(): void {
     this._destroyed.next();

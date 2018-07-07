@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
+  selector: 'app-newpost',
   templateUrl: './newpost.html',
   styleUrls: ['./newpost.scss']
 })

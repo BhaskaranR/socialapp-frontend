@@ -1,8 +1,19 @@
 <span class="cdk-visually-hidden" tabindex="-1" #intialFocusTarget>
-    feature feedds
+    feature feeds
   </span>
   <div>
-    
+      <mat-card  (click)="openNewPostDialog()" class="z-depth-1 mat-elevation-z">
+          <div fxLayout="row" fxLayoutAlign="center center">
+              <div style="margin-left:15px" fxLayoutGap="20px"><span role="button">What's new with you?</span></div>
+              <span fxFlex></span>
+              <button mat-icon-button>
+                  <mat-icon>insert_photo</mat-icon>
+              </button>
+              <button mat-icon-button>
+                  <mat-icon>location_on</mat-icon>
+              </button>
+          </div>
+      </mat-card>
   </div>
   <side-bar-container #sbc container=".mat-drawer-content" *ngIf="showSbc | async"></side-bar-container>
   
