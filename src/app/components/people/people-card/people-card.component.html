@@ -1,6 +1,8 @@
 <mat-card>
     <div fxLayout="row" class="container" fxLayoutAlign="center center">
-        <app-avatar [canEdit]="false" [imageSize]="75" [user]="user" [showLetter]="true"></app-avatar>
+        <ngx-avatar  name="Bhaskaran Rathnachalam"
+            value="28%" size="100" [round]="true">
+            
     </div>
     <div fxLayout="row" class="container_text" fxLayoutAlign="center center">
         <span>{{user.profile.firstName}} {{user.profile.lastName}}</span>

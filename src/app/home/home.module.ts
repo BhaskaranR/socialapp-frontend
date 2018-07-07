@@ -12,7 +12,7 @@ import { MenuItems } from '@app/shared/menu-items/menu-items';
 import { ComponentListModule } from '@app/home/component-list';
 import { ComponentSidenavModule } from '@app/home/component-sidenav/component-sidenav';
 import { NavBarModule } from '@app/shared/navbar/navbar';
-import { PostsModule } from '@app/home/pages/posts-home/posts-home.module';
+import { PostsHomeModule } from '@app/home/pages/posts-home/posts-home.module';
 import { SideBarContainerModule } from '../shared/side-bar-container/side-bar-container.module';
 
 
@@ -26,7 +26,7 @@ import { SideBarContainerModule } from '../shared/side-bar-container/side-bar-co
     ComponentListModule,
     ComponentSidenavModule,
     NavBarModule,
-    PostsModule,
+    PostsHomeModule,
     SideBarContainerModule
   ],
   declarations: [HomeComponent],

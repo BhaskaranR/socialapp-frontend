@@ -1,0 +1,47 @@
+<!-- <div fxLayout="row" fxLayoutAlign="start center">
+    <app-avatar [user]="user" [canEdit]="false" [imageSize]="30" [showLetter]="true"></app-avatar>
+    <div fxLayoutGap="20px;">{{item.text}}</div>
+    <span fxFlex></span>
+    <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+                <i class="material-icons">more_vert</i>
+     </button>
+
+</div>
+
+<mat-menu #settingsMenu x-position="before">
+    <button mat-menu-item>Delete</button>
+</mat-menu> -->
+<!-- <div fxLayout="row" class="comment_box">
+    <div>
+       <img src="http://ec2-54-89-102-18.compute-1.amazonaws.com/unsafe/110x110/smart/H1s_LR_O-.jpeg"> 
+       <app-avatar [user]="user" [canEdit]="false" [imageSize]="30" [showLetter]="true"></app-avatar>
+    </div>
+    <div fxLayout="column" style="padding-left: 5px;margin-top: -2px;">
+        <div class="comment_name_comment">
+            <span class="comment_username">Bhaskaran Rathnachalam</span>
+            <span class="comment_text">Bhaskaran Rathnachalam Bhaskaran Rathnachalam</span>
+        </div>
+        <div style="position: relative;left: 2.3em;">
+            <span class="comment_option">Like</span>
+            <span class="comment_option">Reply</span>
+            <span class="comment_time">July 04 02.50am</span>
+        </div>
+    </div>
+    <div class="icon_div">
+        <mat-icon class="more_icon" [matMenuTriggerFor]="settingsMenu">more_vert</mat-icon>
+    </div>
+</div>
+<mat-menu #settingsMenu x-position="before">
+    <button mat-menu-item>Delete</button>
+</mat-menu> -->
+
+<mat-nav-list>
+    <mat-list-item fxLayout="row">
+        <ngx-avatar name="Bhaskaran Rathnachalam" value="28%" size="100" [round]="true"></ngx-avatar>
+        <div fxLayout="column" class="comment_name_comment">
+            <h6 class="comment_username" mat-line> Bhaskaran Rathnachalam </h6>
+            <p class="comment_text">Dummy data Bhaskaran Rathnachalam </p>
+            <span class="comment_time">{{ 1427207139000 | date: 'fullDate' }}</span>
+        </div>
+    </mat-list-item>
+</mat-nav-list>

@@ -11,7 +11,7 @@ import { ComponentSidenav } from '@app/home/component-sidenav/component-sidenav'
 import { ComponentCategoryList } from '@app/home/component-category-list/component-category-list';
 import { ComponentList } from '@app/home/component-list';
 import { PostsHome } from '@app/home/pages/posts-home/posts-home';
-import { FeaturePostsComponent } from '@app/home/pages/posts-home/feature-posts/feature-posts.component';
+import { FeaturePostsComponent } from '@app/home/pages/feature-posts/feature-posts.component';
 
 const routes: Routes = [
     {

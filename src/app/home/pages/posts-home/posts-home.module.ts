@@ -11,10 +11,11 @@ import { environment } from '@env/environment';
 import { PostsHome } from './posts-home';
 import { MenuItems } from '@app/shared/menu-items/menu-items';
 import { ComponentPageTitle } from '@app/shared/page-title/page-title';
-import { NewPostComponent } from './new-post/newpost/newpost';
-import { FeaturePostsComponent } from './feature-posts/feature-posts.component';
+import { NewPostComponent } from '../new-post/newpost/newpost';
+import { FeaturePostsComponent } from '../feature-posts/feature-posts.component';
 import { RouterModule } from '@angular/router';
 import { SideBarContainerModule } from '../../../shared/side-bar-container/side-bar-container.module';
+import { PostsModule } from '@app/components/posts';
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import { SideBarContainerModule } from '../../../shared/side-bar-container/side-
       MatListModule,
       AvatarModule,
       MentionModule,
+      PostsModule,
       SideBarContainerModule,
       AgmCoreModule.forRoot({
         libraries: ['places'],
@@ -55,5 +57,5 @@ import { SideBarContainerModule } from '../../../shared/side-bar-container/side-
         // UserGroupListComponent
       ]
   })
-  export class PostsModule {}
+  export class PostsHomeModule {}
   

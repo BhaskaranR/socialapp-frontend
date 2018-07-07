@@ -26,8 +26,6 @@ export interface PostInput {
     visibility: PostVisibility
 }
 
-
-
 export interface CreatePostStatus {
     error: boolean;
     created: boolean;

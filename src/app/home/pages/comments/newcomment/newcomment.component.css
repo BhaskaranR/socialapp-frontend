@@ -1,0 +1,69 @@
+#fileInput {
+    position: absolute;
+    left: -3000px;
+}
+
+.comment_input {
+    width: 100%;
+    margin-left: 5px;
+}
+.btn_cmt_cam
+{
+    position: relative;
+    top: -0.9em;
+    font-size: x-large !important;
+    left: 10px;
+}
+.comment-content {
+    margin-left: 20px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.comment-actions {
+    margin-left: 20px;
+}
+
+.comment-text {
+    width: 100%;
+}
+
+.btn-icons
+{
+    position: absolute;
+    right: 4em;
+    margin-top: -1.2em;
+    display: flex;
+}
+.btn-icons p
+{
+    font-weight: bold;
+    padding-right: 8px;
+    margin-top: 4px;
+    font-size: large;
+    cursor: pointer;
+}
+textarea{  
+    overflow:hidden;
+    font-size: smaller !important;
+    padding:7px;
+    width:100%;
+    font-size:14px;
+    display:block;
+    border-radius:20px;
+    border: 1px solid #bababa;
+    resize: none;
+    height: 16px;
+    outline: none;
+    margin-left: 10px;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    position: relative;
+    top: -2em;
+  }
+  
+  mat-card-actions
+  {
+    margin-top: 1.5em !important;
+  }

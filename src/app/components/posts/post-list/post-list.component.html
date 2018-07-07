@@ -1,0 +1,127 @@
+<div [ngSwitch]="viewMode">
+    <ng-template [ngSwitchCase]="'GALLERY'">
+        <div class="photocards" fxLayout="row" fxLayoutWrap fxLayoutAlign="center center" class="post-div">
+            <mat-grid-list cols="4">
+                <mat-grid-tile *ngFor="let post of posts">
+                    <post-item [item]="post" [viewMode]="viewMode" [expandedView]="expandedView" [@postEnter]='startup' (itemClickedEvent)="handleItemClick($event)" (openPostInDialog)="handleOpenPostInDialog($event)" (itemAnimationDoneEvent)="handleItemAnimationDone($event)">
+                    </post-item>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+        <!-- <ng-template #mocka1>
+                <div fxLayout="row" fxLayoutWrap>
+                    <div class="mocka-container">
+                        <span class="mocka-media"></span>
+                    </div>
+                </div>
+            </ng-template> -->
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="'MASONRY'">
+        <div fxLayout="column" fxLayoutWrap="wrap">
+            <div fxLayout="row" class="photo-section" fxLayoutWrap="wrap">
+                <span>Nature</span>
+                <span>Friends</span>
+                <span>Sunrise</span>
+                <span>Mountain</span>
+                <span>trip</span>
+                <span>festival</span>
+                <span>yours</span>
+            </div>
+            <article>
+                <section *ngFor="let post of posts">
+                    <post-item [item]="post" [viewMode]="'MASONRY'" [expandedView]="expandedView" [@postEnter]='startup' (openPostInDialog)="handleOpenPostInDialog($event)" (itemClickedEvent)="handleItemClick($event)" (itemAnimationDoneEvent)="handleItemAnimationDone($event)">
+                    </post-item>
+                </section>
+            </article>
+        </div>
+        <div fxLayout="row" fxLayoutWrap fxLayoutAlign="center center" style="margin-top:20px;padding:1em;">
+            <h6 id="post-load-status" #postLoadStatus>Loading more posts...</h6>
+        </div>
+        <!--ng-template #mocka2>
+                <div fxLayout="row" fxLayoutWrap>
+                    <div class="mocka-container">
+                        <span class="mocka-media"></span>
+                    </div>
+                </div>
+            </ng-template-->
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="'FEEDVIEW'">
+        <div fxLayout="column" fxLayoutWrap="wrap" *ngFor='let post of posts;' class="post-div">
+            <!--post-item [item]="post" 
+                        [expandedView]="expandedView" 
+                        [viewMode]="viewMode" 
+                        *ngIf="post ;else postcardItem" 
+                        [@postEnter]='startup' 
+                        (openPostInDialog)="handleOpenPostInDialog($event)" 
+                        (itemClickedEvent)="handleItemClick($event)" 
+                        (itemAnimationDoneEvent)="handleItemAnimationDone($event)">
+            </post-item -->
+        </div>
+
+        <div fxLayout="row" *ngIf="!posts.length" fxLayoutWrap fxLayoutAlign="center center" style="padding:1em;">
+            <h6 id="post-load-status" *ngIf="!expandedView" #postLoadStatus [@postsLoading]='loading$'>Loading more posts...</h6>
+            <!--h6 id="post-load-status" [ksTooltip]="'message'" (scrollInView)="scrollMore()" *ngIf="!expandedView" #postLoadStatus [@postsLoading]='loading$'>Loading more posts...</h6-->
+        </div>
+        <ng-template #noposts>
+            <div fxLayout="row" fxLayoutWrap fxLayoutAlign="center center" style="padding:1em;">
+                <h6 #postLoadStatus [@postsLoading]='loading$'>No posts</h6>
+                <!--h6 id="post-load-status" [ksTooltip]="'message'" (scrollInView)="scrollMore()" *ngIf="!expandedView" #postLoadStatus [@postsLoading]='loading$'>Loading more posts...</h6-->
+            </div>
+        </ng-template>
+        <!--ng-template #mocka3>
+                <div fxLayout="column">
+                    <div class="mocka-container">
+                        <span class="mocka-heading"></span>
+                        <span class="mocka-media"></span>
+                        <span class="mocka-text"></span>
+                    </div>
+    
+                    <div fxLayoutGap="20px" style="margin-top:10px;" class="mocka-container">
+                        <span class="mocka-heading"></span>
+                        <span class="mocka-media"></span>
+                        <span class="mocka-text"></span>
+                    </div>
+    
+                    <div fxLayoutGap="20px" style="margin-top:10px;" class="mocka-container">
+                        <span class="mocka-heading"></span>
+                        <span class="mocka-media"></span>
+                        <span class="mocka-text"></span>
+                    </div>
+    
+                    <div fxLayoutGap="20px" style="margin-top:10px;" class="mocka-container">
+                        <span class="mocka-heading"></span>
+                        <span class="mocka-media"></span>
+                        <span class="mocka-text"></span>
+                    </div>
+    
+                    <div fxLayoutGap="20px" style="margin-top:10px;" class="mocka-container">
+                        <span class="mocka-heading"></span>
+                        <span class="mocka-media"></span>
+                        <span class="mocka-text"></span>
+                    </div>
+                </div>
+            </ng-template-->
+    </ng-template>
+
+
+
+
+</div>
+
+<ng-template #postcardItem>
+    <div class="mocka-container">
+        <span class="mocka-heading"></span>
+        <span class="mocka-media"></span>
+        <span class="mocka-text"></span>
+    </div>
+</ng-template>
+
+<ng-template #photo>
+    <div fxLayout="row" fxLayoutWrap>
+        <div class="mocka-container">
+            <span class="mocka-media"></span>
+        </div>
+    </div>
+</ng-template>
