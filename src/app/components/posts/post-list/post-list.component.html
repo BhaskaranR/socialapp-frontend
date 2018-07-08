@@ -10,7 +10,7 @@
     </post-item>
 </div>
 
-<div fxLayout="row" *ngIf="!posts.length" fxLayoutWrap fxLayoutAlign="center center" style="padding:1em;">
+<div fxLayout="row" *ngIf="posts && !posts.length" fxLayoutWrap fxLayoutAlign="center center" style="padding:1em;">
     <h6 id="post-load-status" *ngIf="!expandedView" #postLoadStatus [@postsLoading]='loading$'>Loading more posts...</h6>
 </div>
 <ng-template #noposts>
