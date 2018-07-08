@@ -26,8 +26,7 @@ export class UpdateImagePopup implements OnInit {
   image$: Subscription;
   image: any// PhotoDetails;
   constructor(public dialogRef: MatDialogRef < UpdateImagePopup > ,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
-    @Inject('apiBase') private apiBase: string,) {}
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {}
     ngOnInit() {
       // let tokens = JSON.parse(localStorage.getItem('tokens'));
       // if (tokens) {

@@ -45,7 +45,6 @@ export class NewPostComponent /*implements OnInit, OnDestroy */ {
   //   public dialogRef: MatDialogRef<NewPostComponent>,
   //   public promoPostDialogRef: MatDialogRef<NewPromoPostComponent>,
   //   public groupListdialogRef: MatDialogRef<UserGroupListComponent>,
-  //   @Inject('apiBase') private apiBase: string,
   //   private formBuilder: FormBuilder,
   //   private authHttp: AuthHttp,
   //   private store: Store<fromRoot.AppState>) {

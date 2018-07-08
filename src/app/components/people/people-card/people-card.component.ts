@@ -26,7 +26,6 @@ export class PeopleCardComponent implements OnInit {
   avatars = new Array(16).fill(0).map((_, i) => `svg-${i + 1}`);
   selectedAvatar = this.avatars[2];
 
-  constructor( @Inject('apiBase') private apiBase: string) { }
 
   get avatarDataCircle() {
     return {

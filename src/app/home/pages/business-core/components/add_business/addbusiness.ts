@@ -63,7 +63,6 @@ export class AddBusinessComponent {
 		private _zone: NgZone,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddBusinessComponent>,
-    @Inject('apiBase') private apiBase: string,
     private formBuilder: FormBuilder) {
       this.autocomplete();
   }

@@ -23,7 +23,6 @@ export class BusinessCardComponent {
   avatars = new Array(16).fill(0).map((_, i) => `svg-${i + 1}`);
   selectedAvatar = this.avatars[2];
 
-  constructor( @Inject('apiBase') private apiBase: string) { }
 
   get thumbnail(): string | boolean {
     if (this.business.user.profile.images && this.business.user.profile.images.small && this.business.user.profile.images.small !== '') {

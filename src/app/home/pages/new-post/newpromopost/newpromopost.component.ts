@@ -62,7 +62,6 @@ export class NewPromoPostComponent implements OnInit, OnDestroy {
     public constructor(
         public dialog: MatDialog,
         public dialogRef: MatDialogRef<NewPromoPostComponent>,
-        @Inject('apiBase') private apiBase: string,
         private formBuilder: FormBuilder) {
     }
 
@@ -75,7 +74,7 @@ export class NewPromoPostComponent implements OnInit, OnDestroy {
         let tokens = JSON.parse(localStorage.getItem('tokens'));
         if (tokens) {
             let authHeaders: Headers = { name: 'Authorization', value: `Bearer${tokens.access_token}` };
-            this.uploader = new FileUploader({ url: `${this.apiBase}/posts/new/file`, headers: [authHeaders], disableMultipart: false });
+            //this.uploader = new FileUploader({ url: `${this.apiBase}/posts/new/file`, headers: [authHeaders], disableMultipart: false });
         }
         this.uploader.onAfterAddingAll = f => {
            // this.store.dispatch(new imageUploadActions.UploadTempPhotoAction(f));
