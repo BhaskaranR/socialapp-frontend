@@ -21,7 +21,7 @@ import { Post, User } from '@app/typings/types';
 
 export class PostListComponent {
 
-	@Input() posts: Post[];
+	@Input() posts: Post[] = [];
 	@Input() me: User;
 	@Input() allPreviewsLoaded: boolean;
 	@Input() adminState: Observable<{ adminMode: boolean, editMode: boolean }>;

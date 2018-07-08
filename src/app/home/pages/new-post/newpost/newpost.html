@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit($event)" ngNativeValidate>
-    <!-- <div fxLayout="column" fxLayoutGap="8px">
-        <div *ngIf="user$ | async; let user" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutGap="8px">
+        <!-- <div *ngIf="user$ | async; let user" fxLayout="row" fxLayoutAlign="start center">
             <ngx-avatar  name="Bhaskaran Rathnachalam" value="28%" size="100" [round]="true">
             <span style="padding-left:5px;">{{user.firstName}} {{user.lastName}}</span>
 
@@ -79,11 +79,11 @@
                 <button mat-icon-button (click)="openCheckin($event)"><mat-icon style="position: relative;bottom: 2px;">place</mat-icon></button>
             </ng-template>
             <input #fileInput id="fileInput" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*, .mp4, .3gpp, .mpeg, .mov, .quicktime|videos/*" ng2FileSelect [uploader]="uploader" multiple />
-        </div>
+        </div> -->
     </div>
     <mat-dialog-actions align="end">
         <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
         <button type="submit" mat-raised-button color="primary" >Post</button>
-    </mat-dialog-actions> -->
+    </mat-dialog-actions>
 </form>
 

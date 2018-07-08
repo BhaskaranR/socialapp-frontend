@@ -7,6 +7,8 @@ import { SideBarContainer } from '@app/shared/side-bar-container/side-bar-contai
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 import { NewPostComponent } from '../new-post/newpost/newpost';
+import { PostDetailPopupComponent } from '@app/home/pages/post-detailed/post-detail-popup.component';
+import { Post } from '@app/typings/types';
 
 @Component({
   selector: 'app-feature-posts',
@@ -14,6 +16,15 @@ import { NewPostComponent } from '../new-post/newpost/newpost';
   styleUrls: ['./feature-posts.component.scss']
 })
 export class FeaturePostsComponent implements OnInit {
+  num = 1;
+  items$: Observable<Post[]>;
+  loading$: Observable<boolean>;
+  allPostsLoaded$: Observable<boolean>;
+  private subscriptions: Subscription[] = [];
+  private offset: number = 0;
+  private limit: number = 10;
+  protected meid: string;
+  private postDialogRef: MatDialogRef<PostDetailPopupComponent>;
   
   dialogRef: MatDialogRef<NewPostComponent>;
   @ViewChild('intialFocusTarget') focusTarget: ElementRef;
