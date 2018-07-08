@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.biz-card {
+    height: 170px;
+}
+
+.side_nav_icon {
+    font-size: 3em;
+    margin-bottom: 5px;
+    color: rgba(0,0,0,0.5) !important;
+}

@@ -1,0 +1,31 @@
+:host {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+mat-tab-label {
+    height: 48px!important;
+}
+
+.mat-tab-label {
+    height: 48px!important;
+}
+
+mat-sidenav-container {
+    min-height: 100vh;
+}
+nav {
+    margin-top: 8px;
+    // background: #fff;
+}
+
+a {
+    // color: #000  !important;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: initial;
+    text-transform: uppercase;
+}

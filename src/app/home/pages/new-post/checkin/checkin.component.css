@@ -1,0 +1,23 @@
+agm-map {
+    height: 200px;
+    width: 100%;
+}
+
+.example-icon {
+    padding: 0 14px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.location-container {
+    overflow-y: scroll;
+    height: 50vh;
+    padding: 1em;
+}
+
+.text {
+    font-size: 17px;
+    font-weight: 400;
+}

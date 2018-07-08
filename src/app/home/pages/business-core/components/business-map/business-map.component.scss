@@ -1,0 +1,93 @@
+@import "../../../../assets/styles/scss/material.variables";
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+:host /deep/ {
+    mat-sidenav {
+        width: 250px;
+    }
+    // .mat-sidenav-container {
+    //     overflow: visible;
+    //     .mat-sidenav {
+    //         overflow: visible;
+    //     }
+    // }
+    // .mat-sidenav-content {
+    //     padding: 0;
+    // }
+    // @media (min-width: 959px) {
+    //     .mat-sidenav-side {
+    //         background-color: transparent;
+    //         box-shadow: none!important;
+    //     }
+    // }
+    // .mat-slider-horizontal {
+    //     width: 100%;
+    //     min-width: 1px;
+    // }
+}
+.SideNavIco
+{
+    position: absolute;
+    left: 4px;
+}
+.serviceIcon
+{
+    margin: 10px 10px 10px 22px;
+    border-radius: 50%;
+    border: 1px solid #bababa;
+    line-height: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+.serviceIcon2{
+    margin: 10px 10px 10px 22px;
+    border-radius: 50%;
+    border: 1px solid #bababa;
+    line-height: 0;
+    padding: 10px;
+    cursor: pointer;
+    background: #739A51;
+}
+.serviceIcon2 mat-icon{
+    color: #fff;
+}
+p
+{
+    text-align: center;
+    margin-left: 1em;
+    position: relative;
+    top: -5px;
+}
+mat-card-title{
+    font-weight: bold !important;
+    font-size: 20px !important;
+    color: rgba(0,0,0,0.7);
+}
+.sebm-google-map-container {
+    width: 100%;
+    height: 500px;
+    display: flex;
+}
+.mat-slider-horizontal {
+    height: 25px !important;
+    min-width: 95% !important;
+    position: relative;
+    top: -1em;
+    margin-left: 8px;
+}
+h6
+{
+    margin-left: 1em;
+    margin-top: 1em;
+    font-weight: 500;
+}
+.mat-select {
+    padding-top: 10px !important;
+    width: 90%;
+    margin-left: 1em;
+}
+

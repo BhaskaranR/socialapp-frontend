@@ -1,0 +1,10 @@
+<nav mat-tab-nav-bar aria-label="my business" fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayoutAlign="center center">
+        <a mat-tab-link *ngFor="let tabLink of tabLinks; let i = index" [routerLink]="tabLink.link" [active]="activeLinkIndex === i" (click)="activeLinkIndex = i">
+                        {{tabLink.label}}
+                        </a>
+    </div>
+</nav>
+<div fxLayoutAlign="start center">
+    <router-outlet></router-outlet>
+</div>

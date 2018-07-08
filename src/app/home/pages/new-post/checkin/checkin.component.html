@@ -1,0 +1,49 @@
+<div fxFlex>
+    <mat-toolbar color="#FEFEFE" *ngIf="!showId" fxLayout="row" fxLayoutAlign="space-between center">
+        <button (click)="dialogRef.close('Location')" mat-icon-button mat-dialog-close>
+            <mat-icon  class="material-icons">clear</mat-icon>
+        </button>
+        <span class="text">Share your location</span>
+        <div style="width:250px"></div>
+        <button mat-icon-button>
+            <mat-icon (click)="toggleId()" class="example-icon">search</mat-icon>
+        </button>
+    </mat-toolbar>
+    <mat-toolbar color="#FEFEFE" *ngIf="showId" fxLayout="row" fxLayoutAlign="space-between center">
+        <button (click)="toggleId()" mat-icon-button>
+            <mat-icon  class="material-icons">keyboard_backspace</mat-icon>
+        </button>
+        <mat-form-field style="font-size: 15px;font-weight: 400;height: 90px;width:395px">
+            <input style="margin-bottom: -7px;text-transform: capitalize;" matInput placeholder="Search nearby places" (keyup)="search($event)" autofocus>
+        </mat-form-field>
+        <button (click)="dialogRef.close('Location')" mat-icon-button mat-dialog-close>
+            <mat-icon  class="material-icons">clear</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <agm-map [latitude]="currentLoc.lat" [styles]="styles" [longitude]="currentLoc.long" [zoom]="zoom" #map1>
+        <agm-marker [latitude]="currentLoc.lat" [longitude]="currentLoc.long"></agm-marker>
+    </agm-map>
+
+    <!--agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map-->
+
+
+    <div class="location-container">
+        <div class="location-list" *ngFor="let loc of locData">
+            <a (click)="checkin(loc)" class="relative" mat-ripple>
+                <div fxLayout="row">
+                    <div fxLayout="column" fxFlex="10">
+                        <mat-icon>location_on</mat-icon>
+                        <div>{{loc?.distance}}</div>
+                    </div>
+                    <div fxLayout="column" fxFlex="90">
+                        <div><b>{{loc?.title}}</b></div>
+                        <div>{{loc?.address}}</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

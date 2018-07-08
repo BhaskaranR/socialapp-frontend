@@ -1,0 +1,193 @@
+<div [ngSwitch]="viewMode">
+    <ng-template [ngSwitchCase]="'GALLERY'">
+        <mat-grid-list cols="4">
+            <mat-grid-tile *ngFor="let post of posts">
+                <div *ngIf="post.photos">
+                    <img mat-card-image [lazyLoad]="post.photos[0].small" />
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </ng-template>
+    <ng-template [ngSwitchCase]="'MASONRY'">
+        <article>
+            <section *ngFor="let post of posts">
+                <mat-card class="example-card" *ngIf="post.photos">
+                    <mat-card-header>
+                        <img mat-card-avatar [defaultImage]="defaultAvatar" [lazyLoad]="post.userImgSmall">
+                        <mat-card-title>
+                            {{post.userFirstName}}{{post.userLastName}}
+                        </mat-card-title>
+                        <mat-card-subtitle>{{post.modified_date | amTimeAgo}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img class="photos_card" mat-card-image [lazyLoad]="post.photos[0].normal" />
+                    <mat-card-content *ngIf="post.text">
+                        <p>
+                            {{post.text}}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button>
+            <mat-icon>
+              thumb_up
+            </mat-icon>
+          </button>
+                        <button mat-icon-button>
+            <mat-icon>
+              share
+            </mat-icon>
+          </button>
+                    </mat-card-actions>
+                </mat-card>
+            </section>
+        </article>
+    </ng-template>
+    <!--ng-template [ngSwitchCase]="'MASONRY'">
+        <mat-card-subtitle class="photo_date">Today</mat-card-subtitle>
+        <article>
+            <section *ngFor="let post of posts | groupBy:this.today">
+                <mat-card class="example-card" *ngIf="post.photos">
+                    <mat-card-header>
+                        <img mat-card-avatar [defaultImage]="defaultAvatar" [lazyLoad]="post.userImgSmall">
+                        <mat-card-title>
+                            {{post.userFirstName}}{{post.userLastName}}
+                        </mat-card-title>
+                        <mat-card-subtitle>{{post.modified_date | amTimeAgo}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img class="photos_card" mat-card-image [lazyLoad]="post.photos[0].normal" />
+                    <mat-card-content *ngIf="post.text">
+                        <p>
+                            {{post.text}}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button>
+                <mat-icon>
+                  thumb_up
+                </mat-icon>
+              </button>
+                        <button mat-icon-button>
+                <mat-icon>
+                  share
+                </mat-icon>
+              </button>
+                    </mat-card-actions>
+                </mat-card>
+            </section>
+
+        </article>
+        <mat-card-subtitle class="photo_date">Yesterday</mat-card-subtitle>
+        <article>
+            <section *ngFor="let post of posts| groupBy:this.yesterday">
+                <mat-card class="example-card" *ngIf="post.photos">
+                    <mat-card-header>
+                        <img mat-card-avatar [defaultImage]="defaultAvatar" [lazyLoad]="post.userImgSmall">
+                        <mat-card-title>
+                            {{post.userFirstName}}{{post.userLastName}}
+                        </mat-card-title>
+                        <mat-card-subtitle>{{post.modified_date | amTimeAgo}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img class="photos_card" mat-card-image [lazyLoad]="post.photos[0].normal" />
+                    <mat-card-content *ngIf="post.text">
+                        <p>
+                            {{post.text}}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button>
+                <mat-icon>
+                  thumb_up
+                </mat-icon>
+              </button>
+                        <button mat-icon-button>
+                <mat-icon>
+                  share
+                </mat-icon>
+              </button>
+                    </mat-card-actions>
+                </mat-card>
+            </section>
+        </article>
+        <mat-card-subtitle class="photo_date">Last week</mat-card-subtitle>
+        <article>
+            <section *ngFor="let post of posts| groupBy:'LAST_WEEK'">
+                <mat-card class="example-card" *ngIf="post.photos">
+                    <mat-card-header>
+                        <img mat-card-avatar [defaultImage]="defaultAvatar" [lazyLoad]="post.userImgSmall">
+                        <mat-card-title>
+                            {{post.userFirstName}}{{post.userLastName}}
+                        </mat-card-title>
+                        <mat-card-subtitle>{{post.modified_date | amTimeAgo}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img class="photos_card" mat-card-image [lazyLoad]="post.photos[0].normal" />
+                    <mat-card-content *ngIf="post.text">
+                        <p>
+                            {{post.text}}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button>
+                <mat-icon>
+                  thumb_up
+                </mat-icon>
+              </button>
+                        <button mat-icon-button>
+                <mat-icon>
+                  share
+                </mat-icon>
+              </button>
+                    </mat-card-actions>
+                </mat-card>
+            </section>
+        </article>
+        <mat-card-subtitle class="photo_date">Last Month</mat-card-subtitle>
+        <article>
+            <section *ngFor="let post of posts | groupBy:'LAST_MONTH'">
+                <mat-card class="example-card" *ngIf="post.photos">
+                    <mat-card-header>
+                        <img mat-card-avatar [defaultImage]="defaultAvatar" [lazyLoad]="post.userImgSmall">
+                        <mat-card-title>
+                            {{post.userFirstName}}{{post.userLastName}}
+                        </mat-card-title>
+                        <mat-card-subtitle>{{post.modified_date | amTimeAgo}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img class="photos_card" mat-card-image [lazyLoad]="post.photos[0].normal" />
+                    <mat-card-content *ngIf="post.text">
+                        <p>
+                            {{post.text}}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-icon-button>
+                <mat-icon>
+                  thumb_up
+                </mat-icon>
+              </button>
+                        <button mat-icon-button>
+                <mat-icon>
+                  share
+                </mat-icon>
+              </button>
+                    </mat-card-actions>
+                </mat-card>
+            </section>
+        </article>
+    </ng-template>-->
+</div>
+
+<!-- // <div fxLayout="row" fxLayoutAlign="start" fxLayoutWrap="wrap">
+  // <div class="brick" *ngFor="let post of posts">
+  // <div class="brick" *ngFor="let post of posts | groupBy:this.today">
+
+  //   <mat-card  *ngIf="post.photos">
+  //       <img mat-card-image [lazyLoad]="post.photos[0].normal" />
+  //         <mat-card-content>
+  //             <p></p>
+  //           </mat-card-content>
+  //           <mat-card-footer>
+  //
+  //             <mat-card-title>{{post.text}}</mat-card-title>
+  //             <mat-card-subtitle></mat-card-subtitle>
+  //           </mat-card-footer>
+  //   </mat-card>
+  // </div>
+  // </div> -->

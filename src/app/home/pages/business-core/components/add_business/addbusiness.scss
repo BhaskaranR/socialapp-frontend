@@ -1,0 +1,15 @@
+.header-mat-toolbar{
+  background: #3F51B5;
+  color: #fff;
+  p{
+    font-weight: 600;
+    padding-left: 0.5em;
+  }
+  mat-icon{
+    color: #fff;
+    font-size: large;
+  }
+}
+mat-form-field{
+  width: 100% !important;
+}

@@ -1,0 +1,36 @@
+.example-radio-group {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.example-radio-button {
+    margin: 5px;
+}
+
+.example-selected-value {
+    margin: 15px 0;
+}
+
+.mypages {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-icon {
+    position: relative;
+    top: 6px;
+}
+
+i {
+    position: relative;
+    bottom: 5px;
+    color: #757575;
+}
+
+mat-divider {
+    margin: 1em 0 1em 0;
+}
+mat-list-item  a span{
+    padding-top: 10px;
+    padding-left: 5px;
+}
