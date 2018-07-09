@@ -156,7 +156,7 @@ export class PostListComponent {
 	}
 
 	ngOnDestroy() {
-		this.animSub.unsubscribe();
-		this._scrollSubscription.unsubscribe();
+		// this.animSub.unsubscribe();
+		// this._scrollSubscription.unsubscribe();
 	}
 }

@@ -46,17 +46,17 @@ const routes: Routes = [
                             {path: '', redirectTo: 'featured', pathMatch: 'full'},
                             {
                                 path: 'featured',
-                                component: FeaturePostsComponent
+                                loadChildren: './pages/feature-posts/feature-posts.module#FeaturePostsModule',
                         
-                            }// ,
-                            // {
-                            //     path: 'photos',
-                            //     loadChildren: './pages/photo-feeds/photo-feeds.module#PhotoFeedsModule',
-                            //     data: {
-                            //         page: 'Gallery',
-                            //         animation: 'profile'
-                            //     }
-                            // },
+                            },
+                            {
+                                path: 'photos',
+                                loadChildren: './pages/photo-posts/photo-posts.module#PhotoPostsModule',
+                                data: {
+                                    page: 'Gallery',
+                                    animation: 'profile'
+                                }
+                            }
                             // {
                             //     path: 'videos',
                             //     loadChildren: './pages/video-feeds/video-feeds.module#VideosFeedsModule',
@@ -65,7 +65,28 @@ const routes: Routes = [
                             //     }
                             // }
                         ],
-                    }]
+                    },
+                    // {
+                    //     path: 'business',
+                    //     component: PostsHome,
+                    //     children: [
+                    //         {path: '', redirectTo: 'featured', pathMatch: 'full'},
+                    //         {
+                    //             path: 'featured',
+                    //             loadChildren: './pages/feature-posts/feature-posts.module#FeaturePostsModule',
+                        
+                    //         },
+                    //         {
+                    //             path: 'photos',
+                    //             loadChildren: './pages/photo-posts/photo-posts.module#PhotoPostsModule',
+                    //             data: {
+                    //                 page: 'Gallery',
+                    //                 animation: 'profile'
+                    //             }
+                    //         }
+                    //     ],
+                    // }
+                ]
             }
         ]
     }

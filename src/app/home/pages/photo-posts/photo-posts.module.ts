@@ -47,4 +47,4 @@ export const routing = RouterModule.forChild(routes);
     PhotoViewComponent
   ]
 })
-export class PhotoFeedsModule { }
+export class PhotoPostsModule { }
