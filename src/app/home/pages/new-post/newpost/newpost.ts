@@ -82,28 +82,28 @@ export class NewPostComponent implements OnInit, OnDestroy {
       let authHeaders: Headers = { name: 'Authorization', value: `Bearer${tokens.access_token}` };
       // this.uploader = new FileUploader({ url: `${this.apiBase}/posts/new/file`, headers: [authHeaders], disableMultipart: false });
     }
-    this.uploader.onAfterAddingAll = f => {
-      // this.store.dispatch(new imageUploadActions.UploadTempPhotoAction(f));
-      this.uploader.uploadAll();
-    };
-    this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
-      // const resp: PhotoDetails = JSON.parse(response);
-      // this.store.dispatch(new imageUploadActions.UploadTempPhotoActionSuccess([resp]));
-    };
+    // this.uploader.onAfterAddingAll = f => {
+    //   // this.store.dispatch(new imageUploadActions.UploadTempPhotoAction(f));
+    //   this.uploader.uploadAll();
+    // };
+    // this.uploader.onSuccessItem = (item: any, response: any, status: any, headers: any) => {
+    //   // const resp: PhotoDetails = JSON.parse(response);
+    //   // this.store.dispatch(new imageUploadActions.UploadTempPhotoActionSuccess([resp]));
+    // };
     this.uuid = UUID.UUID();
     this.form = this.formBuilder.group({
       text: [''],
       mentions: [''],
       selectedLocation: null
     });
-    this.uploader.onBuildItemForm = (fileItem: any, frm: any) => {
-      let reader = new FileReader();
-      reader.readAsDataURL(fileItem._file);
-      reader.onload = (e) => {
-        this.imageUrl.push(e.target['result']);
-      }
-      frm.append('clientId', this.uuid);
-    };
+    // this.uploader.onBuildItemForm = (fileItem: any, frm: any) => {
+    //   let reader = new FileReader();
+    //   reader.readAsDataURL(fileItem._file);
+    //   reader.onload = (e) => {
+    //     this.imageUrl.push(e.target['result']);
+    //   }
+    //   frm.append('clientId', this.uuid);
+    // };
   }
 
   removeSelectedLocation() {

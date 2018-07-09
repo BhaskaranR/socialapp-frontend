@@ -16,12 +16,12 @@
   </div>
 </mat-card>
 
-<app-post-list (endOfListReachedEvent)=searchMore($event) 
+<!-- <app-post-list (endOfListReachedEvent)=searchMore($event) 
             [viewMode]="'FEEDVIEW'" 
             [posts]="items$ | async" 
             [loading]="loading$ | async" 
             [allPreviewsLoaded]="allPostsLoaded$ | async" 
             (openPostInDialog)="navigateToPostDialog($event)" 
-            (activatePostPreviewEvent)="navigateToPost($event)"></app-post-list>
+            (activatePostPreviewEvent)="navigateToPost($event)"></app-post-list> -->
             
 <side-bar-container #sbc container=".mat-drawer-content" *ngIf="showSbc | async"></side-bar-container>

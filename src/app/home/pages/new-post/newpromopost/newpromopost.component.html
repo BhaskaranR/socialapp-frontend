@@ -14,7 +14,9 @@
     <form [formGroup]="form" ngNativeValidate>
         <div fxLayout="row" fxLayoutGap="8px" class="promo_dialog">
             <div *ngIf="user$ | async; let user" fxLayout="row" fxLayoutAlign="start center">
-                <app-avatar [user]="user" [canEdit]="false" [imageSize]="40" [showLetter]="true" [background]="light-blue"></app-avatar>
+                    <ngx-avatar  name="Bhaskaran Rathnachalam" value="28%" size="100" [round]="true">
+                        </ngx-avatar>
+                <!-- <app-avatar [user]="user" [canEdit]="false" [imageSize]="40" [showLetter]="true" [background]="light-blue"></app-avatar> -->
                 <!-- <span>{{user.firstName}} {{user.lastName}}</span> -->
             </div>
             <mat-form-field>
