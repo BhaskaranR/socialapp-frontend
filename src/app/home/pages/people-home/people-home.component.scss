@@ -1,0 +1,48 @@
+:host {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+nav {
+    margin-top: 8px;
+    // background: #fff;
+}
+
+
+a {
+    // color: #000  !important;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: initial;
+    text-transform: uppercase;
+}
+
+.demo-tab-group {
+    border: 1px solid #e8e8e8;
+    .unicorn-dark-theme & {
+        border-color: #464646;
+    }
+}
+
+mat-tab-label {
+    height: 48px!important;
+}
+
+.mat-tab-label {
+    height: 48px!important;
+}
+
+mat-sidenav-container {
+    min-height: 100vh;
+}
+// .profile_sidenav {
+//     margin-top: 0 !important;
+//     position: fixed;
+// }
+mat-tab-group 
+{
+    margin-top: 8px;
+}

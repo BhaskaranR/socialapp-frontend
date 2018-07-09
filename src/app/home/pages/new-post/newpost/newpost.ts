@@ -3,7 +3,6 @@ import { Component, Inject, Renderer, OnInit, ViewChild, ElementRef, OnDestroy, 
 import { FileUploader, Headers } from 'ng2-file-upload';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthHttp } from 'angular2-jwt';
 import { UUID } from 'angular2-uuid';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription'
@@ -13,6 +12,7 @@ import { UserGroupListComponent } from '../usergroup/usergroup-list.component';
 // import { FiltersPageComponent } from '../../photo-filter/filters-page';
 // import { FiltersService } from '../../photo-filter/filter-data/services/filters-service';
 import { User, UserGroup, GeotagInput } from '@app/typings/types';
+import { environment } from '@env/environment';
 
 @Component({
   templateUrl: './newpost.html',
@@ -54,9 +54,8 @@ export class NewPostComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<NewPostComponent>,
     public promoPostDialogRef: MatDialogRef<NewPromoPostComponent>,
     public groupListdialogRef: MatDialogRef<UserGroupListComponent>,
-    @Inject('apiBase') private apiBase: string,
-    private formBuilder: FormBuilder,
-    private authHttp: AuthHttp) {
+    //@Inject('apiBase') private apiBase: string,
+    private formBuilder: FormBuilder) {
   }
   private getPeople() {
   }
@@ -81,7 +80,7 @@ export class NewPostComponent implements OnInit, OnDestroy {
     let tokens = JSON.parse(localStorage.getItem('tokens'));
     if (tokens) {
       let authHeaders: Headers = { name: 'Authorization', value: `Bearer${tokens.access_token}` };
-      this.uploader = new FileUploader({ url: `${this.apiBase}/posts/new/file`, headers: [authHeaders], disableMultipart: false });
+      // this.uploader = new FileUploader({ url: `${this.apiBase}/posts/new/file`, headers: [authHeaders], disableMultipart: false });
     }
     this.uploader.onAfterAddingAll = f => {
       // this.store.dispatch(new imageUploadActions.UploadTempPhotoAction(f));
@@ -205,7 +204,7 @@ export class NewPostComponent implements OnInit, OnDestroy {
   regexReplacer = (str, p1, offset, s) => {
     var name = str.substring(1);
     return `
-    <span style="color:#3F51B5; font-weight:600">[${name}](${this.apiBase}/profile/${this.mentionedUsers[name]})</span>
+    <span style="color:#3F51B5; font-weight:600">[${name}](${environment.apiBaseUrl}/profile/${this.mentionedUsers[name]})</span>
             `;
   }
 
