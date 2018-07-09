@@ -1,4 +1,4 @@
-import { Component, ViewChild, HostBinding, AnimationTransitionEvent, ViewEncapsulation, OnDestroy, OnInit } from '@angular/core';
+import { Component, ViewChild, HostBinding, ViewEncapsulation, OnDestroy, OnInit } from '@angular/core';
 import { MatSidenav, MatIconRegistry, MatDialogRef, MatDialog, MatTabChangeEvent } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -39,7 +39,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
 
-  people$: Observable<UserAction[]>;
+  // people$: Observable<UserAction[]>;
   currentMedia: string;
   tabLinks = [
     { label: 'Suggestions', link: 'suggestions' },
