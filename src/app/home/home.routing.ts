@@ -43,11 +43,11 @@ const routes: Routes = [
                         path: 'posts',
                         component: PostsHome,
                         children: [
-                            {path: '', redirectTo: 'featured', pathMatch: 'full'},
+                            { path: '', redirectTo: 'featured', pathMatch: 'full' },
                             {
                                 path: 'featured',
                                 loadChildren: './pages/feature-posts/feature-posts.module#FeaturePostsModule',
-                        
+
                             },
                             {
                                 path: 'photos',
@@ -66,26 +66,18 @@ const routes: Routes = [
                             // }
                         ],
                     },
-                    // {
-                    //     path: 'business',
-                    //     component: PostsHome,
-                    //     children: [
-                    //         {path: '', redirectTo: 'featured', pathMatch: 'full'},
-                    //         {
-                    //             path: 'featured',
-                    //             loadChildren: './pages/feature-posts/feature-posts.module#FeaturePostsModule',
-                        
-                    //         },
-                    //         {
-                    //             path: 'photos',
-                    //             loadChildren: './pages/photo-posts/photo-posts.module#PhotoPostsModule',
-                    //             data: {
-                    //                 page: 'Gallery',
-                    //                 animation: 'profile'
-                    //             }
-                    //         }
-                    //     ],
-                    // }
+                    {
+                        path: 'people',
+                        loadChildren: './pages/people-home/people-home.module#PeopleHomeModule'
+                    },
+                    {
+                        path: 'business',
+                        loadChildren: './pages/business-home/business-home.module#BusinessHomeModule'
+                    },
+                    {
+                        path: 'profile',
+                        loadChildren: './pages/profile-home/profile-home.module#ProfileHomeModule'
+                    }
                 ]
             }
         ]
