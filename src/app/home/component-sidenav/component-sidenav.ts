@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {MatSidenav, MatSidenavModule, MatIconModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ActivatedRoute, Params, Router, RouterModule} from '@angular/router';
+import {ActivatedRoute, Params, Router, RouterModule, UrlSegment} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ComponentHeaderModule} from '../component-page-header/component-page-header';
 import {Observable, Subject, combineLatest} from 'rxjs';
@@ -25,7 +25,7 @@ const SMALL_WIDTH_BREAKPOINT = 720;
 export class ComponentSidenav implements OnInit {
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
 
-  params: Observable<Params>;
+  path: string;
 
   constructor(public menuItems: MenuItems,
               private _route: ActivatedRoute,
@@ -42,13 +42,10 @@ export class ComponentSidenav implements OnInit {
         this.sidenav.close();
       }
     });
-
-    // Combine params from all of the path into a single object.
-    this.params = combineLatest(
-      this._route.pathFromRoot.map(route => {
-        return route.params
-      }),
-      Object.assign);
+    //Combine params from all of the path into a single object.
+    if (this._route.snapshot.url  && this._route.snapshot.url.length >0){
+      this.path = this._route.snapshot.url[0].path
+    }
   }
 
   isScreenSmall(): boolean {
@@ -69,7 +66,7 @@ export class ComponentSidenav implements OnInit {
 })
 export class ComponentNav implements OnInit, OnDestroy {
 
-  @Input() params: Observable<Params>;
+  @Input() path: string;
   expansions = {};
   private _onDestroy = new Subject<void>();
 
@@ -79,7 +76,7 @@ export class ComponentNav implements OnInit, OnDestroy {
   ngOnInit() {
     this._router.events.pipe(
       startWith(null),
-      switchMap(() => this.params),
+      switchMap(() => this.path),
       takeUntil(this._onDestroy)
     ).subscribe(p => this.setExpansions(p));
   }
@@ -90,8 +87,8 @@ export class ComponentNav implements OnInit, OnDestroy {
   }
 
   /** Set the expansions based on the route url */
-  setExpansions(params: Params) {
-    const categories = this.menuItems.getCategories(params.section);
+  setExpansions(path: string) {
+    const categories = this.menuItems.getCategories(path);
     for (const category of (categories || [])) {
       if (this.expansions[category.id] === true) {
         continue;

@@ -27,7 +27,7 @@ const routes: Routes = [
             },
             { path: '', redirectTo: '/social/posts', pathMatch: 'full' },
             {
-                path: ':section',
+                path: 'social',
                 component: ComponentSidenav,
                 children: [
                     { path: '', redirectTo: 'posts', pathMatch: 'full' },
@@ -69,16 +69,16 @@ const routes: Routes = [
                     {
                         path: 'people',
                         loadChildren: './pages/people-home/people-home.module#PeopleHomeModule'
-                    },
-                    {
-                        path: 'business',
-                        loadChildren: './pages/business-home/business-home.module#BusinessHomeModule'
-                    },
-                    {
-                        path: 'profile',
-                        loadChildren: './pages/profile-home/profile-home.module#ProfileHomeModule'
                     }
                 ]
+            },
+            {
+                path: 'business',
+                loadChildren: './pages/business-home/business-home.module#BusinessHomeModule'
+            },
+            {
+                path: 'profile',
+                loadChildren: './pages/profile-home/profile-home.module#ProfileHomeModule'
             }
         ]
     }
