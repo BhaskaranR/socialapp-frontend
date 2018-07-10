@@ -1,0 +1,8 @@
+<mat-card class="video-col" *ngIf="isGalleryView; else videoview">
+    <app-video-grid *ngFor="let video of videos" [video]="video"></app-video-grid>
+</mat-card>
+<ng-template #videoview>
+    <mat-card class="card-container">
+        <app-video-item-list *ngFor="let video of videos" [video]="video"></app-video-item-list>
+    </mat-card>
+</ng-template>

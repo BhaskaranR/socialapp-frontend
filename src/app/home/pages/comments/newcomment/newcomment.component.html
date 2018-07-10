@@ -1,0 +1,51 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit($event)" ngNativeValidate>
+    <mat-card-actions fxFlexLayout="row" fxLayoutAlign="space-between baseline">
+
+        <ngx-avatar name="Bhaskaran Rathnachalam" value="28%" size="100" [round]="true"></ngx-avatar>
+
+        <button class="btn_cmt_cam" matSuffix mat-icon-button (click)="UploadClick($event)">
+            <mat-icon>camera_alt</mat-icon>
+        </button>
+        <textarea matInput [emojipicker]="emojiPicker" placeholder="Write a comment... "></textarea>
+        <div class="btn-icons">
+            <p>@</p>
+            <button matSuffix [emojipickerToggle]="emojiPicker">
+                <mat-icon>face</mat-icon>
+            </button>
+        </div>
+        <button class="btn_cmt_cam" mat-icon-button style="left: -1px;">
+            <mat-icon>send</mat-icon>
+        </button>
+
+        <!-- </mat-form-field> -->
+
+        <emojipicker #emojiPicker [touchUi]="false "></emojipicker>
+
+        <!--for what?  -->
+        <!-- <input #fileInput id="fileInput " type="file " accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*, .mp4, .3gpp, .mpeg, .mov, .quicktime|videos/* " ng2FileSelect [uploader]="uploader " multiple /> -->
+        <!--End  -->
+
+        <!--emoji-input [(model)]="bindedVariable " [textArea]="{cols: 40, rows: 5} " [onEnter]="onEnterFunction " [popupAnchor]=" 'bottom' " (setPopupAction)="setPopupAction($event) ">
+            </emoji-input-->
+        <!--div class="main ">
+                <div formControlName="text " class="emoji-content-editable " (emojiPickerCaretEmitter)="handleCurrentCaret($event) " (input)="content=$ event.target.textContent " [textContent]="content " contenteditable="true "></div>
+                <i class="emoji-toggle-button " (click)="toggled=! toggled " [(emojiPickerIf)]="toggled " [emojiPickerPreserveSelection]="false " [emojiPickerDirection]="direction " [emojiPickerAutofocus]="true " (emojiPickerSelect)="handleSelection($event) ">😄</i>
+            </div-->
+
+        <!--textarea formControlName="text " class="full-width " matTextareaAutosize rows="1 " placeholder="Add a comment "></textarea>
+            <i class="emoji-toggle-button " (click)="toggled=! toggled " [(emojiPickerIf)]="false " [emojiPickerPreserveSelection]=" 'false' " [emojiPickerDirection]=" 'left' " [emojiPickerAutofocus]=" 'true' " (emojiPickerSelect)="handleSelection($event=u
+            ndefined) ">😄</i-->
+
+        <!--mat-form-field [floatPlaceholder]=" 'never' " class="full-width ">
+                <textarea formControlName="text " matInput matTextareaAutosize rows="1 " placeholder="Add a comment "></textarea>
+            </mat-form-field-->
+        <!--i class="emoji-toggle-button " (click)="toggled=! toggled " [(emojiPickerIf)]="false " [emojiPickerPreserveSelection]=" 'false' " [emojiPickerDirection]=" 'left' " [emojiPickerAutofocus]=" 'true' " (emojiPickerSelect)="handleSelection($event=u
+            ndefined) ">😄</i-->
+        <!--div>
+            <button mat-icon-button (click)="UploadClick($event) "><i class="material-icons ">camera_alt</i></button>
+            <input #fileInput id="fileInput " type="file " accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*, .mp4, .3gpp, .mpeg, .mov, .quicktime|videos/* " ng2FileSelect [uploader]="uploader " multiple />
+            <span fxFlex></span>
+            <button mat-raised-button fxFlexAlign="end " type="submit " color="primary ">Post</button>
+        </div-->
+    </mat-card-actions>
+</form>

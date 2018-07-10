@@ -1,0 +1,10 @@
+<div *ngFor="let p of people" 
+    fxlayout="row" 
+    fxLayoutAlign="center center" 
+    fxFlex="100" fxFlex.gt-md="25" 
+    fxFlex.md="33" fxFlex.sm="30" fxFlex.xs="50">
+
+    <app-people-card style="width: 100%;" 
+        [preview]="preview" [showAction]="showAction" 
+        [user]="p" [imageSize]="'80'" [actionType]="p.action" (cardAction)="cardAction($event) "></app-people-card>
+</div>

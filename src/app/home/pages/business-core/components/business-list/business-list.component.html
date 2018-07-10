@@ -1,0 +1,10 @@
+<mat-card fxFlex="100" class="biz-card" fxLayout="column" fxLayoutAlign="center center" *ngIf="viewType ==3 &&  showAddNew" (click)="newBusiness($event)">
+    <mat-icon class="side_nav_icon" fxLayoutAlign="center center">
+        add_circle_outline
+    </mat-icon>
+    <mat-card-content>Create a Business</mat-card-content>
+</mat-card>
+
+<div *ngFor="let p of business" fxlayout="row" fxLayoutAlign="center center" fxFlex="33" fxFlex.md="40" fxFlex.sm="33" fxFlex.xs="45">
+    <app-business-card *ngIf="p.entity" [viewType]="viewType" [business]="p.entity " [actionType]="p.action" (cardAction)="cardAction($event) "></app-business-card>
+</div>

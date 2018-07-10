@@ -1,0 +1,316 @@
+<div fxLayout="column" *ngIf="business$ | async; let biz" class="profile_page">
+    <mat-card fxHide.md fxHide.lg fxHide.xl *ngIf="currentMedia == 'xs' || currentMedia == 'sm' ; else bigprofilecard">
+        <header class="image-section">
+            <div *ngIf="isMe;" class="edit_btn_mobile">
+                <button mat-icon-button style="position: relative;bottom: 13px;">
+                                        <mat-icon [matMenuTriggerFor]="menu" style="color:#fff;">
+                                            more_vert
+                                        </mat-icon>
+                                    </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="gotoDetail(user._id)">Edit Profile</button>
+                    <button mat-menu-item>Upload Image</button>
+                </mat-menu>
+            </div>
+            <a parallax class="defaultbgimage-bg  img-holder" tabindex="-1" aria-hidden="true" rel="noopener">
+            </a>
+            <!-- <div fxLayout="row" class="container" fxLayoutAlign="center center">
+                            <app-avatar fxFlexAlign="center" [user]="user" [canEdit]="true" [imageSize]="80" [showLetter]="true">
+                            </app-avatar>
+                            <img mat-card-image src="/assets/images/background-image.jpg">
+                        </div> -->
+        </header>
+        <mat-card-content style="padding-bottom:0 !important">
+            <div fxLayout="column" class="name-details">
+                <h5 class="ma-0"> <b>{{biz.title}}</b></h5>
+                <h6> Your company tagline here</h6>
+                <div fxLayout="row" class="views-details">
+                    <span>
+                                    18,8K Followers
+                                </span>
+                    <div></div>
+                    <span>
+                                    200K Views
+                                </span>
+                    <button mat-raised-button color="warn" *ngIf="!isMe;" class="ml-xs mr-xs">Follow</button>
+                </div>
+                <div fxLayout="column" class="icon-star-div">
+                    <div fxLayout="row" class="icon-review">
+                        <mat-icon class="icon-star-mob">star</mat-icon>
+                        <mat-icon class="icon-star-mob">star</mat-icon>
+                        <mat-icon class="icon-star-mob">star</mat-icon>
+                        <mat-icon class="icon-star-mob">star</mat-icon>
+                        <mat-icon>star</mat-icon>
+                        <p>1K Reviews</p>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="tab-section">
+                        <div class="review-btn">
+                            <button mat-raised-button color="warn">
+                                            <mat-icon style="color:#fff">star</mat-icon>
+                                            Write a Review
+                                        </button>
+                        </div>
+                        <div>
+                            <mat-button-toggle-group>
+                                <mat-button-toggle fxLayout="row">
+                                    <mat-icon>
+                                        add_a_photo
+                                    </mat-icon>
+                                    <span>Add Photo</span>
+                                </mat-button-toggle>
+                                <mat-button-toggle fxLayout="row">
+                                    <mat-icon>
+                                        share
+                                    </mat-icon>
+                                    <span>Share</span>
+                                </mat-button-toggle>
+                                <mat-button-toggle fxLayout="row">
+                                    <mat-icon>
+                                        bookmark
+                                    </mat-icon>
+                                    <span>Bookmark</span>
+                                </mat-button-toggle>
+                            </mat-button-toggle-group>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding-top: 1em;">
+                    <mat-card style="margin: 0;">
+                        <mat-tab-group>
+                            <mat-tab>
+                                <ng-template mat-tab-label>About</ng-template>
+                                <h6 class="mt-0">About</h6>
+                                <p>{{biz.story}}</p>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Posts</ng-template>
+                                <app-post-list (endOfListReachedEvent)=searchMore($event) [posts]="items$ | async" [loading]="loading$ | async" [allPreviewsLoaded]="allPostsLoaded$ | async" [adminState]="getAdminState$" (activatePostPreviewEvent)=navigateToPost($event)>
+                                </app-post-list>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Photos</ng-template>
+
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Videos</ng-template>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Reviews</ng-template>
+
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Shop</ng-template>
+
+                            </mat-tab>
+                        </mat-tab-group>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions fxLayoutAlign="center center">
+            <!--button *ngIf="!isMe;" mat-raised-button color=" warn" class=" ml-xs mr-xs" (click)="action()">{{followActionText}}</button-->
+        </mat-card-actions>
+    </mat-card>
+    <!-- <div id="small-view" fxHide.sm fxHide.md fxHide.lg fxHide.xl fxLayout="row" fxLayoutAlign="space-around center">
+                        <div>
+                            <mat-icon>
+                                 close
+                            </mat-icon>
+                         </div>
+                         <div>
+                            <mat-icon>
+                                    close
+                            </mat-icon>
+                        </div>
+                        <div>
+                            <mat-icon>
+                                    close
+                            </mat-icon>
+                        </div>
+                        <div>
+                            <mat-icon>
+                                    close
+                            </mat-icon>
+                        </div>
+                    </div> -->
+
+    <ng-template #bigprofilecard>
+        <div fxLayout="row" fxHide.sm fxHide.xs>
+            <mat-card fxFlex="25" class="details-section" style="height: fit-content;" fxLayout="column">
+                <div class="loc-map">
+                    <agm-map mat-card-image [latitude]="lat" [longitude]="lng" [zoom]="zoom"></agm-map>
+                </div>
+                <div class="margin-details-view">
+                    <div fxLayout="row" class="text-div">
+                        <mat-icon>
+                            place
+                        </mat-icon>
+                        <div>
+                            <p style="font-weight: 500;">Lorem ipsum dolor sit amet, consectetur</p>
+                            <p>Etiam et arcu ut dolor tincidunt ullamcorper sit</p>
+                        </div>
+                    </div>
+                    <div fxLayout="row" class="text-div">
+                        <mat-icon>
+                            directions
+                        </mat-icon>
+                        <p>
+                            Get Directions
+                        </p>
+                    </div>
+                    <div fxLayout="row" class="text-div">
+                        <mat-icon>
+                            phone
+                        </mat-icon>
+                        <p>
+                            (916) 933-8050
+                        </p>
+                    </div>
+                    <div fxLayout="row" class="text-div">
+                        <mat-icon>
+                            message
+                        </mat-icon>
+                        <p>
+                            Message the Business
+                        </p>
+                    </div>
+                    <div fxLayout="row" class="text-div">
+                        <mat-icon>
+                            phone_iphone
+                        </mat-icon>
+                        <p>
+                            Send to your phone
+                        </p>
+                    </div>
+                    <div fxLayout="column" fxLayoutAlign="center center" class="rate-div">
+                        <p>RATE THIS BUSINESS</p>
+                        <div fxLayout="row" class="icon-star">
+                            <mat-icon>star</mat-icon>
+                            <mat-icon>star</mat-icon>
+                            <mat-icon>star</mat-icon>
+                            <mat-icon>star</mat-icon>
+                            <mat-icon>star</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <div fxFlex="75" fxLayout="column" class="image-section">
+                <div parallax class="img-holder">
+                    <button class="link" mat-icon-button [color]="primary" (click)="UploadClick($event)">  
+                                    <mat-icon>photo_camera</mat-icon> 
+                                </button>
+                    <div class="bg_username"></div>
+                    <div class="info" fxLayout="row" fxLayoutAlign="space-between center">
+                        <div style="color: #fff;" fxLayout="row">
+                            <app-avatar fxFlexAlign="center" [user]="biz" [canEdit]="true" [imageSize]="80" [showLetter]="true">
+                            </app-avatar>
+                            <div fxLayout="column" class="name-details">
+                                <h5 class="ma-0"> <b>{{biz.title}}</b></h5>
+                                <h6>18,8K Followers - Your company tagline here</h6>
+                            </div>
+                        </div>
+                        <div fxLayout="row" style="margin-right: 1em;">
+                            <!-- class="profile_edit" -->
+                            <h6 *ngIf="!isMe;" (click)="gotoDetail(biz._id)">
+                                ABOUT
+                            </h6>
+                            <div class="more_btn">
+                                <button mat-icon-button style="position: relative;bottom: 13px;">
+                                        <mat-icon [matMenuTriggerFor]="menu" style="color:#fff;">
+                                            more_vert
+                                        </mat-icon>
+                                    </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item>Your Influence</button>
+                                    <button mat-menu-item>Activity</button>
+                                    <button mat-menu-item>Page</button>
+                                </mat-menu>
+                            </div>
+                            <div *ngIf="isMe;" class="edit_btn">
+                                <button (click)="gotoDetail(biz._id)" mat-raised-button>
+                                        EDIT BUSINESS PROFILE
+                                    </button>
+                                <button *ngIf="!isMe;" mat-raised-button color="warn" class=" ml-xs mr-xs" (click)="action()">{{followActionText}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center" class="views-details">
+                    <span>
+                            18,8K Followers
+                        </span>
+                    <div></div>
+                    <span>
+                            200K Views
+                        </span>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between center" class="tab-section">
+                    <div style="margin:auto;">
+                        <button mat-raised-button color="warn">
+                                <mat-icon style="color:#fff">star</mat-icon>
+                                Write a Review
+                            </button>
+                    </div>
+                    <div>
+                        <mat-button-toggle-group>
+                            <mat-button-toggle fxLayout="row">
+                                <mat-icon>
+                                    add_a_photo
+                                </mat-icon>
+                                <span>Add Photo</span>
+                            </mat-button-toggle>
+                            <mat-button-toggle fxLayout="row">
+                                <mat-icon>
+                                    share
+                                </mat-icon>
+                                <span>Share</span>
+                            </mat-button-toggle>
+                            <mat-button-toggle fxLayout="row">
+                                <mat-icon>
+                                    bookmark
+                                </mat-icon>
+                                <span>Bookmark</span>
+                            </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </div>
+                </div>
+                <div>
+                    <mat-card style="margin: 0;">
+                        <mat-tab-group>
+                            <mat-tab>
+                                <ng-template mat-tab-label>About</ng-template>
+                                <h6 class="mt-0">About</h6>
+                                <p>{{biz.story}}</p>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Posts</ng-template>
+                                <app-post-list (endOfListReachedEvent)=searchMore($event) [posts]="items$ | async" [loading]="loading$ | async" [allPreviewsLoaded]="allPostsLoaded$ | async" [adminState]="getAdminState$" (activatePostPreviewEvent)=navigateToPost($event)>
+                                </app-post-list>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Photos</ng-template>
+
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Videos</ng-template>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Reviews</ng-template>
+
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Shop</ng-template>
+
+                            </mat-tab>
+                        </mat-tab-group>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+
+
+
+        <button mat-fab (click)="openNewPostDialog()" class.sm="mat-fab-bottom-right mat-fab-bottom-right-xs" class.xs=" mat-fab-bottom-right mat-fab-bottom-right-xs" class="mat-fab-bottom-right">
+    <mat-icon class="mat-24" style="color:#fff;">edit</mat-icon>
+</button>

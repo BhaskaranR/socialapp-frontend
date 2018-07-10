@@ -6,11 +6,12 @@ import { HomeComponent } from '@app/home/home.component';
 import { AboutComponent } from '@app/static';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { AuthGuardService } from '@app/core/services/auth-guard.service';
-import { CanActivateComponentSidenav } from '@app/home/pages/component-sidenav/component-sidenav-can-load-guard';
-import { ComponentSidenav } from '@app/home/pages/component-sidenav/component-sidenav';
-import { ComponentCategoryList } from '@app/home/pages/component-category-list/component-category-list';
-import { ComponentList } from '@app/home/pages/component-list';
+import { CanActivateComponentSidenav } from '@app/home/component-sidenav/component-sidenav-can-load-guard';
+import { ComponentSidenav } from '@app/home/component-sidenav/component-sidenav';
+import { ComponentCategoryList } from '@app/home/component-category-list/component-category-list';
+import { ComponentList } from '@app/home/component-list';
 import { PostsHome } from '@app/home/pages/posts-home/posts-home';
+import { FeaturePostsComponent } from '@app/home/pages/feature-posts/feature-posts.component';
 
 const routes: Routes = [
     {
@@ -26,7 +27,7 @@ const routes: Routes = [
             },
             { path: '', redirectTo: '/social/posts', pathMatch: 'full' },
             {
-                path: ':section',
+                path: 'social',
                 component: ComponentSidenav,
                 children: [
                     { path: '', redirectTo: 'posts', pathMatch: 'full' },
@@ -42,42 +43,42 @@ const routes: Routes = [
                         path: 'posts',
                         component: PostsHome,
                         children: [
-                            {path: '', redirectTo: 'featured', pathMatch: 'full'},
+                            { path: '', redirectTo: 'featured', pathMatch: 'full' },
                             {
                                 path: 'featured',
-                                loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule'
-                            } //,
-                            // {
-                            //     path: 'photos',
-                            //     loadChildren: './pages/photo-feeds/photo-feeds.module#PhotoFeedsModule',
-                            //     data: {
-                            //         page: 'Gallery',
-                            //         animation: 'profile'
-                            //     }
-                            // },
+                                loadChildren: './pages/feature-posts/feature-posts.module#FeaturePostsModule',
+
+                            },
+                            {
+                                path: 'photos',
+                                loadChildren: './pages/photo-posts/photo-posts.module#PhotoPostsModule',
+                                data: {
+                                    page: 'Gallery',
+                                    animation: 'profile'
+                                }
+                            }
                             // {
                             //     path: 'videos',
                             //     loadChildren: './pages/video-feeds/video-feeds.module#VideosFeedsModule',
                             //     data: {
                             //         animation: 'profile'
                             //     }
-                            // },
-                            // {
-                            //     path: 'fun',
-                            //     loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule',
-                            //     data: {
-                            //         animation: 'profile'
-                            //     }
-                            // },
-                            // {
-                            //     path: 'learn',
-                            //     loadChildren: './pages/feature-feeds/feature-feeds.module#FeatureFeedsModule',
-                            //     data: {
-                            //         animation: 'profile'
-                            //     }
                             // }
                         ],
-                    }]
+                    },
+                    {
+                        path: 'people',
+                        loadChildren: './pages/people-home/people-home.module#PeopleHomeModule'
+                    }
+                ]
+            },
+            {
+                path: 'business',
+                loadChildren: './pages/business-home/business-home.module#BusinessHomeModule'
+            },
+            {
+                path: 'profile',
+                loadChildren: './pages/profile-home/profile-home.module#ProfileHomeModule'
             }
         ]
     }

@@ -1,0 +1,135 @@
+<!-- <mat-sidenav-container class="background-none shadow-none" style="margin-top:0 !important">
+
+    <mat-sidenav #productsnav [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()" class="">
+
+        <div class="pl-1 pr-1 pb-1">
+            <h6>Distance</h6>
+            <mat-slider value="43"></mat-slider>
+        </div>
+        <hr>
+        <div class="pa-1">
+            <h6 class="mt-1">Category</h6>
+            <div class="pb-1">
+                <mat-select placeholder="Categories" *ngIf="categorys$ | async;" [(ngModel)]="selectedCat">
+                    <mat-option *ngFor="let cat of categorys$ | async" [value]="cat._id"> {{ cat.name }}</mat-option>
+                </mat-select>
+            </div>
+        </div>
+        <div class="pa-1">
+            <h6 class="mt-1">SubCategory</h6>
+            <div class="pb-1">
+                <mat-select placeholder="SubCategories" *ngIf="subcategory$ | async;" [(ngModel)]="selectedSubCat">
+                    <mat-option *ngFor="let subcat of subcategory$" [value]="subcat._id"> {{ subcat.name }}</mat-option>
+                </mat-select>
+            </div>
+        </div>
+        <hr>
+    </mat-sidenav>
+    <mat-toolbar color="primary" fxHide="false" fxHide.gt-sm>
+        <button (click)="productsnav.toggle()" mat-icon-button>
+      <mat-icon>short_text</mat-icon>
+    </button>
+        <span class="mr-1 ml-1">Filter</span>
+    </mat-toolbar>
+    <mat-card>
+        <agm-map [latitude]="currentLoc.lat" [longitude]="currentLoc.long" [zoom]="zoom" #map1>
+            <agm-marker *ngFor="let biz of nearbyBusiness" [latitude]="biz.geotag.coordinates[1]" [longitude]="biz.geotag.coordinates[0]">
+                <agm-info-window>{{biz.title}}</agm-info-window>
+            </agm-marker>
+        </agm-map>
+    </mat-card>
+</mat-sidenav-container> -->
+
+<div fxLayout="row" fxLayoutAlign="center start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="90" fxFlex="100">
+        <mat-card class="mat-card-top">
+            <mat-sidenav-container>
+                <mat-sidenav #chatnav [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()">
+                    <!-- <mat-nav-list>
+                    <mat-list-item>
+                            <mat-card-title>Services</mat-card-title>
+                    </mat-list-item>
+                </mat-nav-list>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <div  fxLayout="column">
+                        <div class="serviceIcon">
+                            <mat-icon>add_shopping_cart</mat-icon>
+                        </div>
+                        <p>Market</p>
+                    </div>
+                    <div fxLayout="column"> 
+                        <div class="serviceIcon">                                    
+                            <mat-icon>card_travel</mat-icon>
+                        </div>
+                         <p>Demo</p>
+                    </div>
+                    <div fxLayout="column">
+                        <div class="serviceIcon">
+                            <mat-icon>extension</mat-icon>
+                        </div>
+                        <p>Demo</p>
+                    </div>
+                </div> -->
+                    <mat-nav-list>
+                        <mat-list-item>
+                            <mat-card-title>Services</mat-card-title>
+                        </mat-list-item>
+                    </mat-nav-list>
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <div fxLayout="column">
+                            <div class="serviceIcon2">
+                                <mat-icon>add_shopping_cart</mat-icon>
+                            </div>
+                            <p>Market</p>
+                        </div>
+                        <div fxLayout="column">
+                            <div class="serviceIcon2">
+                                <mat-icon>card_travel</mat-icon>
+                            </div>
+                            <p>Demo</p>
+                        </div>
+                        <div fxLayout="column">
+                            <div class="serviceIcon2">
+                                <mat-icon>extension</mat-icon>
+                            </div>
+                            <p>Demo</p>
+                        </div>
+                    </div>
+                    <h6>Distance</h6>
+                    <mat-slider value="43"></mat-slider>
+                    <h6 class="mt-1">Category</h6>
+                    <div>
+                        <mat-select placeholder="Categories" *ngIf="categorys$ | async;" [(ngModel)]="selectedCat">
+                            <mat-option *ngFor="let cat of categorys$ | async" [value]="cat._id"> {{ cat.name }}</mat-option>
+                        </mat-select>
+                    </div>
+                    <h6 class="mt-1">SubCategory</h6>
+                    <div>
+                        <mat-select placeholder="SubCategories" *ngIf="subcategory$ | async;" [(ngModel)]="selectedSubCat">
+                            <mat-option *ngFor="let subcat of subcategory$" [value]="subcat._id"> {{ subcat.name }}</mat-option>
+                        </mat-select>
+                    </div>
+                </mat-sidenav>
+                <!-- <mat-toolbar class="chat-toolbar"> -->
+                <div fxLayout="row" class="SideNavIco">
+                    <button (click)="chatnav.toggle()" class="mr-1" mat-icon-button>
+                <mat-icon>short_text</mat-icon>
+              </button>
+                </div>
+                <!-- </mat-toolbar> -->
+                <mat-card-content style="padding:0 !important">
+                    <div class="chat-conversation-user them">
+                        <div class="chat-conversation-message">
+                            <agm-map [latitude]="currentLoc.lat" [longitude]="currentLoc.long" [zoom]="zoom" #map1>
+                                <agm-marker *ngFor="let biz of nearbyBusiness" [latitude]="biz.geotag.coordinates[1]" [longitude]="biz.geotag.coordinates[0]">
+                                    <agm-info-window>{{biz.title}}</agm-info-window>
+                                </agm-marker>
+                            </agm-map>
+                        </div>
+                    </div>
+
+                </mat-card-content>
+            </mat-sidenav-container>
+        </mat-card>
+    </div>
+</div>

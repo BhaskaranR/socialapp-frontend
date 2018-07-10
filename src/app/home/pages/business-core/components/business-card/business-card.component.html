@@ -1,0 +1,12 @@
+<a [routerLink]="['/biz', business._id]">
+    <mat-card class="biz-card">
+        <img mat-card-image src="https://material.angularjs.org/latest/img/washedout.png">
+        <mat-card-header>
+            <mat-card-title>{{business.title}}</mat-card-title>
+            <mat-card-subtitle>{{business.followers}} followers</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions *ngIf="!canAction()" fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button color="warn" (click)="action($event)"> {{actionType}}</button>
+        </mat-card-actions>
+    </mat-card>
+</a>

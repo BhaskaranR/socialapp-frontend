@@ -1,0 +1,161 @@
+<div>
+    <div fxLayout="column" style="border-bottom: solid 1px #bababa;padding-bottom: 3px;">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <span>Create an offer, Discount or Deal</span>
+            <button class="close_btn" mat-icon-button mat-dialog-close>
+                  <mat-icon class="example-icon">close</mat-icon>
+             </button>
+        </div>
+        <span style="font-size: smaller;color: #bababa;">
+            People who save your offer will get notified before it expires.
+        </span>
+    </div>
+
+    <form [formGroup]="form" ngNativeValidate>
+        <div fxLayout="row" fxLayoutGap="8px" class="promo_dialog">
+            <div *ngIf="user$ | async; let user" fxLayout="row" fxLayoutAlign="start center">
+                    <ngx-avatar  name="Bhaskaran Rathnachalam" value="28%" size="100" [round]="true">
+                        </ngx-avatar>
+                <!-- <app-avatar [user]="user" [canEdit]="false" [imageSize]="40" [showLetter]="true" [background]="light-blue"></app-avatar> -->
+                <!-- <span>{{user.firstName}} {{user.lastName}}</span> -->
+            </div>
+            <mat-form-field>
+                <textarea style="height:50px;" rows="5" matInput formControlName="text" placeholder="Make an impression" cols="30"></textarea>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="5px" style="height: 35px;">
+            <div>
+                <p style="color:#CECECE;">Expires</p>
+            </div>
+            <div style="position: relative; bottom: 3px;width: 120px;">
+                <div fxLayout="row">
+                    <div>
+                        <mat-icon>date_range</mat-icon>
+                    </div>
+                    <div style=" padding-top: 3px;padding-left: 2px;">
+                        Aug 05 2017
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div fxLayout="row">
+                    <div>
+                        <mat-icon style="position: relative;bottom: 3px;">access_time</mat-icon>
+                    </div>
+                    <div style="padding-left:3px;">
+                        05:30AM
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="24px" class="upload_img">
+            <img src="http://www.solidbackgrounds.com/images/2560x1600/2560x1600-light-gray-solid-color-background.jpg">
+            <div class="cam_icon">
+                <button mat-icon-button (click)="UploadClick($event)">
+                    <mat-icon  matTooltip="Add Photo">camera_alt</mat-icon>
+                </button>
+                <input #fileInput id="fileInput" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*, .mp4, .3gpp, .mpeg, .mov, .quicktime|videos/*" ng2FileSelect [uploader]="uploader" multiple />
+            </div>
+        </div>
+        <div fxLayout="column" class="promo_feature">
+            <p>
+                Where can people redeem this?
+            </p>
+            <p>
+                <mat-radio-button value="1">In store</mat-radio-button>
+            </p>
+            <p>
+                <mat-radio-button value="1">Online</mat-radio-button>
+            </p>
+            <p>
+                <mat-icon>add_circle</mat-icon> Add promo code<span>(optional)</span>
+            </p>
+            <p>
+                <mat-icon>add_circle</mat-icon>Add terms and conditions<span>(optional)</span>
+            </p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <button mat-button color="primary">Boost Post</button>
+            <button mat-button>Publish</button>
+            <mat-select style="position: relative; bottom: -10px;">
+                <mat-option *ngFor="let item of items" [value]="item.value">
+                    {{ item.viewValue }}
+                </mat-option>
+            </mat-select>
+        </div>
+    </form>
+</div>
+<!--td-steps (stepChange)="change($event)" mode="'horizontal'">
+    <td-step #step1 label="Basic Usage" [active]="true" [disabled]="disabled" (activated)="activeStep1Event()" (deactivated)="deactiveStep1Event()">
+        <ng-template td-step-label><span>New Promotion</span></ng-template>
+        <form [formGroup]="form" ngNativeValidate>
+
+            <div fxLayout="column" fxLayoutGap="8px">
+                <div *ngIf="user$ | async; let user" fxLayout="row" fxLayoutAlign="start center">
+                    <app-avatar [user]="user" [canEdit]="false" [imageSize]="40" [showLetter]="true" [background]="light-blue"></app-avatar>
+                    <span>{{user.firstName}} {{user.lastName}}</span>
+                </div>
+                <mat-form-field>
+                    <textarea rows="5" matInput formControlName="text" placeholder="Make an impression" cols="30"></textarea>
+                </mat-form-field>
+                <div fxLayout="row" fxLayoutGap="24px">
+                    <button mat-icon-button (click)="UploadClick($event)"><mat-icon>camera_alt</mat-icon></button>
+                    <input #fileInput id="fileInput" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*, .mp4, .3gpp, .mpeg, .mov, .quicktime|videos/*" ng2FileSelect [uploader]="uploader" multiple />
+                </div>
+            </div>
+        </form>
+    </td-step>
+    <td-step #step2 label="Preview" [state]="stateStep2" [disabled]="disabled" disableRipple>
+        This step is required!
+        <ng-template td-step-actions>
+            <button mat-raised-button color="primary" (click)="toggleRequiredStep2()" class="text-upper">Toggle Require</button>
+            <button mat-button (click)="step2.active = false" class="text-upper">Cancel</button>
+        </ng-template>
+    </td-step>
+    <td-step #step3 label="Complete State" sublabel="Toggle between active and inactive while in complete state." [state]="stateStep3" [disabled]="disabled">
+        Mark this step complete and get a summary
+        <ng-template td-step-summary>
+            Use an optional step summary to summarize the info in this step
+        </ng-template>
+        <ng-template td-step-actions>
+            <button mat-raised-button color="primary" (click)="toggleCompleteStep3()" class="text-upper">Toggle Complete</button>
+            <button mat-button (click)="step3.active = false" class="text-upper">Cancel</button>
+        </ng-template>
+    </td-step>
+</td-steps-->
+<!--mat-tab-group no-header #wizard>
+    <mat-tab label="Create A Promotion">
+
+        <form [formGroup]="form" ngNativeValidate>
+
+            <div fxLayout="column" fxLayoutGap="8px">
+                <div *ngIf="user$ | async; let user" fxLayout="row" fxLayoutAlign="start center">
+                    <app-avatar [user]="user" [canEdit]="false" [imageSize]="40" [showLetter]="true" [background]="light-blue"></app-avatar>
+                    <span>{{user.firstName}} {{user.lastName}}</span>
+                </div>
+                <mat-form-field>
+                    <textarea rows="5" matInput formControlName="text" placeholder="Make an impression" cols="30"></textarea>
+                </mat-form-field>
+                <section *ngIf="imagePreviewThumbnail.length >0" class="gallery-section">
+                    <preview-gallery [images]="imagePreviewThumbnail" (onEdit)="editPhoto($event)">
+                    </preview-gallery>
+                </section>
+                <div fxLayout="row" fxLayoutGap="24px">
+                    <button mat-icon-button (click)="UploadClick($event)"><mat-icon>camera_alt</mat-icon></button>
+                    <input #fileInput id="fileInput" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*, .mp4, .3gpp, .mpeg, .mov, .quicktime|videos/*" ng2FileSelect [uploader]="uploader" multiple />
+                </div>
+            </div>
+        </form>
+        <button mat-button (click)="wizard.selectedIndex=1">Next</button>
+    </mat-tab>
+    <mat-tab label="Preview">
+        <button mat-button (click)="wizard.selectedIndex=0">Back</button>
+
+
+
+        <button mat-button (click)="wizard.selectedIndex=2">Next</button>
+    </mat-tab>
+    <mat-tab label="Preview">
+        <button mat-button (click)="wizard.selectedIndex=2">Back</button>
+    </mat-tab>
+</mat-tab-group-->

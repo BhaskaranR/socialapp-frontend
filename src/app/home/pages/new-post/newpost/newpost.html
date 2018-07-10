@@ -1,0 +1,94 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit($event)" ngNativeValidate>
+    <div fxLayout="column" fxLayoutGap="8px">
+         <div *ngIf="user$ | async; let user" fxLayout="row" fxLayoutAlign="start center">
+            <ngx-avatar  name="Bhaskaran Rathnachalam" value="28%" size="100" [round]="true">
+            </ngx-avatar>
+            <span style="padding-left:5px;">{{user.firstName}} {{user.lastName}}</span>
+
+            <mat-icon fxLayoutGap="5px">keyboard_arrow_right</mat-icon>
+
+            <a (click)="openPostByDialog()" class="post_type">
+                {{preference}}
+                <mat-icon *ngIf="!icon" style="position:relative;top:7px;">public</mat-icon>
+                <mat-icon style="position:relative;top:7px;">{{icon}}</mat-icon>
+            </a>
+
+            <span fxFlex></span>
+            <div>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                      <span>Disable comments</span>
+                    </button>
+                    <button mat-menu-item>
+                      <span>Disable resharing</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
+        <div fxLayout="column" class="uploadImage">
+            <mat-form-field style="margin-bottom: -8px;width: 100%;">
+                <textarea [maxItems]="6" [mention]="items" class="post_text_area" matInput placeholder="Make an impression" formControlName="text" [mentionSelect]="mentionFormatter">
+                </textarea>
+            </mat-form-field>
+
+            <div *ngIf="imagePreviewThumbnail && imagePreviewThumbnail.length >0" class="uploadImagePreview" fxLayout="row">
+                <div *ngFor="let record of imagePreviewThumbnail; let idx = index;">
+                    <mat-card *ngIf="record == null" class="photo-grid">
+                        <mat-spinner class="spinner"></mat-spinner>
+                    </mat-card>
+
+                    <mat-card *ngIf="record != null" class="photo-grid">
+                        <figure>
+                            <img style="height: 200px !important;max-width: 200px;" [src]="record.small">
+                            <figcaption>
+                                <p>
+                                    <a href="javascript:;" (click)="editPhoto(record)" matTooltip="edit this image" matTooltipPosition="left">
+                                        <mat-icon>edit</mat-icon>
+                                    </a>
+                                    <a href="javascript:;" (click)="removePhoto(record.key)" matTooltip="remove this image" matTooltipPosition="left">
+                                        <mat-icon>remove</mat-icon>
+                                    </a>
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="5px" class="icon_section">
+            <button mat-icon-button (click)="UploadClick($event)" matTooltip="Image"><mat-icon>camera_alt</mat-icon></button>
+            <button mat-icon-button (click)="UploadClick($event)"><mat-icon style="position: relative;bottom: 2px;" matTooltip="Multiple Image">add_a_photo</mat-icon></button>
+            <button mat-icon-button><mat-icon style="position: relative;bottom: 2px;" matTooltip="Dummy">assessment</mat-icon></button>
+            <button mat-icon-button (click)="newpromo($event)" *ngIf="selectedPage != null"><mat-icon style="position: relative;bottom: 2px;"  matTooltip="Business">loyalty</mat-icon></button>
+
+            <a fxLayout="row" (click)="removeSelectedLocation()" *ngIf="selectedLocation  !== null;else checkin;" class="relative" mat-ripple>
+                <div fxLayout="row">
+                    <div fxLayout="column" fxFlex="10">
+                        <mat-icon matTooltip="Location">location_on</mat-icon>
+                    </div>
+                    <div fxLayout="column" fxFlex="90">
+                        <div><b>{{selectedLocation?.title}}</b></div>
+                        <div>{{selectedLocation?.address}}</div>
+                    </div>
+                </div>
+            </a>
+            <ng-template #checkin>
+                <button mat-icon-button (click)="openCheckin($event)"><mat-icon style="position: relative;bottom: 2px;">place</mat-icon></button>
+            </ng-template>
+            <input #fileInput id="fileInput" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*, .mp4, .3gpp, .mpeg, .mov, .quicktime|videos/*" 
+            ng2FileSelect multiple /> 
+            <!-- <input #fileInput id="fileInput" type="file" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|images/*, .mp4, .3gpp, .mpeg, .mov, .quicktime|videos/*" 
+            ng2FileSelect 
+            [uploader]="uploader" multiple /> -->
+        </div> 
+    </div>
+    <mat-dialog-actions align="end">
+        <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+        <button type="submit" mat-raised-button color="primary" >Post</button>
+    </mat-dialog-actions>
+</form>
+

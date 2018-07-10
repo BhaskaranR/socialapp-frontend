@@ -1,0 +1,41 @@
+<form [formGroup]="personalForm">
+
+    <div class="profile_info_section_compoment">
+        <h3 class="profile_info_section_compoment__title" mat-dialog-title>Gender date of birth and more</h3>
+
+        <mat-dialog-content fxLayout="column">
+            <div>
+                <mat-select formControlName="gender" class="profile_info_section_select" placeholder="Male">
+                    <mat-option value="Male">Male</mat-option>
+                    <mat-option value="Female">Female</mat-option>
+                    <mat-option value="Decline to state">Decline to state</mat-option>
+                    <mat-option value="Custom">Custom</mat-option>
+                </mat-select>
+
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+
+
+
+                <mat-form-field fxFlex="100%">
+                    <input [defaultValue]="bDay" matInput [matDatepicker]="picker" (dateChange)="updateDate($event)" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-icon>
+                    info_outline
+                </mat-icon>
+            </div>
+            <div fxLayout="row" fxlayoutGap="20px">
+                <mat-form-field fxFlex="100%">
+                    <input formControlName="occupation" type="text" fxFlex matInput placeholder="Occupation">
+                </mat-form-field>
+            </div>
+        </mat-dialog-content>
+
+        <mat-dialog-actions align="end" class="add_business_popup_con__action_con">
+            <button mat-raised-button (click)="dialogRef.close()">Cancel</button>
+            <button (click)="dialogRef.close(personalForm.value)" mat-raised-button color="accent" [disabled]="!personalForm.valid">Ok</button>
+        </mat-dialog-actions>
+    </div>
+</form>

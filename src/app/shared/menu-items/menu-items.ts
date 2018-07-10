@@ -30,7 +30,17 @@ const DOCS: { [key: string]: MenuCategory[] } = {
       name: 'Feeds',
       items: [
         { id: 'featured', name: 'Featured'},
-        { id: 'media', name: 'Media'}
+        { id: 'photos', name: 'Photos'},
+        { id: 'videos', name: 'Videos'}
+      ]
+    },
+    {
+      id: 'trending',
+      name: 'Trending',
+      items: [
+        { id: 'featured', name: 'Featured'},
+        { id: 'photos', name: 'Photos'},
+        { id: 'videos', name: 'Videos'}
       ]
     },
     {
@@ -56,9 +66,10 @@ const DOCS: { [key: string]: MenuCategory[] } = {
       id: 'business',
       name: 'Business',
       items: [
-        { id: 'myBusiness', name: 'Business'},
+        { id: 'nearby', name: 'Near by'},
         { id: 'bizFollowing', name: 'Following'},
-        { id: 'suggestions', name: 'Suggestions'}
+        { id: 'recommended', name: 'Recommended'},
+        { id: 'me', name: 'My Business'},
       ]
     },
     {

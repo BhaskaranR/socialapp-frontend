@@ -1,0 +1,10 @@
+mat-card{
+  margin: auto !important;
+  width: 98% !important;
+  min-width: 98% !important;
+}
+#feed-view{
+  width: 50%;
+  margin: auto;
+  display: flex;
+}

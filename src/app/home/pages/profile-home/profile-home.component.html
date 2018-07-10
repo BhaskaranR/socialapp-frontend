@@ -1,0 +1,206 @@
+<div fxLayout="column" *ngIf="user; let user" class="profile_page">
+    <mat-card fxHide.md fxHide.lg fxHide.xl *ngIf="currentMedia == 'xs' || currentMedia == 'sm' ; else bigprofilecard">
+        <header>
+            <div *ngIf="isMe;" class="edit_btn_mobile">
+                <button mat-icon-button style="position: relative;bottom: 13px;">
+                        <mat-icon [matMenuTriggerFor]="menu" style="color:#fff;">
+                            more_vert
+                        </mat-icon>
+                    </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="gotoDetail(user._id)">Edit Profile</button>
+                    <button mat-menu-item>Upload Image</button>
+                </mat-menu>
+            </div>
+            <a class="defaultbgimage-bg defaultbgimage" tabindex="-1" aria-hidden="true" rel="noopener"></a>
+            <div fxLayout="row" class="container" fxLayoutAlign="center center">
+                <app-avatar fxFlexAlign="center" 
+                            [user]="user" 
+                            [canEdit]="true" 
+                            [imageSize]="80" 
+                            [showLetter]="true">
+                </app-avatar>
+            </div>
+        </header>
+        <mat-card-content>
+            <div class="data">
+                <ul>
+                    <li>
+                        {{postCount}}
+                        <span>Posts</span>
+                    </li>
+                    <li>
+                        {{user.followersCount}}
+                        <span>Followers</span>
+                    </li>
+                    <li>
+                        {{user.followingCount}}
+                        <span>Following</span>
+                    </li>
+                </ul>
+            </div>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="center center">
+            <button *ngIf="!isMe;" mat-raised-button color="warn" class=" ml-xs mr-xs" (click)="action()">{{followActionText}}</button>
+        </mat-card-actions>
+    </mat-card>
+
+
+    <ng-template #bigprofilecard>
+        <mat-card fxHide.sm fxHide.xs class="mat-card-flat">
+            <div class="img-holder">
+                <div class="bg_username"></div>
+                <div class="bg-profile" parallax [config]="{
+                        parallaxInitVal: 10,
+                        parallaxRatio: .9}">
+
+                </div>
+
+                <button class="link" mat-icon-button color="primary" (click)="UploadClick($event)"> 
+                        <mat-icon>photo_camera</mat-icon>
+                    </button>
+                <div class="info" fxLayout="row" fxLayoutAlign="start center">
+                    <div style="color: #fff;">
+                        <app-avatar fxFlexAlign="center" 
+                                    [user]="user" 
+                                    [canEdit]="true" 
+                                    [imageSize]="80" 
+                                    [showLetter]="true">
+                        </app-avatar>
+                    </div>
+                    <div fxLayout="column" style="margin-top:1em;">
+                        <h4 class="ma-0" fxFlexAlign="center center" fxLayoutGap="50px;"> 
+                            <b>{{user.profile.firstName}} {{user.profile.lastName}}</b>
+                        </h4>
+                        <h3>{{user.followersCount}} Followers</h3>
+                        <span fxFlex></span>
+                    </div>
+                    <button style="position: relative; left: 10px;
+                    top: 10px;" *ngIf="!isMe;" mat-raised-button color="warn" class=" ml-xs mr-xs" (click)="action()">{{followActionText}}</button>
+                </div>
+                <div class="profile_edit" fxLayout="row">
+
+                    <h6 *ngIf="!isMe;" (click)="gotoDetail(user._id)">
+                        ABOUT
+                    </h6>
+                    <div class="more_btn">
+                        <button mat-icon-button style="position: relative;bottom: 13px;">
+                                <mat-icon [matMenuTriggerFor]="menu" style="color:#fff;">
+                                    more_vert
+                                </mat-icon>
+                            </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>Your Influence</button>
+                            <button mat-menu-item>Activity</button>
+                            <button mat-menu-item>Page</button>
+                        </mat-menu>
+                    </div>
+                    <div *ngIf="isMe;" class="edit_btn">
+                        <button (click)="gotoDetail(user._id)" mat-raised-button>
+                               EDIT PROFILE
+                            </button>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </ng-template>
+
+    <div class="wrapper">
+        <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="space-between">
+            <div fxFlex.gt-sm="39" fxFlex="100" fxLayout="column" fxLayoutWrap="wrap">
+                <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="space-between center" style="padding-top: 1em;padding-left: 5px;">
+                    <div>
+                        <h6 class="profile_name">{{user.profile.firstName}} {{user.profile.lastName}}'s Photos</h6>
+                    </div>
+                    <div class="profile_view_all" *ngIf="images && !!images.length">
+                        <h6 >See More</h6>
+                    </div>
+                </div>
+                <mat-card>
+                    <mat-grid-list cols="3">
+                        <mat-grid-tile *ngFor="let id of images" rowHeight="4:3">
+                            <img src="https://source.unsplash.com/600x600?{{ id }}" alt="Card image cap" />
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </mat-card>
+                <div *ngIf="!images || !images.length">
+                        <h6>No Photos</h6>   
+                </div>
+                <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="space-between center" style="padding-top: 1em;padding-left: 5px;">
+                    <div>
+                        <h6 class="profile_name">{{user.profile.firstName}} {{user.profile.lastName}}'s Friend's</h6>
+                    </div>
+                    <div class="profile_view_all" *ngIf="peopleFollowing && !!peopleFollowing.length">
+                        <h6>See More</h6>
+                    </div>
+                </div>
+                <mat-card>
+                    <app-people-list 
+                        style="width: 100%;" 
+                        [people]="peopleFollowing" 
+                        [preview]="true" 
+                        (peopleFollowAction)="peopleFollowAction($event)"></app-people-list>
+                </mat-card>
+                <div *ngIf="!peopleFollowing || !peopleFollowing.length">
+                        <h6>No Followers</h6>
+                </div>
+                <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="space-between center" style="padding-top: 1em;padding-left: 5px;">
+                    <div>
+                        <h6 class="profile_name">{{user.profile.firstName}} {{user.profile.lastName}}'s Business</h6>
+                    </div>
+                    <div class="profile_view_all" *ngIf="!!business">
+                        <h6>See More</h6>
+                    </div>
+
+                    
+                    <app-business-list *ngIf="!!business" [viewType]="viewType" [showAddNew]="'true'" [business]="business" (newBusinessAction)="newBusiness($event)" (businessFollowAction)="businessFollowAction($event)"></app-business-list>
+                </div>
+                <div *ngIf="!business">
+                        <h6>No business</h6>
+                </div>
+
+            </div>
+            <div fxFlex.gt-sm="60" fxFlex="100">
+                <div fxLayout="column">
+
+                    <div class="post_list_profile">
+                        <mat-tab-group>
+                            <mat-tab>
+                                <ng-template mat-tab-label>Activity</ng-template>
+                                <div class="activity-stream">
+                                    <app-post-list (endOfListReachedEvent)=searchMore($event) 
+                                    [viewMode]="'FEEDVIEW'" 
+                                    [posts]="items" 
+                                    [adminState]="getAdminState$" 
+                                    (activatePostPreviewEvent)=navigateToPost($event)>
+                                    </app-post-list>
+                                </div>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>My Fun</ng-template>
+                                <mat-card-content>
+                                    <h4 class="mt-0 mb-1">Page Information</h4>
+                                    <div fxLayout="row" layout-align="center">
+
+                                    </div>
+                                </mat-card-content>
+                            </mat-tab>
+                            <mat-tab>
+                                <ng-template mat-tab-label>My Learn</ng-template>
+                                <mat-card-content>
+                                    <h4 class="mt-0 mb-1">Page Information</h4>
+                                    <div fxLayout="row" layout-align="center">
+                                    </div>
+                                </mat-card-content>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button mat-fab (click)="openNewPostDialog()" class.sm="mat-fab-bottom-right mat-fab-bottom-right-xs" class.xs=" mat-fab-bottom-right mat-fab-bottom-right-xs" class="mat-fab-bottom-right">
+        <mat-icon class="mat-24" style="color:#fff;">edit</mat-icon>
+</button>

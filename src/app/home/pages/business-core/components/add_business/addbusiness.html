@@ -1,0 +1,132 @@
+<!-- <div>
+    <h1 mat-dialog-title class="add_business_title">Create a Business</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" ngNativeValidate>
+        <div fxLayout="column">
+            <mat-form-field>
+                <input class="input" formControlName="title" matInput placeholder="Title">
+                <mat-error *ngIf="form.controls.title.hasError('required')">
+                    Title is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input class="input" formControlName="website" matInput placeholder="website">
+            </mat-form-field>
+
+            <mat-select placeholder="Business" [(ngModel)]="selectedBusiness" formControlName="bizname">
+                <mat-option *ngFor="let bizname of businessNames$ | async" [value]="bizname"> {{ bizname }}</mat-option>
+            </mat-select>
+
+            <mat-select placeholder="Categories" *ngIf="categorys$ | async;" [(ngModel)]="selectedCat" formControlName="categoryId">
+                <mat-option *ngFor="let cat of categorys$ | async" [value]="cat._id"> {{ cat.name }}</mat-option>
+            </mat-select>
+
+            <mat-select placeholder="SubCategories" *ngIf="subcategories" [(ngModel)]="selectedSubCat" formControlName="subcategoryId">
+                <mat-option *ngFor="let subcat of subcategories" [value]="subcat._id"> {{ subcat.name }}</mat-option>
+            </mat-select>
+
+            <mat-form-field id="addresscontainer" class="input">
+                <input #addresscontainer formControlName="address" class="input" matInput [(ngModel)]="address" placeholder="Address">
+                <mat-error *ngIf="form.controls.address.hasError('required')">
+                    Address is required
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close type="button">Cancel</button>
+            <button type="submit" mat-button color="accent">Add</button>
+        </mat-dialog-actions>
+    </form>
+</div> -->
+
+<div>
+    <div class="header-mat-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+        <p>Create Business</p>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <mat-horizontal-stepper style="margin: 2em;">
+        <mat-step>
+            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" ngNativeValidate>
+                <ng-template mdStepLabel>Start</ng-template>
+                <div fxLayout="column">
+                    <mat-form-field>
+                        <input class="input" formControlName="title" matInput placeholder="Title">
+                        <mat-error *ngIf="form.controls.title.hasError('required')">
+                            Title is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input class="input" formControlName="website" matInput placeholder="website">
+                    </mat-form-field>
+
+                    <mat-select placeholder="Business" [(ngModel)]="selectedBusiness" formControlName="bizname">
+                        <mat-option *ngFor="let bizname of businessNames$ | async" [value]="bizname"> {{ bizname }}</mat-option>
+                    </mat-select>
+
+                    <mat-select placeholder="Categories" *ngIf="categorys$ | async;" [(ngModel)]="selectedCat" formControlName="categoryId">
+                        <mat-option *ngFor="let cat of categorys$ | async" [value]="cat._id"> {{ cat.name }}</mat-option>
+                    </mat-select>
+
+                    <mat-select placeholder="SubCategories" *ngIf="subcategories" [(ngModel)]="selectedSubCat" formControlName="subcategoryId">
+                        <mat-option *ngFor="let subcat of subcategories" [value]="subcat._id"> {{ subcat.name }}</mat-option>
+                    </mat-select>
+
+                    <!--<mat-form-field id="addresscontainer" class="input">
+                        <input #addresscontainer formControlName="address" class="input" matInput [(ngModel)]="address" placeholder="Address">
+                        <mat-error *ngIf="form.controls['address'].hasError('required')">
+                            Address is required
+                        </mat-error>
+                    </mat-form-field>-->
+                </div>
+                <div align="end" style="padding: 5px;">
+                    <button mdStepperNext mat-raised-button color="accent">Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step>
+            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+                <ng-template mdStepLabel>Process</ng-template>
+                <mat-form-field>
+                    <input matInput placeholder="Email address">
+                    <mat-error>The input is invalid</mat-error>
+                </mat-form-field>
+                <div align="end" style="padding: 5px;">
+                    <button mat-raised-button color="warn" mdStepperPrevious>Back</button>
+                    <button mat-button mdStepperNext mat-raised-button color="accent">Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step>
+            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+                <ng-template mdStepLabel>Conform</ng-template>
+                Everything seems correct.
+                <div align="end" style="padding: 5px;">
+                    <button mat-raised-button color="warn" mdStepperPrevious>Back</button>
+                    <button type="submit" mat-button mat-raised-button color="accent">Add</button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+</div>
+
+
+<!-- <h3>Horizontal Stepper Demo with Templated Label</h3>
+<mat-horizontal-stepper>
+  <mat-step *ngFor="let step of steps">
+    
+    <mat-form-field>
+      <input matInput placeholder="Answer" [(ngModel)]="step.content">
+    </mat-form-field>
+    <div>
+      <button mat-button mdStepperPrevious>Back</button>
+      <button mat-button mdStepperNext>Next</button>
+    </div>
+    <ng-template mdStepLabel>{{step.label}}</ng-template>
+  </mat-step>
+</mat-horizontal-stepper> -->

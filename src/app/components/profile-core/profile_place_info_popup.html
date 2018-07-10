@@ -1,0 +1,50 @@
+<form [formGroup]="locationForm">
+    <div class="profile_info_section_compoment">
+        <h3 class="profile_info_section_compoment__title" mat-dialog-title>Place</h3>
+        <mat-dialog-content fxLayout="row" fxlayoutGap="20px" fxLayoutAlign="space-between center">
+            <p class="education_title">Currently living</p>
+            <div fxlayoutGap="20px">
+                <mat-icon (click)="addCurrentPlace()" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%">add</mat-icon>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-content fxLayout="column">
+            <div fxLayout="row" fxlayoutGap="20px">
+                <mat-form-field fxFlex="100%">
+                    <input formControlName="currentPlace" type="text" fxFlex matInput placeholder="Enter a location">
+                    <mat-error *ngIf="currentPlace.touched && currentPlace.value?.length == 0">
+                        Location <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </mat-dialog-content>
+        <mat-dialog-content fxLayout="row" fxlayoutGap="20px" fxLayoutAlign="space-between center">
+            <p class="education_title">Places lived in</p>
+            <div fxlayoutGap="20px">
+                <mat-icon (click)="addLivedplaces()" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%">add</mat-icon>
+            </div>
+        </mat-dialog-content>
+        <div formArrayName="livedPlaces">
+            <div *ngFor="let place of livedPlaces.controls ; let i=index">
+                <div [formGroupName]="i">
+                    <mat-dialog-content fxLayout="column">
+                        <div fxLayout="row" fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="livedLocationName" type="text" fxFlex matInput placeholder="Enter a location">
+                                <mat-error *ngIf="place.touched && place.value?.livedLocationName.length == 0">
+                                    Lived location <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </mat-dialog-content>
+                    <div fxlayoutGap="20px">
+                        <mat-icon *ngIf="livedPlaces.controls.length > 1" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%" (click)="removeLivedplaces(i)">remove</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-dialog-actions align="end" class="add_business_popup_con__action_con">
+            <button mat-raised-button type="button" (click)="dialogRef.close()">Cancel</button>
+            <button (click)="dialogRef.close(locationForm.value)" mat-raised-button color="accent">Create</button>
+        </mat-dialog-actions>
+    </div>
+</form>

@@ -1,0 +1,67 @@
+<form [formGroup]="workForm">
+    <div class="profile_info_section_compoment">
+        <h3 class="profile_info_section_compoment__title" mat-dialog-title>Work History</h3>
+
+        <mat-dialog-content fxLayout="row" fxlayoutGap="20px" fxLayoutAlign="space-between center">
+            <p class="education_title">Company</p>
+            <div fxlayoutGap="20px">
+                <mat-icon (click)="addCompany()" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%">add</mat-icon>
+            </div>
+        </mat-dialog-content>
+        <div formArrayName="workedCompanies">
+            <div *ngFor="let company of workedCompanies.controls ; let i=index">
+                <div [formGroupName]="i">
+                    <mat-dialog-content fxLayout="column">
+                        <div fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="companyName" type="text" fxFlex matInput placeholder="Name of company">
+                                <mat-error *ngIf="company.touched && company.value.companyName?.length == 0">
+                                    Company name <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="title" type="text" fxFlex matInput placeholder="Title">
+                                <mat-error *ngIf="company.touched && company.value.title?.length == 0">
+                                    Title <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxlayoutGap="20px" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="space-between center">
+                            <mat-form-field fxFlex="45%" fxFlex.xs="100%">
+                                <input formControlName="startDate" type="text" fxFlex matInput placeholder="Start Date">
+                                <mat-error *ngIf="company.touched && company.value.startDate?.length == 0">
+                                    Start date <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="45%" fxFlex.xs="100%">
+                                <input formControlName="endDate" type="text" fxFlex matInput placeholder="End Date">
+                                <mat-error *ngIf="company.touched && company.value.endDate?.length == 0">
+                                    End date <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="description" type="text" fxFlex matInput placeholder="Description">
+                                <mat-error *ngIf="company.touched && company.value.description?.length == 0">
+                                    Description <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </mat-dialog-content>
+                    <div fxlayoutGap="20px">
+                        <mat-icon *ngIf="workedCompanies.controls.length > 1" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%" (click)="removeCompany(i)">remove</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <mat-dialog-actions align="end" class="add_business_popup_con__action_con">
+            <button mat-raised-button type="button" (click)="dialogRef.close()">Cancel</button>
+            <button (click)="dialogRef.close(workForm.value)" [disabled]="!workForm.valid" mat-raised-button color="accent">Create</button>
+        </mat-dialog-actions>
+    </div>
+</form>
+<!-- <br>Value: {{ workForm.value | json }} -->

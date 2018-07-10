@@ -1,0 +1,60 @@
+#fileInput {
+    position: absolute;
+    left: -3000px;
+}
+
+.close_btn {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    bottom: 0.4rem;
+}
+
+.close_btn mat-icon {
+    font-size: large;
+}
+
+.promo_dialog {
+    padding-top: 10px;
+    position: relative;
+    bottom: 0.5em;
+    height: 90px;
+}
+
+.promo_dialog mat-form-field {
+    width: 100%;
+    padding-left: 10px;
+    position: relative;
+    top: -6px;
+}
+
+.upload_img img {
+    margin-right: 0 !important;
+    height: 150px;
+    width: 100%;
+}
+
+.cam_icon {
+    position: absolute;
+}
+
+.promo_feature {
+    border-bottom: solid 1px #bababa;
+    padding: 5px 0 5px 0;
+}
+
+.promo_feature p {
+    padding: 1px 0 2px 0;
+}
+
+.promo_feature p mat-icon {
+    position: relative;
+    top: 6px;
+    color: cornflowerblue;
+    right: 2px;
+    cursor: pointer;
+}
+
+.promo_feature p span {
+    color: #bababa;
+}

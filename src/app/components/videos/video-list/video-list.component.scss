@@ -1,0 +1,28 @@
+.video-col {
+    display: flex;
+    // justify-content: center;
+    flex-wrap: wrap;
+    // margin: auto;
+    // margin-top: 10px;
+    // padding-top: 10px !important;
+    // width: 100% !important; 
+    // padding-bottom: 15px !important;
+}
+
+vg-player {
+    background: transparent !important;
+}
+
+:host {
+    overflow: hidden;
+}
+//    mat-card {
+//       margin: 10px 16px 16px 0;
+//       width: 75%;
+//     }
+img {display:inline;vertical-align:middle;  }
+.card-container
+{  
+    margin-top: 10px;
+    width: 100% !important;    
+}

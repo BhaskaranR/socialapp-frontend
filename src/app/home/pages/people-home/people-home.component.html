@@ -1,0 +1,25 @@
+<mat-tab-group [(selectedIndex)]="activeLinkIndex">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <p class="mat-tab">Suggestions</p>
+        </ng-template>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <p class="mat-tab">Followers</p>
+        </ng-template>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <p class="mat-tab">Following</p>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>
+
+<div>
+        <div *ngIf="people$ | async as temp">
+                <p>people: {{ temp | json }}</p>
+              </div>
+    <!-- <app-people-list [people]="people$ | async" [preview]="false" (peopleFollowAction)="peopleFollowAction($event)">
+    </app-people-list> -->
+</div>

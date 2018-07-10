@@ -1,0 +1,123 @@
+<mat-card [@postEnter]='true' class="feed_view z-depth-1 mat-elevation-z">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="div-section">
+        <mat-card-title class="post_user_name" fxLayout="row" fxFlex>
+            <div>
+                <span style="cursor:pointer;" class="bold" (onClick)="getProfile()"> {{name}} </span>
+                <span style="font-weight: 100;"> liked your photo. </span>
+            </div>
+        </mat-card-title>
+        <button mat-icon-button [matMenuTriggerFor]="menuOne">
+            <mat-icon class="more_horiz">more_horiz</mat-icon>
+        </button>
+        <mat-menu #menuOne="matMenu">
+            <button mat-menu-item>Hide Post</button>
+            <button mat-menu-item>Unfollow</button>
+            <button mat-menu-item>Save Post</button>
+        </mat-menu>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="-8px;" fxLayoutAlign="start center" class="post_item_div">
+        <ngx-avatar name="Bhaskaran Rathnachalam" value="28%" size="100" [round]="true"></ngx-avatar>
+        <div fxLayout="column">
+            <mat-card-title class="post_user_name" class="bold">{{name}}</mat-card-title>
+            <div fxLayout="row" *ngIf="geotag" class="post_status">
+                at
+                <p>{{geotag.title}}</p>
+            </div>
+        </div>
+        <span fxFlex></span>
+        <mat-card-subtitle *ngIf="!showOptions" fxShow="false" fxShow.gt-sm>{{time | amTimeAgo}}</mat-card-subtitle>
+        <button mat-icon-button *ngIf="showOptions && !expandedView" (click)="postItemClick(($event))" fxShow="false" fxShow.gt-sm>
+            <mat-icon>open_in_new</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="showOptions" [matMenuTriggerFor]="themeMenu" fxShow="false" fxShow.gt-sm>
+            <mat-icon>bookmark</mat-icon>
+        </button>
+        <div fxFlex fxHide="false" fxHide.gt-sm>
+            <span class="open_window_menu">
+                <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+            </span>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngIf="showOptions && !expandedView" (click)="postItemClick(($event))">
+                    <mat-icon>open_in_new</mat-icon>
+                    <span>Open in New</span>
+                </button>
+                <button mat-menu-item *ngIf="showOptions" [matMenuTriggerFor]="themeMenu">
+                    <mat-icon>bookmark</mat-icon>
+                    <span>Bookmark</span>
+                </button>
+                <span style="padding-left: 1.5em;color: rgba(0,0,0,0.5);font-size: small;">
+                    Yesterday
+                </span>
+            </mat-menu>
+        </div>
+    </div>
+    <div class="" *ngIf="item.photos && item.photos.length == 0" style="display: flex;justify-content: center;">
+        Map Added
+    </div>
+    <div class="" *ngIf="item.photos && item.photos.length == 1" style="display: flex;justify-content: center;">
+        <a (click)="openPost($event)">
+            <img mat-card-image [src]="item.photos[0].normal">
+        </a>
+    </div>
+
+    <ng-container *ngIf="item.photos && item.photos.length > 2">
+            <gallery [items]="item.photos">
+            </gallery>
+    </ng-container>
+
+    <div *ngIf="showGeomap && geotag.coordinates.lat">
+        <agm-map [latitude]="currentLoc.lat" [styles]="styles" [longitude]="currentLoc.long" [zoom]="zoom" #map1>
+            <agm-marker [latitude]="currentLoc.lat" [longitude]="currentLoc.long"></agm-marker>
+        </agm-map>
+        coords: {{geotag.coordinates.lat}} {{geotag.coordinates.long}}
+    </div>
+
+    <mat-card-content>
+        <markdown [data]="item.text"></markdown>
+    </mat-card-content>
+    <mat-card-actions fxLayout="column" style="padding:0px;">
+        <div fxLayout="row">
+            <!--div *ngIf="favoredBy.length>0">
+                    <mat-icon class="like_count_post" *ngFor='let ulc of uniqueLikesWithCount;'>{{ulc.key | react}}</mat-icon>
+                </div-->
+            <div *ngIf="favoredBy.length>0" class="likelength">{{favoredBy.length}}</div>
+            <span fxFlex></span>
+            <span *ngIf="comments.length>0"> {{comments.length}}</span>
+            <span *ngIf="shares.length>0"> {{shares.length}}</span>
+        </div>
+        <hr>
+        <div fxLayout="row" class="emoji_icon">
+
+            <button mat-button-toggle mat-icon-button #reactions="reactions" color="warn" [reactions]="myLike" (reactionsChange)="onReactionsChange($event)"
+                [reactionsPosition]="position" [reactionsHideDelay]="hideDelay" [reactionsClass]="{'red-reactions': showExtraClass}"
+                style="margin-left:15px">
+                <mat-icon>{{myLike.value}}</mat-icon>
+                <span> {{myLike.key}}</span>
+            </button>
+            <!--ks-reactions (emojiChanged)="emojiButton($event)" (toogleLike)="toggleLike($event)" [isSelected]="isLiked" [like]="myLike" [popupAnchor]="'top'">
+                </ks-reactions-->
+
+            <span fxFlex></span>
+            <button mat-icon-button (click)="showComments = !showComments">
+                <mat-icon>comment</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon>share</mat-icon>
+            </button>
+        </div>
+    </mat-card-actions>
+</mat-card>
+<mat-card class="commentcard" *ngIf="showComments && commentsEnabled">
+    <mat-card-content class="post_comment_view">
+        <comment-list></comment-list>
+    </mat-card-content>
+    <new-comment [post]="item" [touch]="touch" [user]="user"></new-comment>
+</mat-card>
+
+
+<mat-menu #themeMenu x-position="before">
+    <button mat-menu-item>Fun</button>
+    <button mat-menu-item>Learn</button>
+    <button mat-menu-item>My Page</button>
+</mat-menu>

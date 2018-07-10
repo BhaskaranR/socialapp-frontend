@@ -1,0 +1,64 @@
+<div class="profile_info_section_compoment">
+    <h3 class="profile_info_section_compoment__title" mat-dialog-title>Education</h3>
+    <mat-dialog-content fxLayout="row" fxlayoutGap="20px" fxLayoutAlign="space-between center">
+        <p class="education_title">School/University</p>
+        <div fxlayoutGap="20px">
+            <mat-icon class="profile_info_section_compoment__subtitle_icon" fxFlex="5%" (click)="addSchool()">add</mat-icon>
+        </div>
+    </mat-dialog-content>
+    <form [formGroup]="educationForm" novalidate>
+        <div formArrayName="schoolInfo">
+            <div *ngFor="let school of schoolInfo.controls ; let i=index">
+                <div [formGroupName]="i">
+                    <mat-dialog-content fxLayout="column">
+                        <div fxLayout="row" fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="schoolName" type="text" fxFlex matInput placeholder="Name of school">
+                                <mat-error *ngIf="school.touched && school.value.schoolName?.length == 0">
+                                    School name <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="course" type="text" fxFlex matInput placeholder="Main course/feild of study">
+                                <mat-error *ngIf="school.touched && school.value.course?.length == 0">
+                                    Course <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxlayoutGap="20px" fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutAlign="space-between center">
+                            <mat-form-field fxFlex="45%" fxFlex.xs="100%">
+                                <input formControlName="startDate" type="text" fxFlex matInput placeholder="Start Date">
+                                <mat-error *ngIf="school.touched && school.value.startDate?.length == 0">
+                                    Start date <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field fxFlex="45%" fxFlex.xs="100%">
+                                <input formControlName="endDate" type="text" fxFlex matInput placeholder="End Date">
+                                <mat-error *ngIf="school.touched && school.value.endDate?.length == 0">
+                                    End date <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="description" type="text" fxFlex matInput placeholder="Description">
+                                <mat-error *ngIf="school.touched && school.value.description?.length == 0">
+                                    Description <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxlayoutGap="20px">
+                            <mat-icon *ngIf="schoolInfo.controls.length > 1" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%" (click)="removeSchool(i)">remove</mat-icon>
+                        </div>
+                    </mat-dialog-content>
+                </div>
+            </div>
+        </div>
+        <mat-dialog-actions align="end" class="add_business_popup_con__action_con">
+            <button mat-raised-button type="button" (click)="dialogRef.close()">Cancel</button>
+            <button mat-raised-button [disabled]="!educationForm.valid" mat-button color="accent" (click)="dialogRef.close(educationForm.value)">Create</button>
+        </mat-dialog-actions>
+    </form>
+    <div>

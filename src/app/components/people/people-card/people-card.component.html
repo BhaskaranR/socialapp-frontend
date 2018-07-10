@@ -1,0 +1,65 @@
+<mat-card>
+    <div fxLayout="row" class="container" fxLayoutAlign="center center">
+        <ngx-avatar  name="Bhaskaran Rathnachalam"
+            value="28%" size="100" [round]="true">
+            
+    </div>
+    <div fxLayout="row" class="container_text" fxLayoutAlign="center center">
+        <span>{{user.profile.firstName}} {{user.profile.lastName}}</span>
+    </div>
+    <mat-card-actions fxLayout="row" *ngIf="showAction" fxLayoutAlign="center center">
+        <button mat-raised-button color="warn" (click)="action($event)">{{actionType}}</button>
+    </mat-card-actions>
+</mat-card>
+
+<!--mat-card>
+    <mat-card-content class="text-xs-center">
+        <div fxLayout="column" fxLayoutAlign="center center" class="mt-1">
+            <div fxFlex>
+                <app-avatar [canEdit]="false" [imageSize]="70" [user]="user" [showLetter]="true"></app-avatar>
+            </div>
+            <p class="mb-1">
+                <a href="" class="block text-lg">{{name}}</a>
+                <span class="mat-text-muted">New Jersey, US</span>
+            </p>
+        </div>
+    </mat-card-content>
+    <mat-card-actions *ngIf="!preview" fxLayoutAlign="center center">
+        <button mat-raised-button color="accent" class="ml-xs mr-xs" (click)="action($event)"> {{actionType}}</button>
+    </mat-card-actions>
+</mat-card-->
+
+<!--a [routerLink]="['/profile', user._id]">
+    <mat-card fxLayout="column">
+        <app-avatar [user]="user" [showLetter]="true"></app-avatar>
+        <mat-card-subtitle>{{name}}</mat-card-subtitle>
+        <mat-card-actions *ngIf="!preview" fxLayoutAlign="start center">
+            <button type="button" class="mdl-button 
+                    profile-actions-btn
+                    transparent
+                    mdl-js-ripple-effect 
+                    centered" (click)="action($event)">
+                {{actionType}} </button>
+        </mat-card-actions>
+    </mat-card>
+</a-->
+<!--
+
+<div class="people_follow_com" fxLayout="row" fxLayout.sm="row" fxLayoutAlign="center center">
+
+    <mat-card class="people_follow_com-wrapper" fxFlex="70%" fxLayout="row" fxLayoutGap="16px">
+        <a [routerLink]="['/profile', id]">
+            <mat-card class="people_follow" fxLayoutAlign="center center" fxLayout="column" fxFlex="30%">
+                <img class="people_follow__image" src="//lh3.googleusercontent.com/-VakT7tLb4gg/AAAAAAAAAAI/AAAAAAAAAqE/KkBlI5dWYzU/s180-p-k-rw-no/photo.jpg">
+                <mat-card-subtitle class="people_follow__username">{{name}}</mat-card-subtitle>
+                <mat-card-actions class="people_follow__action_con">
+                    <button mat-button>{{actionType}}</button>
+                </mat-card-actions>
+            </mat-card>
+        </a>
+
+    </mat-card>
+
+</div>
+
+-->

@@ -1,0 +1,30 @@
+@mixin mat-emojipicker-theme($theme) {
+    $primary: map-get($theme, primary);
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+    .mat-emojipicker-content {
+        background-color: mat-color($background, card);
+    }
+    .mat-emojicontainer-body-label {
+        color: mat-color($foreground, secondary-text);
+    }
+    .mat-emojicontainer-body-cell-content {
+        color: mat-color($foreground, text);
+        border-color: transparent;
+    }
+}
+
+@mixin mat-emojipicker-typography($config) {
+    .mat-emojicontainer {
+        font-family: mat-font-family($config);
+    }
+    .mat-emojicontainer-body {
+        font-size: $mat-calendar-body-font-size;
+    }
+    .mat-emojicontainer-body-label {
+        font: {
+            size: mat-font-size($config, button);
+            weight: mat-font-weight($config, button);
+        }
+    }
+}

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { OauthProvider } from '../../../graphql/types/types';
 import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { AuthenticationService } from '@app/core/services/authentication.service';
 import { environment } from '@env/environment';
@@ -18,9 +17,7 @@ import { UsernameValidator } from '@app/shared/validators';
 })
 export class LoginComponent implements OnInit {
   accountDetailsForm: FormGroup;
-
-
-  providers: Observable<OauthProvider[]>;
+  providers: Observable<any[]>;
   loading = false;
   returnUrl: string;
   showSpinner = false;

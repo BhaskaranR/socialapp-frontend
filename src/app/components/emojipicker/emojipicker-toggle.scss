@@ -1,0 +1,17 @@
+$mat-emojipicker-toggle-icon-size: 20px !default;
+.mat-emojipicker-toggle {
+    display: inline-block;
+    // Note: SVG needs to be base64 encoded or it will not work on IE11.
+    background-image: url('http://www.clker.com/cliparts/7/d/9/B/f/R/smiley-face-th.png');
+    background-size: contain;
+    height: 17px;
+    width: $mat-emojipicker-toggle-icon-size;
+    border: none;
+    outline: none;
+    vertical-align: middle;
+    border-radius: 50%;
+    margin-top: 0.7em;
+    &:not([disabled]) {
+        cursor: pointer;
+    }
+}

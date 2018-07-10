@@ -1,0 +1,38 @@
+.biz-card {
+    height: 170px;
+}
+mat-card-title
+{
+    font-size: 14px !important;
+    padding: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    text-transform: capitalize;
+    margin-top: 4px;
+}
+mat-card-subtitle
+{
+    padding: 0 !important;
+    line-height: 1;
+    font-size: 13px;
+}
+.biz-card div{
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    color: #fff !important;
+    background: #3F51B5;
+    margin: 8px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.1;
+    font-weight: 600;
+    padding-right: 2px;
+    padding-top: 2px;
+}
+mat-card-header
+{
+    
+}

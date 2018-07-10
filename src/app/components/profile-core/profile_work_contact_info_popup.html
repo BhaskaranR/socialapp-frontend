@@ -1,0 +1,119 @@
+<form [formGroup]="contactForm">
+    <div class="profile_info_section_compoment">
+        <h3 class="profile_info_section_compoment__title" mat-dialog-title>Personal contact info</h3>
+        <div fxLayoutAlign="end">
+            <mat-icon (click)="addPhone()" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%">add</mat-icon>
+        </div>
+        <div formArrayName="phones">
+            <mat-dialog-content fxLayout="row" fxlayoutGap="20px" fxLayoutAlign="space-between center">
+                <p class="education_title">Phone</p>
+
+            </mat-dialog-content>
+            <div *ngFor="let phone of phones.controls ; let i=index">
+                <div [formGroupName]="i">
+                    <mat-dialog-content fxLayout="column" fxlayoutGap="20px">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                            <mat-form-field fxFlex="70%" fxFlex.xs="100%">
+                                <input type="tel" formControlName="phoneNumber" fxFlex matInput placeholder="Phone Number">
+                                <mat-error *ngIf="phone.touched && phone.value.phoneNumber?.length == 0">
+                                    Phone number <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-select formControlName="phoneType" class="profile_info_section_select" fxFlex.xs="100%" fxFlex="25%" placeholder="Home">
+                                <mat-option value="Home">
+                                    Home
+                                </mat-option>
+                                <mat-option value="Office">
+                                    Office
+                                </mat-option>
+                                <mat-option value="Home(Fax)">
+                                    Home(Fax)
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <div fxlayoutGap="20px">
+                            <mat-icon *ngIf="phones.controls.length > 1" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%" (click)="removePhone(i)">remove</mat-icon>
+                        </div>
+                    </mat-dialog-content>
+                </div>
+            </div>
+        </div>
+
+        <div formArrayName="emails">
+            <div fxLayoutAlign="end">
+                <mat-icon (click)="addEmail()" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%">add</mat-icon>
+            </div>
+            <mat-dialog-content fxLayout="row" fxlayoutGap="20px" fxLayoutAlign="space-between center">
+                <p class="education_title">Email</p>
+            </mat-dialog-content>
+            <div *ngFor="let email of emails.controls ; let i=index">
+                <div [formGroupName]="i">
+                    <mat-dialog-content fxLayout="column" fxlayoutGap="20px">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+                            <mat-form-field fxFlex="70%" fxFlex.xs="100%">
+                                <input formControlName="email" type="email" fxFlex matInput placeholder="Email">
+                                <mat-error *ngIf="email.hasError && email.value.email?.length > 0">
+                                    Please enter a valid email address
+                                </mat-error>
+                                <mat-error *ngIf="email.touched && email.value.email?.length == 0">
+                                    Email is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-select formControlName="emailType" class="profile_info_section_select" fxFlex="25%" fxFlex.xs="100%" placeholder="Home">
+                                <mat-option value="Home">
+                                    Home
+                                </mat-option>
+                                <mat-option value="Office">
+                                    Office
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <div fxlayoutGap="20px">
+                            <mat-icon *ngIf="emails.controls.length > 1" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%" (click)="removeEmail(i)">remove</mat-icon>
+                        </div>
+                    </mat-dialog-content>
+                </div>
+            </div>
+        </div>
+
+
+        <div fxLayout="column">
+            <div formArrayName="addresses">
+                <mat-dialog-content fxLayout="row" fxlayoutGap="20px" fxLayoutAlign="space-between center">
+                    <p class="education_title">Address</p>
+                </mat-dialog-content>
+                <div fxLayoutAlign="end">
+                    <mat-icon (click)="addAddress()" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%">add</mat-icon>
+                </div>
+                <div *ngFor="let address of addresses.controls ; let i=index">
+                    <div [formGroupName]="i">
+                        <div fxFlex="100%">
+                            <mat-form-field class="example-full-width" fxFlex="100%">
+                                <input matInput #message maxlength="256" placeholder="Address" formControlName="address">
+                                <mat-error *ngIf="address.touched && address.value.address?.length == 0">
+                                    Address <strong>required</strong>
+                                </mat-error>
+                                <mat-hint align="end">{{message.value.length}}/ 256</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div fxlayoutGap="20px">
+                            <mat-icon *ngIf="addresses.controls.length > 1" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%" (click)="removeAddress(i)">remove</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-dialog-actions align="end" class="add_business_popup_con__action_con">
+            <button mat-raised-button type="button" (click)="dialogRef.close()">Cancel</button>
+            <button mat-raised-button type="submit" (click)="dialogRef.close(contactForm.value)" color="accent" [disabled]="!contactForm.valid">Create</button>
+        </mat-dialog-actions>
+    </div>
+</form>
+<!-- <div class="margin-20" style="width:250px">
+  <br>Dirty: {{ contactForm.dirty }}
+<br>Touched: {{ contactForm.touched }}
+<br>Valid: {{ contactForm.valid }}
+<br>Value: {{ contactForm.value | json }}
+<br>Street: {{ emails.get('email') | json}}
+<br>&nbsp;
+  </div> -->

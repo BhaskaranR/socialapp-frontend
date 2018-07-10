@@ -1,0 +1,17 @@
+@import '../../../../node_modules/@angular/material/theming';
+$reactions-horizontal-padding: 0px;
+$reactions-margin: 0px;
+.reactions {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    @include cdk-high-contrast {
+        outline: solid 1px;
+    }
+}
+
+[role="option"] {
+    display: inline-block;
+    margin: 5px 5px 0px 8px;
+    cursor: pointer;
+}

@@ -1,0 +1,45 @@
+<form [formGroup]="siteUrlForm">
+    <div class="profile_info_section_compoment">
+        <h3 class="profile_info_section_compoment__title" mat-dialog-title>Sites</h3>
+
+        <mat-dialog-content fxLayout="row" fxlayoutGap="20px" fxLayoutAlign="space-between center">
+            <p class="education_title">Links</p>
+            <div fxlayoutGap="20px">
+                <mat-icon (click)="addSiteUrls()" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%">add</mat-icon>
+            </div>
+        </mat-dialog-content>
+        <div formArrayName="siteUrls">
+            <div *ngFor="let site of siteUrls.controls ; let i=index">
+                <div [formGroupName]="i">
+                    <mat-dialog-content fxLayout="column">
+                        <div fxLayout="row" fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="title" type="text" fxFlex matInput placeholder="Title">
+                                <mat-error *ngIf="site.touched && site.value.title?.length == 0">
+                                    Title <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxlayoutGap="20px">
+                            <mat-form-field fxFlex="100%">
+                                <input formControlName="url" type="text" fxFlex matInput placeholder="URL">
+                                <mat-error *ngIf="site.touched && site.value.url?.length == 0">
+                                    Url <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxlayoutGap="20px">
+                            <mat-icon *ngIf="siteUrls.controls.length > 1" class="profile_info_section_compoment__subtitle_icon" fxFlex="5%" (click)="removeSiteUrls(i)">remove</mat-icon>
+                        </div>
+                    </mat-dialog-content>
+                </div>
+            </div>
+        </div>
+
+        <mat-dialog-actions align="end" class="add_business_popup_con__action_con">
+            <button mat-raised-button type="button" (click)="dialogRef.close()">Cancel</button>
+            <button (click)="dialogRef.close(siteUrlForm.value)" [disabled]="!siteUrlForm.valid" mat-raised-button color="accent">Create</button>
+        </mat-dialog-actions>
+    </div>
+</form>
+<!-- <br>Value: {{ siteUrlForm.value | json }} -->

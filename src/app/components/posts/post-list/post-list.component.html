@@ -1,0 +1,36 @@
+<div fxLayout="column" fxLayoutWrap="wrap" *ngFor='let post of posts;' class="post-div">
+    <post-item [item]="post" 
+                [expandedView]="expandedView" 
+                [viewMode]="viewMode" 
+                *ngIf="post ;else postcardItem" 
+                [@postEnter]='startup' 
+                (openPostInDialog)="handleOpenPostInDialog($event)" 
+                (itemClickedEvent)="handleItemClick($event)" 
+                (itemAnimationDoneEvent)="handleItemAnimationDone($event)">
+    </post-item>
+</div>
+
+<div fxLayout="row" *ngIf="posts && !posts.length" fxLayoutWrap fxLayoutAlign="center center" style="padding:1em;">
+    <h6 id="post-load-status" *ngIf="!expandedView" #postLoadStatus [@postsLoading]='loading$'>Loading more posts...</h6>
+</div>
+<ng-template #noposts>
+    <div fxLayout="row" fxLayoutWrap fxLayoutAlign="center center" style="padding:1em;">
+        <h6 #postLoadStatus [@postsLoading]='loading$'>No posts</h6>
+    </div>
+</ng-template>
+
+<ng-template #postcardItem>
+    <div class="mocka-container">
+        <span class="mocka-heading"></span>
+        <span class="mocka-media"></span>
+        <span class="mocka-text"></span>
+    </div>
+</ng-template>
+
+<ng-template #photo>
+    <div fxLayout="row" fxLayoutWrap>
+        <div class="mocka-container">
+            <span class="mocka-media"></span>
+        </div>
+    </div>
+</ng-template>

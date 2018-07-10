@@ -1,0 +1,48 @@
+<app-post-list [viewMode]="'MASONRY'" (endOfListReachedEvent)=searchMore($event) [posts]="items$ | async" [loading]="loading$ | async" [allPreviewsLoaded]="allPostsLoaded$ | async" (activatePostPreviewEvent)=navigateToPost($event)>
+</app-post-list>
+<!--mat-tab-group class="demo-tab-group" color="primary">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon matTooltip="MASONRY">dashboard</mat-icon>
+        </ng-template>
+        <app-post-list [viewMode]="'MASONRY'" (endOfListReachedEvent)=searchMore($event) [posts]="items$ | async" [loading]="loading$ | async" [allPreviewsLoaded]="allPostsLoaded$ | async" (activatePostPreviewEvent)=navigateToPost($event)>
+        </app-post-list>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon matTooltip="Gallery">collections</mat-icon>
+        </ng-template>
+        <app-post-list [viewMode]="'GALLERY'" (endOfListReachedEvent)=searchMore($event) [posts]="items$ | async" [loading]="loading$ | async" [allPreviewsLoaded]="allPostsLoaded$ | async" (activatePostPreviewEvent)=navigateToPost($event)>
+        </app-post-list>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon matTooltip="Feed View">view_module</mat-icon>
+        </ng-template>
+        <app-post-list id="feed-view" [viewMode]="'FEEDVIEW'" (endOfListReachedEvent)=searchMore($event) [posts]="items$ | async" [loading]="loading$ | async" [allPreviewsLoaded]="allPostsLoaded$ | async" (activatePostPreviewEvent)=navigateToPost($event)>
+        </app-post-list>
+    </mat-tab>
+</mat-tab-group-->
+
+<!--mat-card fxFill>
+    <mat-card-actions>
+        <button matTooltip="Gallery" mat-icon-button (click)="showDiv(1)">
+                                <mat-icon>collections</mat-icon>
+                            </button>
+        <button matTooltip="Post View" mat-icon-button (click)="showDiv(2)">
+                                    <mat-icon>dashboard</mat-icon>
+                                </button>
+        <button mat-icon-button matTooltip="Feed View" (click)="showDiv(3)">
+                                        <mat-icon>view_module</mat-icon>
+                                    </button>
+    </mat-card-actions>
+</mat-card>
+<div id="div1" *ngIf="selectedIndex === 1">
+</div>
+<div id="div2" *ngIf="selectedIndex === 2">
+    <app-photo-view [viewMode]="'MASONRY'" [posts]="items$ | async "></app-photo-view>
+</div>
+<div id="div3" *ngIf="selectedIndex === 3">
+    <app-post-list [isGalleryView]="true" (endOfListReachedEvent)=searchMore($event) [posts]="items$ | async" [loading]="loading$ | async" [allPreviewsLoaded]="allPostsLoaded$ | async" (activatePostPreviewEvent)=navigateToPost($event)>
+    </app-post-list>
+</div-->

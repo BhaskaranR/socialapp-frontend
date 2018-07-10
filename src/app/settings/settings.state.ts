@@ -20,7 +20,7 @@ export const defaultState = {
     @Mutation(changeTheme)
     @Update(settingsQuery)
     changeTheme(state, { theme }) {
-        state.settings.theme = theme;
+        state.newPost.theme = theme;
     }
 
     @Mutation(changeNightMode)
