@@ -11,7 +11,7 @@ import { User } from '@app/typings/types';
 
 
 @Component({
-	selector: 'app-settings-home',
+	selector: 'app-biz-home',
 	templateUrl: './business-home.html',
 	styleUrls: ['./business-home.scss']
 })

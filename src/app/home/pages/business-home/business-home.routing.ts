@@ -10,19 +10,20 @@ const businessRoutes: Routes = [
         path: '',
         component: BusinessHomeComponent,
         children: [
+            { path: '', redirectTo: 'nearby', pathMatch: 'full' },
             {
-                path: '',
+                path: 'nearby',
                 component: BusinessMapComponent
+            },
+            {
+                path: 'bizFollowing',
+                component: BusinessListPageComponent,
+                data: { title: 'Member', type: 2 }
             },
             {
                 path: 'recommended',
                 component: BusinessListPageComponent,
                 data: { title: 'Recommended', type: 1 }
-            },
-            {
-                path: 'member',
-                component: BusinessListPageComponent,
-                data: { title: 'Member', type: 2 }
             },
             {
                 path: 'me',

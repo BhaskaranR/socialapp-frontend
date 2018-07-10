@@ -66,9 +66,10 @@ const DOCS: { [key: string]: MenuCategory[] } = {
       id: 'business',
       name: 'Business',
       items: [
-        { id: 'myBusiness', name: 'Business'},
+        { id: 'nearby', name: 'Near by'},
         { id: 'bizFollowing', name: 'Following'},
-        { id: 'suggestions', name: 'Suggestions'}
+        { id: 'recommended', name: 'Recommended'},
+        { id: 'me', name: 'My Business'},
       ]
     },
     {

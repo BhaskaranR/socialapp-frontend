@@ -1,19 +1,25 @@
 <div class="component-viewer-nav">
   <div class="component-viewer-nav-content">
+    <mat-card>
+      <div fxLayout="row" class="container" fxLayoutAlign="center center">
+        <ngx-avatar name="Bhaskaran Rathnachalam" value="24%" size="75" [round]="true">
+        </ngx-avatar>
+      </div>
+      <div fxLayout="row" class="container_text" fxLayoutAlign="center center">
+        <span>Bhaskaran Rathnachalam</span>
+      </div>
+    </mat-card>
+
     <nav *ngFor="let category of menuItems.getCategories(path); let last = last;">
-      <button (click)="toggleExpand(category.id)"
-              class="nav-content-btn"
-              [attr.aria-label]="category.name + ', section toggle'"
-              [attr.aria-controls]="'panel-' + category.id"
-              [attr.aria-expanded]="getExpanded(category.id)">
+      <button (click)="toggleExpand(category.id)" class="nav-content-btn" [attr.aria-label]="category.name + ', section toggle'"
+        [attr.aria-controls]="'panel-' + category.id" [attr.aria-expanded]="getExpanded(category.id)">
         {{category.name}}
         <mat-icon *ngIf="!getExpanded(category.id)">keyboard_arrow_down</mat-icon>
         <mat-icon *ngIf="getExpanded(category.id)">keyboard_arrow_up</mat-icon>
       </button>
       <ul [@bodyExpansion]="_getExpandedState(category.id)" id="panel-{{category.id}}">
         <li *ngFor="let component of category.items">
-          <a [routerLink]="'/' + path + '/' + category.id + '/' + component.id"
-            routerLinkActive="component-viewer-sidenav-item-selected">
+          <a [routerLink]="'/' + path + '/' + category.id + '/' + component.id" routerLinkActive="component-viewer-sidenav-item-selected">
             {{component.name}}
           </a>
         </li>

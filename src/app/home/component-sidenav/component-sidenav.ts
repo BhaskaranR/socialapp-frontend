@@ -12,6 +12,9 @@ import {trigger, animate, state, style, transition} from '@angular/animations';
 import { MenuItems } from '@app/shared/menu-items/menu-items';
 import { routerTransition } from '@app/core';
 
+import { MatCardModule } from '@angular/material';
+import { AvatarModule } from 'ngx-avatar';
+import { FlexLayoutModule } from '@angular/flex-layout';
 const SMALL_WIDTH_BREAKPOINT = 720;
 
 @Component({
@@ -134,6 +137,9 @@ export class ComponentNav implements OnInit, OnDestroy {
     ComponentHeaderModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatCardModule,
+    AvatarModule,
+    FlexLayoutModule
   ],
   exports: [ComponentSidenav],
   declarations: [ComponentSidenav, ComponentNav],
