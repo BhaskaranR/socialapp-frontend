@@ -74,7 +74,15 @@ const routes: Routes = [
             },
             {
                 path: 'business',
-                loadChildren: './pages/business-home/business-home.module#BusinessHomeModule'
+                component: ComponentSidenav,
+                children: [
+                    { path: '', redirectTo: 'featured', pathMatch: 'full' },
+                    {
+                        path: 'featured',
+                        loadChildren: './pages/business-home/business-home.module#BusinessHomeModule'
+
+                    }
+                ]
             },
             {
                 path: 'profile',

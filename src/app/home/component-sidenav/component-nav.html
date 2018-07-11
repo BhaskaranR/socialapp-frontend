@@ -1,13 +1,25 @@
 <div class="component-viewer-nav">
   <div class="component-viewer-nav-content">
-    <mat-card>
+
+    <mat-card class="mat-card-flat">
       <div fxLayout="row" class="container" fxLayoutAlign="center center">
-        <ngx-avatar name="Bhaskaran Rathnachalam" value="24%" size="75" [round]="true">
+        <ngx-avatar name="Bhaskaran Rathnachalam" value="24%" size="50" [round]="true">
         </ngx-avatar>
       </div>
-      <div fxLayout="row" class="container_text" fxLayoutAlign="center center">
+      <div fxLayout="row" class="container_text" style="margin-top:10px;" fxLayoutAlign="center center">
         <span>Bhaskaran Rathnachalam</span>
       </div>
+
+      <hr>
+      <div fxLayout="row" class="container_text" style="margin-top:30px;"  fxLayoutAlign="center center">
+           {{following}}
+          <span>Following</span>
+      </div>
+      <hr>
+      <div fxLayout="row" class="container_text" style="margin-top:30px;"  fxLayoutAlign="center center">
+          {{followers}}
+         <span>Followers</span>
+     </div>
     </mat-card>
 
     <nav *ngFor="let category of menuItems.getCategories(path); let last = last;">
