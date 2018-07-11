@@ -22,7 +22,7 @@ export class PasswordValidator {
 
         if (value === undefined) {
           value = control.value
-        } else {
+        } else { 
           if (value !== control.value) {
             valid = false;
             break;
@@ -39,4 +39,20 @@ export class PasswordValidator {
       areEqual: true
     };
   }
+
+  // static passwordStrength(fc: FormControl){
+  //   const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})") // one lowercase + one uppercase + one numeric + one special
+  //     const mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))"); // one lowercase or one uppercase or one numeric
+  //     const value = fc.value.toLowerCase();
+  //     console.log(strongRegex.test(value))
+  //     if(strongRegex.test(value)) {
+        
+  //         return null;
+  //     // } else if(mediumRegex.test(value)) {
+  //     } else {
+  //       return {
+  //         week: true
+  //       }
+  //     };
+  // }
 }

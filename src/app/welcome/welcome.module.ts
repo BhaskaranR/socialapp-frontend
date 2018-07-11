@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { SharedModule } from '@app/shared/shared.module';
+import { NgxCaptchaModule } from 'ngx-captcha';
 import { CoreModule } from '@app/core';
 
 import { RoutingModule } from './welcome.routing';
@@ -16,6 +17,7 @@ import { StaticModule } from '@app/static';
 import { MatDatepickerModule, MatStepperModule, MatNativeDateModule } from '@angular/material';
 import { ForgotPasswordComponent } from './components/forgot-password/forgotPassword.component';
 import { VerifyEmailComponent } from './components/verify-email/verifyemail.component';
+import { environment } from '@env/environment.prod';
 
 
 export function initializer(auth: AuthenticationService): () => Promise<any> {
@@ -33,7 +35,10 @@ export function initializer(auth: AuthenticationService): () => Promise<any> {
     MatStepperModule,
     SharedModule,
     RoutingModule,
-    StaticModule
+    StaticModule,
+    NgxCaptchaModule.forRoot({
+      reCaptcha2SiteKey: environment.recaptcha_site_key,
+    })
   ],
   declarations: [
     VerifyEmailComponent,

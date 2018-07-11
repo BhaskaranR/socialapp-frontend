@@ -5,7 +5,7 @@
         <!--div class="user-details-container">
             <img class="user-image" src="https://randomuser.me/api/portraits/lego/3.jpg" />
           </div-->
-        <mat-card>
+        <mat-card class="sign-up-card">
           <mat-card-title>
             <p class="mat-text-muted">Sign up.</p>
           </mat-card-title>
@@ -45,6 +45,16 @@
                     </mat-form-field>
 
                   </div>
+
+                  <!-- KAR-153 -->
+                  <!-- <ngx-recaptcha2 #captchaElem
+                    size="normal"
+                    hl="en"
+                    (expire)="recaptchaHandleExpire()"
+                    (load)="recaptchaHandleLoad()"
+                    (success)="recaptchaHandleSuccess($event)">
+                  </ngx-recaptcha2> -->
+
                   <div fxLayout="column" fxLayoutAlign="start">
                     <mat-checkbox formControlName="terms">
                       I accept terms and conditions

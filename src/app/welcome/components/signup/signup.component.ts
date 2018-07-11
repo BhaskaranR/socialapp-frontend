@@ -27,6 +27,15 @@ export class SignupComponent implements OnInit {
   matching_passwords_group: FormGroup;
   country_zipcode_group: FormGroup;
 
+  // KAR-153
+  // recaptchaProps = {
+  //   captchaIsLoaded : false,
+  //   captchaSuccess : false,
+  //   captchaIsExpired : false,
+  //   captchaResponse: null
+  // }
+
+
   parentErrorStateMatcher = new ParentErrorStateMatcher();
 
   genders = [
@@ -77,6 +86,7 @@ export class SignupComponent implements OnInit {
     ],
     'password': [
       { type: 'required', message: 'Password is required' },
+      { type: 'pattern', message: 'Password must contain atleast one lowercase alphabet, one uppercase alphabet, one Number and a special character' },
       { type: 'minlength', message: 'Password must be at least 8 characters long' },
       // { type: 'pattern', message: 'Your password must be at least 8 characters, at least one letter, one number and one special character' }
     ],
@@ -95,14 +105,17 @@ export class SignupComponent implements OnInit {
   }
 
 
-
   createForms() {
     // matching passwords validation
+    const strongPasswordRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])');
+ 
     this.matching_passwords_group = new FormGroup({
       password: new FormControl('', Validators.compose([
         Validators.minLength(8),
         Validators.required,
-       // Validators.pattern('^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$')
+        Validators.pattern(strongPasswordRegex),
+
+      //  Validators.pattern(strongRegex)
       ])),
       confirm_password: new FormControl('', Validators.required)
     }, (formGroup: FormGroup) => {
@@ -152,6 +165,24 @@ export class SignupComponent implements OnInit {
     })
 
   }
+
+  // KAR-153
+  // recaptchaHandleSuccess(captchaResponse: string): void {
+  //   this.recaptchaProps.captchaSuccess = true;
+  //   this.recaptchaProps.captchaResponse = captchaResponse;
+  //   this.recaptchaProps.captchaIsExpired = false;
+  //   alert(captchaResponse);
+  // }
+
+  // recaptchaHandleLoad(): void {
+  //   this.recaptchaProps.captchaIsLoaded = true;
+  //   this.recaptchaProps.captchaIsExpired = false;
+  // }
+
+  // recaptchaHandleExpire(): void {
+  //   this.recaptchaProps.captchaSuccess = false;
+  //   this.recaptchaProps.captchaIsExpired = true;
+  // }
 
 
 
