@@ -1,24 +1,24 @@
 <div *ngIf="loading$ | async">
     Loading ...
-  </div>
+</div>
 
 <mat-card class="mat-card-flat" *ngIf="me$ | async as me">
-        <div fxLayout="row" class="container" fxLayoutAlign="center center">
-            <ngx-avatar [name]="me.name" value="24%" size="50" [round]="true">
-            </ngx-avatar>
-        </div>
-        <div fxLayout="row" class="container_text" style="margin-top:10px;" fxLayoutAlign="center center">
-            <span>{{me.profile.name}}</span>
-        </div>
-    
-        <hr>
-        <div fxLayout="row" class="container_text" style="margin-top:30px;"  fxLayoutAlign="center center">
-                {{me.followingCount}}
-            <span>Following</span>
-        </div>
-        <hr>
-        <div fxLayout="row" class="container_text" style="margin-top:30px;"  fxLayoutAlign="center center">
-            {{me.followersCount}}
-            <span>Followers</span>
-        </div>
+    <div fxLayout="row" class="container" fxLayoutAlign="center center">
+        <ngx-avatar [name]="me.profile.name" value="24%" size="50" [round]="true">
+        </ngx-avatar>
+    </div>
+    <div fxLayout="row" class="container_text" style="margin-top:10px;" fxLayoutAlign="center center">
+        <span>{{me.profile.name}}</span>
+    </div>
+
+    <hr>
+    <div fxLayout="column" class="container_text" style="margin-top:10px;" fxLayoutAlign="center center">
+        <div>{{me.followingCount}}</div>
+        <div>Following</div>
+    </div>
+    <hr>
+    <div fxLayout="column" class="container_text" style="margin-top:10px;" fxLayoutAlign="center center">
+        {{me.followersCount}}
+        <span>Followers</span>
+    </div>
 </mat-card>
