@@ -78,8 +78,8 @@ function createApollo() {
         },
       });
       const middleware = new ApolloLink((operation, forward) => {
-        const tokens = JSON.parse(localStorage.getItem('tokens'));
-        const access_token = tokens ? tokens.accessToken : null;
+        const access_token = JSON.parse(localStorage.getItem('ksoc-accounts:accessToken'));
+        //const access_token = tokens ? tokens.accessToken : null;
         if (access_token !== null) {
           operation.setContext({
             headers: new HttpHeaders().set('authorization', access_token)

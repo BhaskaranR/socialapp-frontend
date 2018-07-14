@@ -1,26 +1,6 @@
 <div class="component-viewer-nav">
   <div class="component-viewer-nav-content">
-
-    <mat-card class="mat-card-flat">
-      <div fxLayout="row" class="container" fxLayoutAlign="center center">
-        <ngx-avatar name="Bhaskaran Rathnachalam" value="24%" size="50" [round]="true">
-        </ngx-avatar>
-      </div>
-      <div fxLayout="row" class="container_text" style="margin-top:10px;" fxLayoutAlign="center center">
-        <span>Bhaskaran Rathnachalam</span>
-      </div>
-
-      <hr>
-      <div fxLayout="row" class="container_text" style="margin-top:30px;"  fxLayoutAlign="center center">
-           {{following}}
-          <span>Following</span>
-      </div>
-      <hr>
-      <div fxLayout="row" class="container_text" style="margin-top:30px;"  fxLayoutAlign="center center">
-          {{followers}}
-         <span>Followers</span>
-     </div>
-    </mat-card>
+    <app-profile-card></app-profile-card>
 
     <nav *ngFor="let category of menuItems.getCategories(path); let last = last;">
       <button (click)="toggleExpand(category.id)" class="nav-content-btn" [attr.aria-label]="category.name + ', section toggle'"

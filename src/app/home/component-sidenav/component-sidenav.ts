@@ -15,6 +15,7 @@ import { routerTransition } from '@app/core';
 import { MatCardModule } from '@angular/material';
 import { AvatarModule } from 'ngx-avatar';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ProfileCardModule } from '@app/home/pages/profile-card/profile-card.component';
 const SMALL_WIDTH_BREAKPOINT = 720;
 
 @Component({
@@ -139,7 +140,8 @@ export class ComponentNav implements OnInit, OnDestroy {
     MatIconModule,
     MatCardModule,
     AvatarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ProfileCardModule
   ],
   exports: [ComponentSidenav],
   declarations: [ComponentSidenav, ComponentNav],

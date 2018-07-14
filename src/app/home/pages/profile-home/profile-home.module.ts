@@ -42,6 +42,6 @@ export const routing: ModuleWithProviders = RouterModule.forChild(profileRoutes)
     ],
     declarations: [
         EditProfileComponent,
-        ProfileHomeComponent],
+        ProfileHomeComponent]
 })
 export class ProfileHomeModule { }

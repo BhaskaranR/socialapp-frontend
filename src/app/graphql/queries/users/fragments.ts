@@ -88,6 +88,7 @@ fragment EducationHistoryFields on EducationHistory {
 
 export const profileFragment= gql`
 fragment ProfileFields on Profile {
+    name
     fbId
     googlePlusId
     firstName
