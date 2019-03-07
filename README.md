@@ -1,4 +1,4 @@
-# Karmasoc client [angular, apollo, loona]
+# client [angular, apollo, loona]
 by [@BhaskaranR](https://twitter.com/bhaskaran_r)
 
  
